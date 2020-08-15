@@ -1,0 +1,10 @@
+password:
+  type: string
+  nullable: false
+  name: "Admin Password"
+  description: "The password for the admin user."
+  default:
+    charset: "a-z,2-7"
+    len: 20
+  pattern: '^[^\n"]*$'
+  patternDescription: "Must not contain newline or quote characters."
