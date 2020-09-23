@@ -2,7 +2,8 @@
 
 ## Dependencies
 
-- [docker >= 19.03](https://docs.docker.com/get-docker)
+- [docker](https://docs.docker.com/get-docker)
+- [docker-buildx](https://docs.docker.com/buildx/working-with-buildx/)
 - [yq](https://mikefarah.gitbook.io/yq)
 - [tiny-tmpl](https://github.com/Start9Labs/templating-engine-rs.git)
 - [npm](https://www.npmjs.com/get-npm)
