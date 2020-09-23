@@ -1,15 +1,24 @@
-FROM alpine:latest
+FROM arm32v7/golang:alpine AS builder
+
+RUN apk update
+RUN apk add --no-cache git
+RUN go get github.com/GeertJohan/go.rice \
+ && go get github.com/GeertJohan/go.rice/rice
+ADD ./filebrowser /root/filebrowser
+
+WORKDIR /root/filebrowser
+
+RUN go mod download
+RUN cd http && rice embed-go
+RUN go build
+
+FROM arm32v7/alpine:latest AS runner
 
 RUN apk update
 RUN apk add --no-cache lighttpd
 RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing catatonit
 RUN apk add --no-cache coreutils
-RUN apk add --no-cache curl \
-    && curl -fsSL "https://github.com/filebrowser/filebrowser/releases/download/v2.6.2/linux-armv7-filebrowser.tar.gz" -o "/tmp/filebrowser.tar.gz" \
-    && tar -xzf "/tmp/filebrowser.tar.gz" -C "/tmp/" "filebrowser" \
-    && chmod +x "/tmp/filebrowser" \
-    && mv /tmp/filebrowser /usr/local/bin \
-    && apk del curl
+COPY --from=builder /root/filebrowser/filebrowser /usr/local/bin/filebrowser
 RUN mkdir /root/data
 WORKDIR /root
 

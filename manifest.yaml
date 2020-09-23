@@ -1,18 +1,21 @@
 compat: v0
 id: filebrowser
-version: "2.6.2"
+version: 2.7.0
+os-version-required: ">=0.2.4"
+os-version-recommended: ">=0.2.4"
 title: "File Browser"
 description:
   short: "A Simple File Server"
   long: |
     File Browser provides a file managing interface which can be used to upload, delete, preview, rename and edit your files.
     It allows the creation of multiple users and each user can have its own directory.
-release-notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.6.2
+release-notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.7.0
 ports:
   - internal: 80
     tor: 80
 image:
   type: tar
 mount: /root
+has-instructions: true
 assets: []
 hidden-service-version: v3

@@ -1,0 +1,3 @@
+[submodule "filebrowser"]
+	path = filebrowser
+	url = git@github.com:filebrowser/filebrowser.git
