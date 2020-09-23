@@ -19,7 +19,7 @@ filebrowser.s9pk: manifest.yaml config_spec.yaml config_rules.yaml image.tar ins
 	appmgr -vv verify filebrowser.s9pk
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --platform=linux/arm/v7 -o type=docker,dest=image.tar .
+	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser --platform=linux/arm/v7 -o type=docker,dest=image.tar .
 
 filebrowser/frontend/dist: $(FILEBROWSER_FRONTEND_SRC) filebrowser/frontend/node_modules
 	npm --prefix filebrowser/frontend run build
