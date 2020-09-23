@@ -4,7 +4,7 @@ if [ ! -f /root/filebrowser.db ]; then
     mkdir /root/www
     mkdir /root/data
     filebrowser config init
-    filebrowser config set --address=0.0.0.0 --port=8080 --disable-exec=true --root=/root/data
+    filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data
     password=$(cat /dev/urandom | base64 | head -c 16)
     echo 'version: 1' > /root/start9/stats.yaml
     echo 'data:' >> /root/start9/stats.yaml
@@ -23,4 +23,4 @@ fi
 
 lighttpd -f /etc/lighttpd/httpd.conf
 
-exec catatonit filebrowser
+exec catatonit filebrowser --disable-exec=true
