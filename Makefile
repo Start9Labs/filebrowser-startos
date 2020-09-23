@@ -3,7 +3,7 @@ ASSET_PATHS := $(addprefix assets/,$(ASSETS))
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
 FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrowser -name 'go.*')
-FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend/ -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -false -o -name '*')
+FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend/ -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
 FILEBROWSER_GIT_REF := $(shell cat .git/modules/filebrowser/HEAD)
 FILEBROWSER_GIT_FILE := $(addprefix .git/modules/filebrowser/,$(if $(filter ref:%,$(FILEBROWSER_GIT_REF)),$(lastword $(FILEBROWSER_GIT_REF)),HEAD))
 
