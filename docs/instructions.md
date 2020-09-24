@@ -2,12 +2,12 @@
 
 ## Getting Started
 
-1. Copy/paste your ".onion" URL into any Tor-enabled browser. Options include:
-   * Start9 Consulate (highly recommended)
+1. Copy/paste your File Browser Tor address into any Tor-enabled browser. Options include:
+   * Start9 Consulate (recommended)
    * Tor Browser
    * Firefox (with SOCKS5 proxy enabled)
-   * Brave
-2. Insert your default username and password. These are located in the "Properties" section of your Embassy File Browser service.
+   * Brave (with SOCKS5 proxy enabled)
+2. Insert your default username and password. These are located in the "Properties" section of your Embassy File Browser service menu.
 3. Bookmark the site for future visits, or better yet, save it to your Bitwarden server!
 4. Optionally change your default username/password. Please note, this change **will not** be reflected in the "Properties" section mentioned above.
 
