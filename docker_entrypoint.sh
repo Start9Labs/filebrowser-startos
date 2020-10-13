@@ -23,4 +23,4 @@ fi
 
 lighttpd -f /etc/lighttpd/httpd.conf
 
-exec catatonit -- filebrowser --disable-exec=true
+exec tini -- filebrowser --disable-exec=true

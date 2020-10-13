@@ -15,8 +15,8 @@ RUN go build
 FROM arm32v7/alpine:latest AS runner
 
 RUN apk update
+RUN apk add --no-cache tini
 RUN apk add --no-cache lighttpd
-RUN apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing catatonit
 RUN apk add --no-cache coreutils
 COPY --from=builder /root/filebrowser/filebrowser /usr/local/bin/filebrowser
 RUN mkdir /root/data
