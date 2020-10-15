@@ -1,11 +1,11 @@
 # Wrapper for File Browser
 
-This project wraps the [File Browser](https://filebrowser.org) project [source](https://github.com/filebrowser/filebrowser) for EmbassyOS.
+This project wraps [File Browser](https://filebrowser.org) for EmbassyOS.
 File Browser is a file management interface that enables you to store, organize, edit, and share your files using a self-hosted solution.
 
 ## Dependencies
 
-The following system level dependencies need to be installed in order to build this project. Follow each guide to get set up:
+Install the following system dependencies to build this project by following the instructions on the provided links:
 
 - [docker](https://docs.docker.com/get-docker)
 - [docker-buildx](https://docs.docker.com/buildx/working-with-buildx/)
