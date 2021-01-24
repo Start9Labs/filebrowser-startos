@@ -1,4 +1,4 @@
-ASSETS := $(shell yq r manifest.yaml assets.*.src)
+ASSETS := $(shell yq e '.assets.[].src' manifest.yaml)
 ASSET_PATHS := $(addprefix assets/,$(ASSETS))
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
@@ -31,5 +31,5 @@ filebrowser/frontend/node_modules: filebrowser/frontend/package.json filebrowser
 	npm --prefix filebrowser/frontend install
 
 manifest.yaml: $(FILEBROWSER_GIT_FILE)
-	yq w -i manifest.yaml version $(VERSION)
-	yq w -i manifest.yaml release-notes https://github.com/filebrowser/filebrowser/releases/tag/$(VERSION_TAG)
+	yq eval -i ".version = \"$(VERSION)\"" manifest.yaml
+	yq eval -i ".release-notes = \"https://github.com/filebrowser/filebrowser/releases/tag/$(VERSION_TAG)\"" manifest.yaml
