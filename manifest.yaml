@@ -11,7 +11,7 @@ description:
   long: |
     File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files.
     It allows the creation of multiple users and each user can have their own directory.
-release-notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.9.0
+release-notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.11.0
 ports:
   - internal: 80
     tor: 80
