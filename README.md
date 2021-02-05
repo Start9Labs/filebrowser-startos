@@ -7,7 +7,7 @@
 - [yq](https://mikefarah.gitbook.io/yq)
 - [tiny-tmpl](https://github.com/Start9Labs/templating-engine-rs.git)
 - [npm](https://www.npmjs.com/get-npm)
-- [appmgr](https://github.com/Start9Labs/appmgr)
+- [appmgr](https://github.com/Start9Labs/embassy-os/tree/master/appmgr)
 
 ## Cloning
 ```
