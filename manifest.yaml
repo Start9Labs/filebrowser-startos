@@ -1,8 +1,8 @@
 compat: v0
 id: filebrowser
-version: 2.11.0
-os-version-required: ">=0.2.8"
-os-version-recommended: ">=0.2.8"
+version: 2.11.0.1
+os-version-required: ">=0.2.9"
+os-version-recommended: ">=0.2.9"
 install-alert: |
   After installing File Browser, you can find your default username and password in the "Properties" section. While it is not necessary to do so, these can both be changed inside your File Browser web application. These changes, however, will not be reflected in the "Properties" section here. If you change your username or password and forget either of them, there is no way to regain access.
 title: "File Browser"
@@ -21,3 +21,13 @@ mount: /root
 has-instructions: true
 assets: []
 hidden-service-version: v3
+actions:
+  - id: reset-password
+    name: Reset Admin Password
+    description: This action will reset your admin password to a random value
+    allowed-statuses:
+      - RUNNING
+      - STOPPED
+    command:
+      - docker_entrypoint.sh
+      - reset-password
