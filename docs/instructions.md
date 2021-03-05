@@ -7,4 +7,4 @@
 
 ## Warning
 
-_If you update your username or password and forget either one of them, you will be permanently locked out of your File Browser server. **There is no password recovery!** We recommend either (1) not changing the defaults **OR** (2) using Bitwarden with proper backups._
+_If you update your username, you will be permanently locked out of your File Browser server if you forget the username or password. We recommend not changing the admin username._
