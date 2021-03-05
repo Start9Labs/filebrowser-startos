@@ -26,7 +26,6 @@ actions:
     name: Reset Admin Password
     description: This action will reset your admin password to a random value
     allowed-statuses:
-      - RUNNING
       - STOPPED
     command:
       - docker_entrypoint.sh
