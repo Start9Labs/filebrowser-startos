@@ -4,7 +4,7 @@ version: 2.11.0.1
 os-version-required: ">=0.2.9"
 os-version-recommended: ">=0.2.9"
 install-alert: |
-  After installing File Browser, you can find your default username and password in the "Properties" section. While it is not necessary to do so, these can both be changed inside your File Browser web application. These changes, however, will not be reflected in the "Properties" section here. If you change your username or password and forget either of them, there is no way to regain access.
+  After installing File Browser, you can find your default username and password in the "Properties" section. While it is not necessary to do so, these can both be changed inside your File Browser web application. These changes, however, will not be reflected in the "Properties" section here. If you update your username, you will be permanently locked out of your File Browser server if you forget the username or password.
 title: "File Browser"
 description:
   short: "Simple cloud data storage and sharing"
