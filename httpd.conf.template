@@ -9,6 +9,9 @@ accesslog.filename = "/var/log/lighttpd/access.log"
 
 server.port = 80
 server.document-root = "/root/www"
+server.stream-request-body = 2
+server.stream-response-body = 2
+ssl.read-ahead = "disable"
 
 $HTTP["url"] =~ "^/api" {
     setenv.add-response-header = (
