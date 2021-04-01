@@ -1,6 +1,6 @@
 compat: v0
 id: filebrowser
-version: 2.11.0.1
+version: 2.14.1
 os-version-required: ">=0.2.9"
 os-version-recommended: ">=0.2.9"
 install-alert: |
@@ -12,7 +12,12 @@ description:
     File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files.
     It allows the creation of multiple users and each user can have their own directory.
 release-notes: |
-  - Added an action to reset the admin password
+    - Disable lighttpd buffering for faster uploads and downloads
+    - Update filebrowser from 2.11.0 to 2.14.1. For details, see:
+        - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.1
+        - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.0
+        - https://github.com/filebrowser/filebrowser/releases/tag/v2.13.0
+        - https://github.com/filebrowser/filebrowser/releases/tag/v2.12.0
 ports:
   - internal: 80
     tor: 80
