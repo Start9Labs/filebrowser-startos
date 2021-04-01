@@ -28,11 +28,11 @@ has-instructions: true
 assets: []
 hidden-service-version: v3
 actions:
-  - id: reset-password
-    name: Reset Admin Password
-    description: This action will reset your admin password to a random value
+  - id: reset-root-user
+    name: Reset Root User
+    description: This action will reset your root user (the first user) to username "admin" and a random password; and restore any lost admin privileges.
     allowed-statuses:
       - STOPPED
     command:
       - docker_entrypoint.sh
-      - reset-password
+      - reset-root-user
