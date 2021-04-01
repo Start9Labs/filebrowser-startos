@@ -13,6 +13,7 @@ description:
     It allows the creation of multiple users and each user can have their own directory.
 release-notes: |
     - Disable lighttpd buffering for faster uploads and downloads
+    - Upgrade "Reset Password" action to "Reset Root User"
     - Update filebrowser from 2.11.0 to 2.14.1. For details, see:
         - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.1
         - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.0
