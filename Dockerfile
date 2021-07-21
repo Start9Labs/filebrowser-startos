@@ -1,4 +1,4 @@
-FROM arm32v7/golang:alpine3.12 AS builder
+FROM arm64v8/golang:alpine3.13 AS builder
 
 RUN apk update
 RUN apk add --no-cache git
@@ -12,7 +12,7 @@ RUN go mod download
 RUN cd http && rice embed-go
 RUN go build
 
-FROM arm32v7/alpine:3.12 AS runner
+FROM arm64v8/alpine:3.13 AS runner
 
 RUN apk update
 RUN apk add --no-cache tini

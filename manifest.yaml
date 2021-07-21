@@ -1,39 +1,74 @@
-compat: v0
 id: filebrowser
-version: 2.14.1
-os-version-required: ">=0.2.9"
-os-version-recommended: ">=0.2.9"
-install-alert: |
-  After installing File Browser, you can find your default username and password in the "Properties" section. While it is not necessary to do so, these can both be changed inside your File Browser web application. These changes, however, will not be reflected in the "Properties" section here. If you forget your credentials, you can restore access via the "Reset Root User" action.
 title: "File Browser"
+version: 2.15.0
+release-notes: "Upgrade to 2.15.0 and to EmbassyOS v0.3.0"
+license: apache
+wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
+upstream-repo: "https://github.com/filebrowser/filebrowser"
+build: ["make"]
+min-os-version: "0.3.0"
 description:
-  short: "Simple cloud data storage and sharing"
+  short: Simple cloud data storage and sharing
   long: |
     File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files.
     It allows the creation of multiple users and each user can have their own directory.
-release-notes: |
-    - Disable lighttpd buffering for faster uploads and downloads
-    - Upgrade "Reset Password" action to "Reset Root User"
-    - Update filebrowser from 2.11.0 to 2.14.1. For details, see:
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.1
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.0
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.13.0
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.12.0
-ports:
-  - internal: 80
-    tor: 80
-image:
-  type: tar
-mount: /root
-has-instructions: true
-assets: []
-hidden-service-version: v3
-actions:
-  - id: reset-root-user
-    name: Reset Root User
-    description: This action will reset your root user (the first user) to username "admin" and a random password; and restore any lost admin privileges.
-    allowed-statuses:
-      - STOPPED
-    command:
-      - docker_entrypoint.sh
-      - reset-root-user
+assets:
+  license: LICENSE
+  icon: icon.png
+  instructions: instructions.md
+  docker-images: image.tar
+main:
+  type: docker
+  image: main
+  entrypoint: "/usr/local/bin/docker_entrypoint.sh"
+  args: []
+  # mounts: {}
+  io-format: yaml
+health-checks: {}
+config:
+  get:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: config
+    args: 
+      - "get"
+      - "/root"
+    # mounts: {}
+    io-format: yaml
+  set:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: config
+    args:
+      - "set"
+      - "/root"
+    # mounts: {}
+    io-format: yaml
+dependencies: {}
+volumes: {}
+interfaces:
+  main:
+    tor-config:
+      port-mapping:
+        80: "80"
+    ui: true
+    protocols:
+      - tcp
+      - http
+backup:
+  create:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: "true"
+    args: []
+    # mounts: {}
+  restore:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: "true"
+    args: []
+    # mounts: {}
