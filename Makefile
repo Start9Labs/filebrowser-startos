@@ -1,5 +1,3 @@
-ASSETS := $(shell yq e '.assets.[].src' manifest.yaml)
-ASSET_PATHS := $(addprefix assets/,$(ASSETS))
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
 FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrowser -name 'go.*')
@@ -15,14 +13,14 @@ all: verify
 install: filebrowser.s9pk
 	appmgr install filebrowser.s9pk
 
-filebrowser.s9pk: manifest.yaml config_spec.yaml config_rules.yaml image.tar instructions.md $(ASSET_PATHS)
+filebrowser.s9pk: manifest.yaml config_spec.yaml config_rules.yaml image.tar instructions.md
 	embassy-sdk pack
 	
 verify: filebrowser.s9pk $(S9PK_PATH)
 	embassy-sdk verify $(S9PK_PATH)
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser --platform=linux/arm/v7 -o type=docker,dest=image.tar .
+	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser --platform=linux/arm64v8 -o type=docker,dest=image.tar .
 
 httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf
