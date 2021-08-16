@@ -51,9 +51,15 @@ dependencies: {}
 volumes: {}
 interfaces:
   main:
+    name: Main
+    description: Main image interface configurations
     tor-config:
       port-mapping:
         80: "80"
+    lan-config:
+      80:
+        ssl: false
+        mapping: 80
     ui: true
     protocols:
       - tcp
