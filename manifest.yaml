@@ -26,27 +26,7 @@ main:
   mounts: {}
   io-format: yaml
 health-checks: {}
-config:
-  get:
-    type: docker
-    image: compat
-    system: true
-    entrypoint: ""
-    args: 
-      - "get"
-      - "/root"
-    mounts: {}
-    io-format: yaml
-  set:
-    type: docker
-    image: compat
-    system: true
-    entrypoint: ""
-    args:
-      - "set"
-      - "/root"
-    mounts: {}
-    io-format: yaml
+config: null
 dependencies: {}
 volumes: {}
 interfaces:
