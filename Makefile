@@ -10,10 +10,10 @@ S9PK_PATH=$(shell find . -name filebrowser.s9pk -print)
 
 all: verify
 
-install: filebrowser.s9pk
-	appmgr install filebrowser.s9pk
+install: lnd.s9pk 
+	embassy-cli package install filebrowser
 
-filebrowser.s9pk: manifest.yaml config_spec.yaml config_rules.yaml image.tar instructions.md
+filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png
 	embassy-sdk pack
 	
 verify: filebrowser.s9pk $(S9PK_PATH)
