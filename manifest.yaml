@@ -63,7 +63,7 @@ backup:
       - file:///mnt/backup
       - /root
     mounts:
-      backup: "/mnt/backup"
+      BACKUP: "/mnt/backup"
       main: "/root"
   restore:
     type: docker
@@ -76,7 +76,7 @@ backup:
       - /root
       - file:///mnt/backup
     mounts:
-      backup: "/mnt/backup"
+      BACKUP: "/mnt/backup"
       main: "/root"
 actions:
   reset-root-user:
