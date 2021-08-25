@@ -5,6 +5,8 @@ release-notes: "Upgrade to 2.15.0 and to EmbassyOS v0.3.0"
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
+support-site: "https://filebrowser.org/"
+marketing-site: "https://filebrowser.org/"
 build: ["make"]
 min-os-version: "0.3.0"
 description:
@@ -26,7 +28,7 @@ main:
   mounts: {}
   io-format: yaml
 health-checks: {}
-config: null
+config: ~
 dependencies: {}
 volumes:
   main:
@@ -61,7 +63,7 @@ backup:
       - file:///mnt/backup
       - /root
     mounts:
-      BACKUP: "/mnt/backup"
+      backup: "/mnt/backup"
       main: "/root"
   restore:
     type: docker
@@ -74,7 +76,7 @@ backup:
       - /root
       - file:///mnt/backup
     mounts:
-      BACKUP: "/mnt/backup"
+      backup: "/mnt/backup"
       main: "/root"
 actions:
   reset-root-user:
