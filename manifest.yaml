@@ -16,8 +16,7 @@ description:
     It allows the creation of multiple users and each user can have their own directory.
 assets:
   license: LICENSE
-  icon: icon.png
-  icon-type: png
+  icon: icon.png # assumes icon.png if this field does not exist
   instructions: instructions.md
   docker-images: image.tar
 main:

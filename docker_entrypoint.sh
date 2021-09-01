@@ -1,6 +1,7 @@
 #!/bin/sh
 
 if [ ! -f /root/filebrowser.db ]; then
+    mkdir -p /root/start9
     mkdir /root/www
     mkdir /root/data
     filebrowser config init
