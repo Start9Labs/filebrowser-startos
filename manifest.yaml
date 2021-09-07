@@ -1,7 +1,7 @@
 id: filebrowser
 title: "File Browser"
 version: 2.15.0
-release-notes: "Upgrade to 2.15.0 and to EmbassyOS v0.3.0"
+release-notes: "https://github.com/filebrowser/filebrowser/releases/tag/v2.15.0"
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
@@ -25,7 +25,6 @@ main:
   entrypoint: "/usr/local/bin/docker_entrypoint.sh"
   args: []
   mounts: {}
-  io-format: yaml
 health-checks: {}
 config: ~
 dependencies: {}
@@ -59,7 +58,7 @@ backup:
     args:
       - duplicity
       - filebrowser
-      - file:///mnt/backup
+      - /mnt/backup
       - /root
     mounts:
       BACKUP: "/mnt/backup"
@@ -72,8 +71,8 @@ backup:
     args:
       - duplicity
       - filebrowser
+      - /mnt/backup
       - /root
-      - file:///mnt/backup
     mounts:
       BACKUP: "/mnt/backup"
       main: "/root"
