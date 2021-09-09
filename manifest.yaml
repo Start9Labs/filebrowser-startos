@@ -40,6 +40,18 @@ health-checks: {
   }
 }
 config: ~
+properties:
+  type: docker
+  image: compat
+  system: true
+  entrypoint: compat
+  args:
+    - properties
+    - filebrowser
+    - /root
+  mounts:
+    main: "/root"
+  io-format: yaml
 dependencies: {}
 volumes:
   main:
