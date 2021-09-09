@@ -20,7 +20,7 @@ verify: filebrowser.s9pk $(S9PK_PATH)
 	embassy-sdk verify $(S9PK_PATH)
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${VERSION} --platform=linux/arm64v8 -o type=docker,dest=image.tar .
+	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${VERSION} --platform=linux/arm64/v8 -o type=docker,dest=image.tar .
 
 httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf
