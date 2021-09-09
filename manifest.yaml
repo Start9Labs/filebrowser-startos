@@ -5,7 +5,7 @@ release-notes: "https://github.com/filebrowser/filebrowser/releases/tag/v2.15.0"
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
-support-site: "https://filebrowser.org/"
+support-site: "https://github.com/filebrowser/filebrowser/issues"
 marketing-site: "https://filebrowser.org/"
 build: ["make"]
 min-os-version: "0.3.0"
@@ -16,7 +16,7 @@ description:
     It allows the creation of multiple users and each user can have their own directory.
 assets:
   license: LICENSE
-  icon: icon.png # assumes icon.png if this field does not exist
+  icon: icon.png
   instructions: instructions.md
   docker-images: image.tar
 main:
@@ -27,18 +27,16 @@ main:
   mounts: {
     main: "/root"
   }
-health-checks: {
-  version: {
-    type: "docker",
-    image: "main",
-    system: true,
-    entrypoint: filebrowser,
-    args: ["version"],
-    mounts: { main: "/root" },
-    io-format: "yaml",
+health-checks:
+  version:
+    type: "docker"
+    image: "main"
+    system: true
+    entrypoint: filebrowser
+    args: ["version"]
+    mounts: { main: "/root" }
+    io-format: "yaml"
     critical: false
-  }
-}
 config: ~
 properties:
   type: docker
