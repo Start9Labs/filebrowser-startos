@@ -24,8 +24,21 @@ main:
   image: main
   entrypoint: "/usr/local/bin/docker_entrypoint.sh"
   args: []
-  mounts: {}
-health-checks: {}
+  mounts: {
+    main: "/root"
+  }
+health-checks: {
+  version: {
+    type: "docker",
+    image: "main",
+    system: true,
+    entrypoint: filebrowser,
+    args: ["version"],
+    mounts: { main: "/root" },
+    io-format: "yaml",
+    critical: false
+  }
+}
 config: ~
 dependencies: {}
 volumes:
