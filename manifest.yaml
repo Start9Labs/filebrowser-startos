@@ -31,7 +31,7 @@ health-checks:
   version:
     type: "docker"
     image: "main"
-    system: true
+    system: false
     entrypoint: filebrowser
     args: ["version"]
     mounts: { main: "/root" }
