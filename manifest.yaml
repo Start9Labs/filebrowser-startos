@@ -35,7 +35,7 @@ health-checks:
     entrypoint: sh
     args: ["-c", "filebrowser version > /dev/null && echo null"]
     mounts: { main: "/root" }
-    io-format: "json"
+    io-format: "yaml"
     critical: false
 config: ~
 properties:
@@ -45,7 +45,6 @@ properties:
   entrypoint: compat
   args:
     - properties
-    - filebrowser
     - /root
   mounts:
     main: "/root"
@@ -80,6 +79,7 @@ backup:
     entrypoint: compat
     args:
       - duplicity
+      - create
       - filebrowser
       - /mnt/backup
       - /root
@@ -93,6 +93,7 @@ backup:
     entrypoint: compat
     args:
       - duplicity
+      - restore
       - filebrowser
       - /mnt/backup
       - /root
