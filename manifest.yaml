@@ -32,8 +32,8 @@ health-checks:
     type: "docker"
     image: "main"
     system: false
-    entrypoint: sh
-    args: ["-c", "filebrowser version > /dev/null && echo null"]
+    entrypoint: filebrowser
+    args: ["version"]
     mounts: { main: "/root" }
     io-format: "yaml"
     critical: false
