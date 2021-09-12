@@ -25,17 +25,17 @@ main:
   entrypoint: "/usr/local/bin/docker_entrypoint.sh"
   args: []
   mounts:
-    main: "/root"
+    main: /root
 health-checks:
   version:
-    type: "docker"
-    image: "main"
+    type: docker
+    image: main
     system: false
     entrypoint: filebrowser
     args: ["version"]
     mounts:
-      main: "/root"
-    io-format: "yaml"
+      main: /root
+    io-format: yaml
     critical: false
 config: ~
 properties:
@@ -47,7 +47,7 @@ properties:
     - properties
     - /root
   mounts:
-    main: "/root"
+    main: /root
   io-format: yaml
 dependencies: {}
 volumes:
@@ -84,8 +84,8 @@ backup:
       - /mnt/backup
       - /root
     mounts:
-      BACKUP: "/mnt/backup"
-      main: "/root"
+      BACKUP: /mnt/backup
+      main: /root
   restore:
     type: docker
     image: compat
@@ -98,8 +98,8 @@ backup:
       - /mnt/backup
       - /root
     mounts:
-      BACKUP: "/mnt/backup"
-      main: "/root"
+      BACKUP: /mnt/backup
+      main: /root
 actions:
   reset-root-user:
     name: Reset Root User
@@ -114,4 +114,4 @@ actions:
       entrypoint: docker_entrypoint.sh
       args: ["reset-root-user"]
       mounts:
-        main: "/root"
+        main: /root
