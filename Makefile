@@ -1,6 +1,7 @@
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
 EMVER := $(shell yq e ".version" manifest.yaml)
+ASSET_PATHS := $(shell find ./assets/*)
 FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrowser -name 'go.*')
 FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
 FILEBROWSER_GIT_REF := $(shell cat .git/modules/filebrowser/HEAD)
@@ -12,9 +13,9 @@ S9PK_PATH=$(shell find . -name filebrowser.s9pk -print)
 all: verify
 
 install: lnd.s9pk 
-	embassy-cli package install filebrowser
+	embassy-cli package install filebrowser.s9pk
 
-filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png
+filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png $(ASSET_PATHS)
 	embassy-sdk pack
 	
 verify: filebrowser.s9pk $(S9PK_PATH)
