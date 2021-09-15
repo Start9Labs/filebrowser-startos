@@ -1,5 +1,6 @@
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
+EMVER := $(shell yq e ".version" manifest.yaml)
 FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrowser -name 'go.*')
 FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
 FILEBROWSER_GIT_REF := $(shell cat .git/modules/filebrowser/HEAD)
@@ -20,7 +21,7 @@ verify: filebrowser.s9pk $(S9PK_PATH)
 	embassy-sdk verify $(S9PK_PATH)
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${VERSION} --platform=linux/arm64/v8 -o type=docker,dest=image.tar .
+	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${EMVER} --platform=linux/arm64/v8 -o type=docker,dest=image.tar .
 
 httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf
