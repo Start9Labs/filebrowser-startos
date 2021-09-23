@@ -1,25 +1,23 @@
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
 EMVER := $(shell yq e ".version" manifest.yaml)
-ASSET_PATHS := $(shell find ./assets/*)
 FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrowser -name 'go.*')
 FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
 FILEBROWSER_GIT_REF := $(shell cat .git/modules/filebrowser/HEAD)
 FILEBROWSER_GIT_FILE := $(addprefix .git/modules/filebrowser/,$(if $(filter ref:%,$(FILEBROWSER_GIT_REF)),$(lastword $(FILEBROWSER_GIT_REF)),HEAD))
-S9PK_PATH=$(shell find . -name filebrowser.s9pk -print)
 
 .DELETE_ON_ERROR:
 
 all: verify
 
-install: lnd.s9pk 
+install: filebrowser.s9pk
 	embassy-cli package install filebrowser.s9pk
 
 filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png $(ASSET_PATHS)
 	embassy-sdk pack
 	
-verify: filebrowser.s9pk $(S9PK_PATH)
-	embassy-sdk verify $(S9PK_PATH)
+verify: filebrowser.s9pk
+	embassy-sdk verify filebrowser.s9pk
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
 	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${EMVER} --platform=linux/arm64/v8 -o type=docker,dest=image.tar .

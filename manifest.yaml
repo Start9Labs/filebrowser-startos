@@ -110,7 +110,7 @@ actions:
     implementation:
       type: docker
       image: main
-      system: true
+      system: false
       entrypoint: docker_entrypoint.sh
       args: ["reset-root-user"]
       mounts:
