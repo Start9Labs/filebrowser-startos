@@ -22,10 +22,11 @@ assets:
 main:
   type: docker
   image: main
-  entrypoint: "/usr/local/bin/docker_entrypoint.sh"
+  entrypoint: docker_entrypoint.sh
   args: []
   mounts:
     main: /root
+  io-format: yaml
 health-checks:
   version:
     type: docker
@@ -53,8 +54,6 @@ dependencies: {}
 volumes:
   main:
     type: data
-  compat:
-    type: assets
 interfaces:
   main:
     name: Network Interface
