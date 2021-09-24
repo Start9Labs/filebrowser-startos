@@ -104,7 +104,6 @@ actions:
     name: Reset Root User
     description: Resets your root user (the first user) to username "admin" and a random password; restores any lost admin privileges.
     warning: This will invalidate existing sessions and password managers if you have them set up.
-    io-format: json
     allowed-statuses:
       - stopped
     implementation:
@@ -115,3 +114,4 @@ actions:
       args: ["reset-root-user"]
       mounts:
         main: /root
+      io-format: json

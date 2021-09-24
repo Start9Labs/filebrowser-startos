@@ -47,8 +47,14 @@ if [ "$1" = "reset-root-user" ]; then
     filebrowser users update 1 -u admin >/dev/null
     filebrowser users update 1 -p "$password" > /dev/null
     filebrowser users update 1 --perm.admin > /dev/null
-    echo "Your new password is: $password"
-    echo 'This will also be reflected in `Properties` for this service.'
+    action_result="    {
+        \"version\": \"0\",
+        \"message\": \"Here is your new password. This will also be reflected in the Properties page for this service.\",
+        \"value\": \"$password\",
+        \"copyable\": true,
+        \"qr\": false
+    }"
+    echo $action_result
     exit 0
 fi
 
