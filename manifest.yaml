@@ -63,7 +63,7 @@ interfaces:
         80: "80"
     lan-config:
       80:
-        ssl: false
+        ssl: true
         mapping: 80
     ui: true
     protocols:
