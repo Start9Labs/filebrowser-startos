@@ -62,9 +62,9 @@ interfaces:
       port-mapping:
         80: "80"
     lan-config:
-      80:
+      443:
         ssl: true
-        mapping: 80
+        mapping: 443
     ui: true
     protocols:
       - tcp
