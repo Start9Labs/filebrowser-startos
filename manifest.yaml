@@ -79,7 +79,6 @@ backup:
     args:
       - duplicity
       - create
-      - filebrowser
       - /mnt/backup
       - /root
     mounts:
@@ -93,7 +92,6 @@ backup:
     args:
       - duplicity
       - restore
-      - filebrowser
       - /mnt/backup
       - /root
     mounts:
