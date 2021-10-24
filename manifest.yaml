@@ -80,10 +80,10 @@ backup:
       - duplicity
       - create
       - /mnt/backup
-      - /root
+      - /root/data
     mounts:
       BACKUP: /mnt/backup
-      main: /root
+      main: /root/data
   restore:
     type: docker
     image: compat
@@ -93,10 +93,10 @@ backup:
       - duplicity
       - restore
       - /mnt/backup
-      - /root
+      - /root/data
     mounts:
       BACKUP: /mnt/backup
-      main: /root
+      main: /root/data
 actions:
   reset-root-user:
     name: Reset Root User
