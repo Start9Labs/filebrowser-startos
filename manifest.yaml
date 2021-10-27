@@ -33,8 +33,6 @@ health-checks:
     image: main
     entrypoint: filebrowser
     args: ["version"]
-    mounts:
-      main: /root
     io-format: yaml
     critical: false
     inject: true
