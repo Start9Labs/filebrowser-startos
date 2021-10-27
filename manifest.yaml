@@ -31,13 +31,13 @@ health-checks:
   version:
     type: docker
     image: main
-    system: false
     entrypoint: filebrowser
     args: ["version"]
     mounts:
       main: /root
     io-format: yaml
     critical: false
+    inject: true
 config: ~
 properties:
   type: docker
