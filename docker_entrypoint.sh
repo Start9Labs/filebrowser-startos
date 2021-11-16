@@ -60,4 +60,4 @@ fi
 
 lighttpd -f /etc/lighttpd/httpd.conf
 
-exec tini -- filebrowser --disable-exec=true
+exec tini -p SIGTERM -- filebrowser --disable-exec=true
