@@ -39,8 +39,8 @@ health-checks:
     severity: warning
     inject: true
   interface:
-    name: Web interface
-    description: Ensures the network interface is accessible. 
+    name: Web Interface
+    description: Ensures the network interface is accessible via HTTP. 
     type: docker
     image: main
     entrypoint: sh
