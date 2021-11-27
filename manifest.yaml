@@ -29,7 +29,7 @@ main:
   io-format: yaml
 health-checks:
   version:
-    name: API Check
+    name: Database
     description: Uses the command line interface to ensure the backend is reachable and responsive. 
     type: docker
     image: main
@@ -39,8 +39,8 @@ health-checks:
     severity: warning
     inject: true
   interface:
-    name: UI Check
-    description: Ensures the web interface is accessible. 
+    name: Web interface
+    description: Ensures the network interface is accessible. 
     type: docker
     image: main
     entrypoint: sh
