@@ -18,6 +18,7 @@ RUN apk update
 RUN apk add --no-cache tini
 RUN apk add --no-cache lighttpd
 RUN apk add --no-cache coreutils
+RUN apk add --no-cache curl
 COPY --from=builder /root/filebrowser/filebrowser /usr/local/bin/filebrowser
 RUN mkdir /root/data
 WORKDIR /root

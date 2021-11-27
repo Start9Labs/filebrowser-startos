@@ -29,12 +29,24 @@ main:
   io-format: yaml
 health-checks:
   version:
+    name: API Check
+    description: Uses the command line interface to ensure the backend is reachable and responsive. 
     type: docker
     image: main
     entrypoint: filebrowser
     args: ["version"]
     io-format: yaml
-    critical: false
+    severity: warning
+    inject: true
+  interface:
+    name: UI Check
+    description: Ensures the network interface is accessible. 
+    type: docker
+    image: main
+    entrypoint: sh
+    args: ["-c", "curl --silent --show-error --fail filebrowser.embassy || exit 1"]
+    io-format: yaml
+    severity: warning
     inject: true
 config: ~
 properties:
