@@ -40,7 +40,7 @@ health-checks:
     inject: true
   interface:
     name: UI Check
-    description: Ensures the network interface is accessible. 
+    description: Ensures the web interface is accessible. 
     type: docker
     image: main
     entrypoint: sh
