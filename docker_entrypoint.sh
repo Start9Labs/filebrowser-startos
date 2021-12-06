@@ -1,5 +1,10 @@
 #!/bin/sh
 
+_term() { 
+  echo "Caught SIGTERM signal!" 
+  kill -TERM "$filebrowser_process" 2>/dev/null
+}
+
 if [ ! -f /root/filebrowser.db ]; then
     mkdir -p /root/start9
     mkdir /root/www
@@ -60,4 +65,9 @@ fi
 
 lighttpd -f /etc/lighttpd/httpd.conf
 
-exec tini -p SIGTERM -- filebrowser --disable-exec=true
+tini -sp SIGTERM -- filebrowser --disable-exec=true &
+filebrowser_process=$1
+
+trap _term SIGTERM
+
+wait -n $filebrowser_process
