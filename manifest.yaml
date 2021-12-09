@@ -36,7 +36,6 @@ health-checks:
     entrypoint: filebrowser
     args: ["version"]
     io-format: yaml
-    severity: warning
     inject: true
   interface:
     name: Web Interface
@@ -46,7 +45,6 @@ health-checks:
     entrypoint: sh
     args: ["-c", "curl --silent --show-error --fail filebrowser.embassy || exit 1"]
     io-format: yaml
-    severity: warning
     inject: true
 config: ~
 properties:
