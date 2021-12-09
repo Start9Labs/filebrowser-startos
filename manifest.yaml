@@ -37,9 +37,9 @@ health-checks:
     args: ["version"]
     io-format: yaml
     inject: true
-  interface:
+  web-ui:
     name: Web Interface
-    description: Ensures the network interface is accessible via HTTP. 
+    description: Filebrowser is ready to be visited in your browser once this check passes.
     type: docker
     image: main
     entrypoint: sh
@@ -64,8 +64,8 @@ volumes:
     type: data
 interfaces:
   main:
-    name: Network Interface
-    description: Specifies the interface to listen on for HTTP connections.
+    name: Web UI
+    description: Serves the Web UI via HTTP.
     tor-config:
       port-mapping:
         80: "80"
