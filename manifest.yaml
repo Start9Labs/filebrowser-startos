@@ -30,7 +30,7 @@ main:
 health-checks:
   version:
     name: Database
-    description: Uses the command line interface to ensure the backend is reachable and responsive. 
+    description: Uses the command line interface to ensure the backend is reachable and responsive.
     type: docker
     image: main
     entrypoint: filebrowser
@@ -70,9 +70,9 @@ interfaces:
       port-mapping:
         80: "80"
     lan-config:
-      80:
+      443:
         ssl: true
-        mapping: 443
+        internal: 80
     ui: true
     protocols:
       - tcp
