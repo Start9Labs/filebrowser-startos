@@ -17,7 +17,7 @@ filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png $(ASS
 	embassy-sdk pack
 	
 verify: filebrowser.s9pk
-	embassy-sdk verify filebrowser.s9pk
+	embassy-sdk verify s9pk filebrowser.s9pk
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
 	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${EMVER} --platform=linux/arm64/v8 -o type=docker,dest=image.tar .
