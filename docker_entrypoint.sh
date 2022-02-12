@@ -1,6 +1,12 @@
 #!/bin/sh
 
+_term() { 
+  echo "Caught SIGTERM signal!" 
+  kill -TERM "$filebrowser_process" 2>/dev/null
+}
+
 if [ ! -f /root/filebrowser.db ]; then
+    mkdir -p /root/start9
     mkdir /root/www
     mkdir /root/data
     filebrowser config init
@@ -46,11 +52,22 @@ if [ "$1" = "reset-root-user" ]; then
     filebrowser users update 1 -u admin >/dev/null
     filebrowser users update 1 -p "$password" > /dev/null
     filebrowser users update 1 --perm.admin > /dev/null
-    echo "Your new password is: $password"
-    echo 'This will also be reflected in `Properties` for this service.'
+    action_result="    {
+        \"version\": \"0\",
+        \"message\": \"Here is your new password. This will also be reflected in the Properties page for this service.\",
+        \"value\": \"$password\",
+        \"copyable\": true,
+        \"qr\": false
+    }"
+    echo $action_result
     exit 0
 fi
 
 lighttpd -f /etc/lighttpd/httpd.conf
 
-exec tini -- filebrowser --disable-exec=true
+tini -sp SIGTERM -- filebrowser --disable-exec=true &
+filebrowser_process=$1
+
+trap _term SIGTERM
+
+wait -n $filebrowser_process

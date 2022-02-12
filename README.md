@@ -24,5 +24,5 @@ make
 
 ## Installing (on Embassy)
 ```
-sudo appmgr install filebrowser.s9pk
+embassy-cli package install filebrowser.s9pk
 ```

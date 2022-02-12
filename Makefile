@@ -1,25 +1,26 @@
-ASSETS := $(shell yq e '.assets.[].src' manifest.yaml)
-ASSET_PATHS := $(addprefix assets/,$(ASSETS))
 VERSION_TAG := $(shell git --git-dir=filebrowser/.git describe --abbrev=0)
 VERSION := $(VERSION_TAG:v%=%)
+EMVER := $(shell yq e ".version" manifest.yaml)
 FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrowser -name 'go.*')
-FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend/ -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
+FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
 FILEBROWSER_GIT_REF := $(shell cat .git/modules/filebrowser/HEAD)
 FILEBROWSER_GIT_FILE := $(addprefix .git/modules/filebrowser/,$(if $(filter ref:%,$(FILEBROWSER_GIT_REF)),$(lastword $(FILEBROWSER_GIT_REF)),HEAD))
 
 .DELETE_ON_ERROR:
 
-all: filebrowser.s9pk
+all: verify
 
 install: filebrowser.s9pk
-	appmgr install filebrowser.s9pk
+	embassy-cli package install filebrowser.s9pk
 
-filebrowser.s9pk: manifest.yaml config_spec.yaml config_rules.yaml image.tar instructions.md $(ASSET_PATHS)
-	appmgr -vv pack $(shell pwd) -o filebrowser.s9pk
-	appmgr -vv verify filebrowser.s9pk
+filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png $(ASSET_PATHS)
+	embassy-sdk pack
+	
+verify: filebrowser.s9pk
+	embassy-sdk verify s9pk filebrowser.s9pk
 
 image.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser --platform=linux/arm/v7 -o type=docker,dest=image.tar .
+	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/filebrowser/main:${EMVER} --platform=linux/arm64/v8 -o type=docker,dest=image.tar .
 
 httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf

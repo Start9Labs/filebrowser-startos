@@ -1,39 +1,125 @@
-compat: v0
 id: filebrowser
-version: 2.14.1
-os-version-required: ">=0.2.9"
-os-version-recommended: ">=0.2.9"
-install-alert: |
-  After installing File Browser, you can find your default username and password in the "Properties" section. While it is not necessary to do so, these can both be changed inside your File Browser web application. These changes, however, will not be reflected in the "Properties" section here. If you forget your credentials, you can restore access via the "Reset Root User" action.
 title: "File Browser"
+version: 2.14.1.1
+release-notes: "Upgrade to EmbassyOS v0.3.0"
+license: apache
+wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
+upstream-repo: "https://github.com/filebrowser/filebrowser"
+support-site: "https://github.com/filebrowser/filebrowser/issues"
+marketing-site: "https://filebrowser.org/"
+build: ["make"]
+min-os-version: "0.3.0"
 description:
-  short: "Simple cloud data storage and sharing"
+  short: Simple cloud data storage and sharing
   long: |
     File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files.
     It allows the creation of multiple users and each user can have their own directory.
-release-notes: |
-    - Disable lighttpd buffering for faster uploads and downloads
-    - Upgrade "Reset Password" action to "Reset Root User"
-    - Update filebrowser from 2.11.0 to 2.14.1. For details, see:
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.1
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.14.0
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.13.0
-        - https://github.com/filebrowser/filebrowser/releases/tag/v2.12.0
-ports:
-  - internal: 80
-    tor: 80
-image:
-  type: tar
-mount: /root
-has-instructions: true
-assets: []
-hidden-service-version: v3
+assets:
+  license: LICENSE
+  icon: icon.png
+  instructions: instructions.md
+  docker-images: image.tar
+main:
+  type: docker
+  image: main
+  entrypoint: docker_entrypoint.sh
+  args: []
+  mounts:
+    main: /root
+  io-format: yaml
+health-checks:
+  version:
+    name: Database
+    description: Uses the command line interface to ensure the backend is reachable and responsive.
+    type: docker
+    image: main
+    entrypoint: filebrowser
+    args: ["version"]
+    io-format: yaml
+    inject: true
+  web-ui:
+    name: Web Interface
+    description: Filebrowser is ready to be visited in your browser once this check passes.
+    type: docker
+    image: main
+    entrypoint: sh
+    args: ["-c", "curl --silent --show-error --fail filebrowser.embassy || exit 1"]
+    io-format: yaml
+    inject: true
+config: ~
+properties:
+  type: docker
+  image: compat
+  system: true
+  entrypoint: compat
+  args:
+    - properties
+    - /root
+  mounts:
+    main: /root
+  io-format: yaml
+dependencies: {}
+volumes:
+  main:
+    type: data
+interfaces:
+  main:
+    name: Web UI
+    description: Serves the Web UI via HTTP.
+    tor-config:
+      port-mapping:
+        80: "80"
+    lan-config:
+      443:
+        ssl: true
+        internal: 80
+    ui: true
+    protocols:
+      - tcp
+      - http
+alerts: {}
+backup:
+  create:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: compat
+    args:
+      - duplicity
+      - create
+      - /mnt/backup
+      - /root/data
+    mounts:
+      BACKUP: /mnt/backup
+      main: /root/data
+    io-format: yaml
+  restore:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: compat
+    args:
+      - duplicity
+      - restore
+      - /mnt/backup
+      - /root/data
+    mounts:
+      BACKUP: /mnt/backup
+      main: /root/data
+    io-format: yaml
 actions:
-  - id: reset-root-user
+  reset-root-user:
     name: Reset Root User
-    description: This action will reset your root user (the first user) to username "admin" and a random password; and restore any lost admin privileges.
+    description: Resets your root user (the first user) to username "admin" and a random password; restores any lost admin privileges.
+    warning: This will invalidate existing sessions and password managers if you have them set up.
     allowed-statuses:
-      - STOPPED
-    command:
-      - docker_entrypoint.sh
-      - reset-root-user
+      - stopped
+    implementation:
+      type: docker
+      image: main
+      system: false
+      entrypoint: docker_entrypoint.sh
+      args: ["reset-root-user"]
+      mounts:
+        main: /root
+      io-format: json
