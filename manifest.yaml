@@ -42,9 +42,9 @@ health-checks:
     description: Filebrowser is ready to be visited in your browser once this check passes.
     type: docker
     image: main
-    entrypoint: sh
-    args: ["-c", "curl --silent --show-error --fail filebrowser.embassy || exit 1"]
-    io-format: yaml
+    entrypoint: check-web.sh
+    args: []
+    io-format: json
     inject: true
 config: ~
 properties:
