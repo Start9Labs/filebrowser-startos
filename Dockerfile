@@ -26,7 +26,7 @@ WORKDIR /root
 ADD httpd.conf /etc/lighttpd/httpd.conf
 ADD docker_entrypoint.sh /usr/local/bin/docker_entrypoint.sh
 RUN chmod +x /usr/local/bin/docker_entrypoint.sh
-ADD ./check-web.sh /usr/local/bin/check-web.sh
-RUN chmod +x /usr/local/bin/check-web.sh
+ADD ./health-check.sh /usr/local/bin/health-check.sh
+RUN chmod +x /usr/local/bin/health-check.sh
 
 ENTRYPOINT ["/usr/local/bin/docker_entrypoint.sh"]

@@ -33,8 +33,8 @@ health-checks:
     description: Uses the command line interface to ensure the backend is reachable and responsive.
     type: docker
     image: main
-    entrypoint: filebrowser
-    args: ["version"]
+    entrypoint: health-check.sh
+    args: ["api"]
     io-format: yaml
     inject: true
   web-ui:
@@ -42,8 +42,8 @@ health-checks:
     description: Filebrowser is ready to be visited in your browser once this check passes.
     type: docker
     image: main
-    entrypoint: check-web.sh
-    args: []
+    entrypoint: health-check.sh
+    args: ["web"]
     io-format: json
     inject: true
 config: ~
