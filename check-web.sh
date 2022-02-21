@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 DURATION=$(</dev/stdin)
-if (($DURATION <= 5000 )); then
+if (($DURATION <= 10000 )); then
     exit 60
 else
-    curl --silent --fail filebrowser.embassy:80
+    curl --silent --fail filebrowser.embassy/health &>/dev/null
     RES=$?
     if test "$RES" != 0; then
         echo "Web interface is unreachable" >&2
