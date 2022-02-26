@@ -8,7 +8,6 @@ upstream-repo: "https://github.com/filebrowser/filebrowser"
 support-site: "https://github.com/filebrowser/filebrowser/issues"
 marketing-site: "https://filebrowser.org/"
 build: ["make"]
-min-os-version: "0.3.0"
 description:
   short: Simple cloud data storage and sharing
   long: |
@@ -30,16 +29,16 @@ main:
 health-checks:
   version:
     name: Database
-    description: Uses the command line interface to ensure the backend is reachable and responsive.
+    success-message: Backend is reachable and responsive.
     type: docker
     image: main
     entrypoint: health-check.sh
     args: ["api"]
-    io-format: yaml
+    io-format: json
     inject: true
   web-ui:
     name: Web Interface
-    description: Filebrowser is ready to be visited in your browser once this check passes.
+    success-message: Filebrowser is ready to be visited in your browser.
     type: docker
     image: main
     entrypoint: health-check.sh
