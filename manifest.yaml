@@ -1,7 +1,7 @@
 id: filebrowser
 title: "File Browser"
 version: 2.21.1
-release-notes: "Upgrade to EmbassyOS v0.3.0"
+release-notes: "Updates to upstream to 2.21.1, convert health checks and properties to js"
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
