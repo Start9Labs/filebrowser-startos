@@ -1,7 +1,9 @@
 id: filebrowser
 title: "File Browser"
 version: 2.21.1
-release-notes: "Updates to upstream to 2.21.1, convert health checks and properties to js"
+release-notes: |
+  - Updates to new version of FileBrowser to 2.21.1. Lots of bug fixes + features, like autoplay. Look at https://github.com/filebrowser/filebrowser/blob/master/CHANGELOG.md for more
+  - Convert health checks and properties to js, makes properties instant for reading and health checks reduce load on system
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
