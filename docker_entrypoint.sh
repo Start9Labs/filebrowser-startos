@@ -63,6 +63,10 @@ if [ "$1" = "reset-root-user" ]; then
     exit 0
 fi
 
+htpasswd -cb /root/passwd.dav test test
+chmod 640 /root/passwd.dav
+mkdir /root/webdav
+
 lighttpd -f /etc/lighttpd/httpd.conf
 
 tini -sp SIGTERM -- filebrowser --disable-exec=true &

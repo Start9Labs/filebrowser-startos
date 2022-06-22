@@ -16,7 +16,7 @@ FROM arm64v8/alpine:3.13 AS runner
 
 RUN apk update
 RUN apk add --no-cache tini
-RUN apk add --no-cache lighttpd
+RUN apk add --no-cache lighttpd lighttpd-mod_webdav lighttpd-mod_auth
 RUN apk add --no-cache coreutils
 RUN apk add --no-cache curl
 COPY --from=builder /root/filebrowser/filebrowser /usr/local/bin/filebrowser

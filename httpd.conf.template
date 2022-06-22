@@ -1,18 +1,40 @@
 server.modules = (
+    "mod_auth",
+    "mod_authn_file",
     "mod_proxy",
     "mod_setenv",
     "mod_accesslog",
     "mod_evasive",
     "mod_openssl",
+    "mod_webdav",
 )
 
 accesslog.filename = "/var/log/lighttpd/access.log"
-
+server.errorlog-use-syslog = "enable"
 server.port = 80
 server.document-root = "/root/www"
 server.stream-request-body = 2
 server.stream-response-body = 2
 ssl.read-ahead = "disable"
+
+$HTTP["url"] =~ "^/webdav($|/)" {
+    server.document-root = "/root/webdav/"
+    webdav.activate = "enable"
+    webdav.is-readonly = "disable"
+    dir-listing.activate = "enable"
+    webdav.sqlite-db-name = "/root/lighttpd.webdav_lock.db"
+    auth.backend = "htpasswd"
+    auth.backend.htpasswd.userfile = "/root/passwd.dav"
+    auth.require = ( "" => ( "method" => "basic",
+                                "realm" => "webdav",
+                                "require" => "valid-user" ) )
+}
+ $HTTP["url"] =~ "^/dav($|/)" {
+    server.document-root = "/root/webdav/"
+    webdav.activate = "enable" 
+    webdav.is-readonly = "enable" 
+    webdav.sqlite-db-name = "/root/webdav.db" 
+  }
 
 $HTTP["url"] =~ "^/api" {
     setenv.add-response-header = (
