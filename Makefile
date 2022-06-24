@@ -13,7 +13,7 @@ all: verify
 install: filebrowser.s9pk
 	embassy-cli package install filebrowser.s9pk
 
-filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png $(ASSET_PATHS)
+filebrowser.s9pk: manifest.yaml image.tar instructions.md LICENSE icon.png $(ASSET_PATHS) scripts/embassy.js
 	embassy-sdk pack
 	
 verify: filebrowser.s9pk
@@ -34,3 +34,6 @@ filebrowser/frontend/node_modules: filebrowser/frontend/package.json filebrowser
 manifest.yaml: $(FILEBROWSER_GIT_FILE)
 	yq eval -i ".version = \"$(VERSION)\"" manifest.yaml
 	yq eval -i ".release-notes = \"https://github.com/filebrowser/filebrowser/releases/tag/$(VERSION_TAG)\"" manifest.yaml
+
+scripts/embassy.js: scripts/**/*.ts
+	deno bundle scripts/embassy.ts scripts/embassy.js
