@@ -9,7 +9,7 @@ const catchError = (effects: Effects) => (e: unknown) => {
     if (isError(e)) return e;
     if (isErrorCode(e)) return e;
     effects.error(`Health check failed: ${e}`);
-    return errorCode(61, "No file indicating health has run")
+    return errorCode(61, "No file indicating health check has run")
 }
 /** Get the file contents and the metainformation */
 const fullRead = (effects: Effects, path: string) => Promise.all([
@@ -35,7 +35,7 @@ const calcTimeSinceLast = (metaInformation: Metadata) => ({
 type TimeSinceLast = ReturnType<typeof calcTimeSinceLast>
 
 /**
- * Called to make sure that the health file is recently enough, but if it isn't it means that the health check isn't running
+ * Make sure that the health file is updated since last check. If it isn't it means that the health check isn't running
  */
 const guardForNotRecentEnough = ({ timeSinceLast }: TimeSinceLast, duration: number) => (timeSinceLast >
     duration) ? Promise.reject(error(`Health has not ran recent enough: ${timeSinceLast}ms`)) : null
