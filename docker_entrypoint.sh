@@ -67,6 +67,8 @@ htpasswd -cb /root/passwd.dav test test
 chmod 640 /root/passwd.dav
 mkdir /root/webdav
 
+health-check.sh &
+
 lighttpd -f /etc/lighttpd/httpd.conf
 
 tini -sp SIGTERM -- filebrowser --disable-exec=true &
