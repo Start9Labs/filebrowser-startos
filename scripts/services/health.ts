@@ -38,7 +38,7 @@ type TimeSinceLast = ReturnType<typeof calcTimeSinceLast>
  * Make sure that the health file is updated since last check. If it isn't it means that the health check isn't running
  */
 const guardForNotRecentEnough = ({ timeSinceLast }: TimeSinceLast, duration: number) => (timeSinceLast >
-    duration) ? Promise.reject(error(`Health has not ran recent enough: ${timeSinceLast}ms`)) : null
+    duration) ? Promise.reject(error(`Health has not run recently enough: ${timeSinceLast}ms`)) : null
 
 /** Call to make sure the duration is pass a minimum */
 const guardDurationAboveMinimum = (input: { duration: number, minimumTime: number }) => (input.duration <= input.minimumTime) ? Promise.reject(errorCode(61, "No file indicating health has ran")) : null
