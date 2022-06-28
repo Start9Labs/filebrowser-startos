@@ -8,6 +8,7 @@
 - [tiny-tmpl](https://github.com/Start9Labs/templating-engine-rs.git)
 - [npm](https://www.npmjs.com/get-npm)
 - [appmgr](https://github.com/Start9Labs/embassy-os/tree/master/appmgr)
+- [deno](https://deno.land/#installation)
 
 ## Cloning
 ```
