@@ -1,18 +1,18 @@
-import { Effects, ExpectedExports, Metadata } from "../deps.ts";
+import { types as T } from "../deps.ts";
 const isError = (x: any): x is { "error": string } => typeof x?.error === 'string'
 const isErrorCode = (x: any): x is { "error-code": [number, string] } => typeof x?.['error-code']?.[0] === 'number' && typeof x?.['error-code']?.[1] === 'string'
 const error = (error: string) => ({ error })
 const errorCode = (code: number, error: string) => ({ 'error-code': [code, error] as const })
 const ok = { result: null }
 /** Transform the error into ResultType, and just return the thrown ResultType */
-const catchError = (effects: Effects) => (e: unknown) => {
+const catchError = (effects: T.Effects) => (e: unknown) => {
     if (isError(e)) return e;
     if (isErrorCode(e)) return e;
     effects.error(`Health check failed: ${e}`);
     return errorCode(61, "No file indicating health check has run")
 }
 /** Get the file contents and the metainformation */
-const fullRead = (effects: Effects, path: string) => Promise.all([
+const fullRead = (effects: T.Effects, path: string) => Promise.all([
     effects.readFile({
         volumeId: "main",
         path,
@@ -28,7 +28,7 @@ const fullRead = (effects: Effects, path: string) => Promise.all([
  * @param metaInformation 
  * @returns 
  */
-const calcTimeSinceLast = (metaInformation: Metadata) => ({
+const calcTimeSinceLast = (metaInformation: T.Metadata) => ({
     timeSinceLast: Date.now() -
         (metaInformation.modified?.valueOf() ?? Date.now())
 })
@@ -43,7 +43,7 @@ const guardForNotRecentEnough = ({ timeSinceLast }: TimeSinceLast, duration: num
 /** Call to make sure the duration is pass a minimum */
 const guardDurationAboveMinimum = (input: { duration: number, minimumTime: number }) => (input.duration <= input.minimumTime) ? Promise.reject(errorCode(61, "No file indicating health has ran")) : null
 
-const healthVersion: ExpectedExports.health[''] = async (effects, duration) => {
+const healthVersion: T.ExpectedExports.health[''] = async (effects, duration) => {
     await guardDurationAboveMinimum({ duration, minimumTime: 5000 })
     const [readFile, metaInformation] = await fullRead(effects, './health-api')
 
@@ -53,7 +53,7 @@ const healthVersion: ExpectedExports.health[''] = async (effects, duration) => {
     }
     return error(`API is unreachable`)
 }
-const healthWeb: ExpectedExports.health[''] = async (effects, duration) => {
+const healthWeb: T.ExpectedExports.health[''] = async (effects, duration) => {
     await guardDurationAboveMinimum({ duration, minimumTime: 10000 })
     const [readFile, metaInformation] = await fullRead(effects, './health-web')
 
@@ -66,12 +66,14 @@ const healthWeb: ExpectedExports.health[''] = async (effects, duration) => {
 }
 
 /** These are the health checks in the manifest */
-export const health: ExpectedExports.health = {
+export const health: T.ExpectedExports.health = {
     /** Checks that the server is running and reachable via cli */
+    // deno-lint-ignore require-await
     async version(effects, duration) {
         return healthVersion(effects, duration).catch(catchError(effects))
     },
     /** Checks that the server is running and reachable via http */
+    // deno-lint-ignore require-await
     async "web-ui"(effects, duration) {
         return healthWeb(effects, duration).catch(catchError(effects))
     },
