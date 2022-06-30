@@ -15,7 +15,7 @@ const catchError = (effects: T.Effects) =>
     if (isError(e)) return e;
     if (isErrorCode(e)) return e;
     effects.error(`Health check failed: ${e}`);
-    return errorCode(61, "No file indicating health check has run");
+    return errorCode(61, "Health check has never run");
   };
 /** Get the file contents and the metainformation */
 const fullRead = (effects: T.Effects, path: string) =>
@@ -51,7 +51,7 @@ const guardForNotRecentEnough = (
   (timeSinceLast >
       duration)
     ? Promise.reject(
-      error(`Health has not ran recent enough: ${timeSinceLast}ms`),
+      error(`Health check has not run recently enough: ${timeSinceLast}ms`),
     )
     : null;
 
