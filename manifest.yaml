@@ -27,7 +27,6 @@ main:
   args: []
   mounts:
     main: /root
-  io-format: yaml
 health-checks:
   version:
     name: Database
