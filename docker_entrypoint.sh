@@ -63,6 +63,11 @@ if [ "$1" = "reset-root-user" ]; then
     exit 0
 fi
 
+rm /root/passwd.dav || true
+htpasswd -cb /root/passwd.dav test test
+chmod 640 /root/passwd.dav
+mkdir /root/webdav
+
 health-check.sh &
 
 lighttpd -f /etc/lighttpd/httpd.conf
