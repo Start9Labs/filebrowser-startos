@@ -108,7 +108,6 @@ migrations:
     "*":
       type: script
       args: ["to"]
-
   to:
     "*":
       type: script

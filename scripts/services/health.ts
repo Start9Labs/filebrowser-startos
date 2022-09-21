@@ -16,7 +16,7 @@ const catchError = (effects: T.Effects) =>
     if (isError(e)) return e;
     if (isErrorCode(e)) return e;
     effects.error(`Health check failed: ${e}`);
-    return errorCode(61, "Health check has never run");
+    return error("Error while running health check");
   };
 /** Get the file contents and the metainformation */
 const fullRead = (effects: T.Effects, path: string) =>
