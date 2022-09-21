@@ -1,30 +1,32 @@
 import { types as T, matches as M } from "../deps.ts";
 const isError = M.shape({
   error: M.string,
-}).test
+}).test;
 const isErrorCode = M.shape({
   "error-code": M.tuple(M.number, M.string),
-}).test
+}).test;
 const error = (error: string) => ({ error });
-const errorCode = (code: number, error: string) => ({
-  "error-code": [code, error],
-}) as const;
+const errorCode = (code: number, error: string) =>
+  ({
+    "error-code": [code, error],
+  } as const);
 const ok = { result: null };
 /** Transform the error into ResultType, and just return the thrown ResultType */
-const catchError = (effects: T.Effects) =>
-  (e: unknown) => {
-    if (isError(e)) return e;
-    if (isErrorCode(e)) return e;
-    effects.error(`Health check failed: ${e}`);
-    return error("Error while running health check");
-  };
+const catchError = (effects: T.Effects) => (e: unknown) => {
+  if (isError(e)) return e;
+  if (isErrorCode(e)) return e;
+  effects.error(`Health check failed: ${e}`);
+  return error("Error while running health check");
+};
 /** Get the file contents and the metainformation */
 const fullRead = (effects: T.Effects, path: string) =>
   Promise.all([
-    effects.readFile({
-      volumeId: "main",
-      path,
-    }).then((x) => x.trim()),
+    effects
+      .readFile({
+        volumeId: "main",
+        path,
+      })
+      .then((x) => x.trim()),
     effects.metadata({
       volumeId: "main",
       path,
@@ -37,8 +39,8 @@ const fullRead = (effects: T.Effects, path: string) =>
  * @returns
  */
 const calcTimeSinceLast = (metaInformation: T.Metadata) => ({
-  timeSinceLast: Date.now() -
-    (metaInformation.modified?.valueOf() ?? Date.now()),
+  timeSinceLast:
+    Date.now() - (metaInformation.modified?.valueOf() ?? Date.now()),
 });
 type TimeSinceLast = ReturnType<typeof calcTimeSinceLast>;
 
@@ -47,26 +49,26 @@ type TimeSinceLast = ReturnType<typeof calcTimeSinceLast>;
  */
 const guardForNotRecentEnough = (
   { timeSinceLast }: TimeSinceLast,
-  duration: number,
+  duration: number
 ) =>
-  (timeSinceLast >
-    duration)
+  timeSinceLast > duration
     ? Promise.reject(
-      error(`Health check has not run recently enough: ${timeSinceLast}ms`),
-    )
+        error(`Health check has not run recently enough: ${timeSinceLast}ms`)
+      )
     : null;
 
 /** Call to make sure the duration is pass a minimum */
-const guardDurationAboveMinimum = (
-  input: { duration: number; minimumTime: number },
-) =>
-  (input.duration <= input.minimumTime)
+const guardDurationAboveMinimum = (input: {
+  duration: number;
+  minimumTime: number;
+}) =>
+  input.duration <= input.minimumTime
     ? Promise.reject(errorCode(60, "Starting"))
     : null;
 
 const healthVersion: T.ExpectedExports.health[""] = async (
   effects,
-  duration,
+  duration
 ) => {
   await guardDurationAboveMinimum({ duration, minimumTime: 10000 });
   const [readFile, metaInformation] = await fullRead(effects, "./health-api");
@@ -79,7 +81,7 @@ const healthVersion: T.ExpectedExports.health[""] = async (
 };
 const healthWeb: T.ExpectedExports.health[""] = async (effects, duration) => {
   await guardDurationAboveMinimum({ duration, minimumTime: 11000 });
-  const fetchWeb = await effects.fetch("http://filebrowser.embassy/health")
+  const fetchWeb = await effects.fetch("http://filebrowser.embassy/health");
 
   if (fetchWeb.status === 200) {
     return ok;
@@ -99,7 +101,7 @@ export const health: T.ExpectedExports.health = {
   async "web-ui"(effects, duration) {
     return healthWeb(effects, duration).catch(catchError(effects));
   },
-  async "web_ui"(effects, duration) {
+  web_ui(effects, duration) {
     return healthWeb(effects, duration).catch(catchError(effects));
   },
 };
