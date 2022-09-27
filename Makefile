@@ -5,6 +5,7 @@ FILEBROWSER_SRC := $(shell find filebrowser -name '*.go') $(shell find filebrows
 FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend -type d \( -path filebrowser/frontend/dist -o -path filebrowser/frontend/node_modules \) -prune -o -name '*' -print)
 FILEBROWSER_GIT_REF := $(shell cat .git/modules/filebrowser/HEAD)
 FILEBROWSER_GIT_FILE := $(addprefix .git/modules/filebrowser/,$(if $(filter ref:%,$(FILEBROWSER_GIT_REF)),$(lastword $(FILEBROWSER_GIT_REF)),HEAD))
+TS_FILES := $(shell find ./ -name \*.ts)
 
 .DELETE_ON_ERROR:
 
@@ -35,5 +36,9 @@ manifest.yaml: $(FILEBROWSER_GIT_FILE)
 	yq eval -i ".version = \"$(VERSION)\"" manifest.yaml
 	yq eval -i ".release-notes = \"https://github.com/filebrowser/filebrowser/releases/tag/$(VERSION_TAG)\"" manifest.yaml
 
-scripts/embassy.js: scripts/**/*.ts
+
+scripts/embassy.js: $(TS_FILES) 
 	deno bundle scripts/embassy.ts scripts/embassy.js
+
+scripts/generated/manifest.ts: manifest.yaml scripts/generateManifest.ts
+	deno run --allow-write --allow-read scripts/generateManifest.ts

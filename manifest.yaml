@@ -1,9 +1,8 @@
 id: filebrowser
 title: "File Browser"
-version: 2.21.1
-release-notes: |
-  * Updates to new version of FileBrowser to 2.21.1. Lots of bug fixes + features. Look at https://github.com/filebrowser/filebrowser/blob/master/CHANGELOG.md for more
-  * Switch to using new EOS apis for faster configuration and properties
+version: 2.22.4
+release-notes: |-
+  https://github.com/filebrowser/filebrowser/releases/tag/v2.22.4
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
@@ -104,3 +103,12 @@ actions:
       mounts:
         main: /root
       io-format: json
+migrations:
+  from:
+    "*":
+      type: script
+      args: ["to"]
+  to:
+    "*":
+      type: script
+      args: ["to"]
