@@ -9,7 +9,7 @@ FILEBROWSER_FRONTEND_SRC := $(shell find filebrowser/frontend -type d \( -path f
 all: verify
 
 # assumes /etc/embassy/config.yaml exists on local system with `host: "http://embassy-server-name.local"` configured
-install:
+install: $(PKG_ID).s9pk
 	embassy-cli package install $(PKG_ID).s9pk
 
 verify: $(PKG_ID).s9pk
@@ -50,4 +50,5 @@ scripts/embassy.js: $(TS_FILES) scripts/generated/manifest.ts
 	deno bundle scripts/embassy.ts scripts/embassy.js
 
 scripts/generated/manifest.ts: manifest.yaml scripts/generateManifest.ts
+	mkdir -p scripts/generated
 	deno run --allow-write --allow-read scripts/generateManifest.ts
