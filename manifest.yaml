@@ -1,8 +1,7 @@
 id: filebrowser
 title: "File Browser"
-version: 2.22.4
-release-notes: |-
-  https://github.com/filebrowser/filebrowser/releases/tag/v2.22.4
+version: 2.22.4.1
+release-notes: Update to run on x86_64 architecture
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"

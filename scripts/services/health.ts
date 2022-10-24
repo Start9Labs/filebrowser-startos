@@ -86,7 +86,7 @@ const healthWeb: T.ExpectedExports.health[""] = async (effects, duration) => {
   if (fetchWeb.status === 200) {
     return ok;
   }
-  return error(`Fetching the website returned ${fetchWeb.status}`);
+  return error(`The File Browser UI is unreachable`);
 };
 
 /** These are the health checks in the manifest */

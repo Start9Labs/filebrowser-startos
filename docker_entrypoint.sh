@@ -67,7 +67,7 @@ health-check.sh &
 
 lighttpd -f /etc/lighttpd/httpd.conf
 
-tini -sp SIGTERM -- filebrowser --disable-exec=true &
+tini -p SIGTERM -- filebrowser --disable-exec=true &
 filebrowser_process=$1
 
 trap _term SIGTERM
