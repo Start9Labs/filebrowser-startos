@@ -1,3 +1,3 @@
-export { properties } from "./services/properties.ts";
-export { health } from "./services/health.ts";
-export { migration } from "./services/migration.ts";
+export { properties } from "./procedures/properties.ts";
+export { health } from "./procedures/health.ts";
+export { migration } from "./procedures/migration.ts";
