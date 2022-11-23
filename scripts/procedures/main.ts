@@ -1,4 +1,4 @@
-import { types as T, util } from "../deps.ts";
+import { types as T } from "../deps.ts";
 
 // deno-lint-ignore require-await
 export const main: T.ExpectedExports.main = async (effects) => {
