@@ -1,7 +1,9 @@
 id: filebrowser
 title: "File Browser"
 version: 2.22.4.1
-release-notes: Update to run on x86_64 architecture
+release-notes: |
+  * Update to run on x86_64 architecture
+  * Utilize new eOS APIs
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
@@ -18,12 +20,12 @@ assets:
   icon: icon.png
   instructions: instructions.md
 main:
-  type: docker
-  image: main
-  entrypoint: docker_entrypoint.sh
-  args: []
-  mounts:
-    main: /root
+  type: script
+containers:
+  main:
+    image: main
+    mounts:
+      main: /root
 health-checks:
   version:
     name: Database
