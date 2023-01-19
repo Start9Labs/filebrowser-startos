@@ -22,7 +22,6 @@ clean:
 	rm -f scripts/*.js
 
 $(PKG_ID).s9pk: manifest.yaml instructions.md LICENSE icon.png scripts/embassy.js docker-images/aarch64.tar docker-images/x86_64.tar
-	
 	embassy-sdk pack
 
 docker-images/aarch64.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
@@ -37,7 +36,7 @@ httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf
 
 filebrowser/frontend/dist: $(FILEBROWSER_FRONTEND_SRC) filebrowser/frontend/node_modules
-	NODE_OPTIONS='--openssl-legacy-provider' npm --prefix filebrowser/frontend run build
+	npm --prefix filebrowser/frontend run build
 
 filebrowser/frontend/node_modules: filebrowser/frontend/package.json filebrowser/frontend/package-lock.json
 	npm --prefix filebrowser/frontend install

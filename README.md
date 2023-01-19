@@ -1,10 +1,18 @@
 # Wrapper for filebrowser
 
-[File Browser](https://github.com/filebrowser/filebrowser) provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files. It allows the creation of multiple users and each user can have their own directory. This repository creates the `s9pk` package that is installed to run `filebrowser` on [embassyOS](https://github.com/Start9Labs/embassy-os/).
+[File Browser](https://github.com/filebrowser/filebrowser) provides a simple
+file managing interface which can be used to upload, download, organize, edit,
+and share your files. It allows the creation of multiple users and each user can
+have their own directory. This repository creates the `s9pk` package that is
+installed to run `filebrowser` on
+[embassyOS](https://github.com/Start9Labs/embassy-os/).
 
 ## Dependencies
 
-Install the following system dependencies to build this project by following the instructions in the provided links. You can also find detailed steps to setup your environment in the service packaging [documentation](https://github.com/Start9Labs/service-pipeline#development-environment).
+Install the following system dependencies to build this project by following the
+instructions in the provided links. You can also find detailed steps to setup
+your environment in the service packaging
+[documentation](https://github.com/Start9Labs/service-pipeline#development-environment).
 
 - [docker](https://docs.docker.com/get-docker)
 - [docker-buildx](https://docs.docker.com/buildx/working-with-buildx/)
@@ -17,7 +25,8 @@ Install the following system dependencies to build this project by following the
 
 ## Cloning
 
-Clone the File Browser Wrapper locally. Note the submodule link to the original project.
+Clone the File Browser Wrapper locally. Note the submodule link to the original
+project.
 
 ```
 git clone git@github.com:Start9Labs/filebrowser-wrapper.git
@@ -31,6 +40,12 @@ To build the `filebrowser` package, run the following command:
 
 ```
 make
+```
+
+Note: Depending on your setup, you may need to run:
+
+```
+NODE_OPTIONS='--openssl-legacy-provider' make
 ```
 
 ## Installing (on embassyOS)
@@ -52,11 +67,12 @@ you can install simply by running:
 make install
 ```
 
-> **Tip:** You can also install the filebrowser.s9pk using **Sideload Service** under
-> the **Embassy > Settings** section.
+> **Tip:** You can also install the filebrowser.s9pk using **Sideload Service**
+> under the **Embassy > Settings** section.
 
 ### Verify Install
 
-Go to your Embassy Services page, select **File Browser**, configure and start the service. Then, verify its interfaces are accessible.
+Go to your Embassy Services page, select **File Browser**, configure and start
+the service. Then, verify its interfaces are accessible.
 
 **Done!**
