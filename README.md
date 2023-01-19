@@ -53,10 +53,10 @@ make install
 ```
 
 > **Tip:** You can also install the filebrowser.s9pk using **Sideload Service** under
-the **Embassy > Settings** section.
+> the **Embassy > Settings** section.
 
 ### Verify Install
 
 Go to your Embassy Services page, select **File Browser**, configure and start the service. Then, verify its interfaces are accessible.
 
-**Done!** 
+**Done!**
