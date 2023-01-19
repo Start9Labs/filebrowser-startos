@@ -37,7 +37,7 @@ httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf
 
 filebrowser/frontend/dist: $(FILEBROWSER_FRONTEND_SRC) filebrowser/frontend/node_modules
-	npm --prefix filebrowser/frontend run build
+	NODE_OPTIONS='--openssl-legacy-provider' npm --prefix filebrowser/frontend run build
 
 filebrowser/frontend/node_modules: filebrowser/frontend/package.json filebrowser/frontend/package-lock.json
 	npm --prefix filebrowser/frontend install
