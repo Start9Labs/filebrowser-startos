@@ -1,9 +1,8 @@
 id: filebrowser
 title: "File Browser"
-version: 2.22.4.1
-release-notes: |
-  * Update to run on x86_64 architecture
-  * Utilize new eOS APIs
+
+version: 2.22.4.4
+release-notes: Use new eOS APIs for backups
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
@@ -60,33 +59,9 @@ interfaces:
 alerts: {}
 backup:
   create:
-    type: docker
-    image: compat
-    system: true
-    entrypoint: compat
-    args:
-      - duplicity
-      - create
-      - /mnt/backup
-      - /root/data
-    mounts:
-      BACKUP: /mnt/backup
-      main: /root/data
-    io-format: yaml
+    type: script
   restore:
-    type: docker
-    image: compat
-    system: true
-    entrypoint: compat
-    args:
-      - duplicity
-      - restore
-      - /mnt/backup
-      - /root/data
-    mounts:
-      BACKUP: /mnt/backup
-      main: /root/data
-    io-format: yaml
+    type: script
 actions:
   reset-root-user:
     name: Reset Root User
