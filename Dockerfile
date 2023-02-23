@@ -1,16 +1,3 @@
-FROM golang:alpine3.13 AS builder
-
-RUN apk update
-RUN apk add --no-cache git
-RUN go get github.com/GeertJohan/go.rice \
- && go get github.com/GeertJohan/go.rice/rice
-ADD ./filebrowser /root/filebrowser
-
-WORKDIR /root/filebrowser
-
-RUN go mod download
-RUN cd http && rice embed-go
-RUN go build
 
 FROM alpine:latest AS runner
 
@@ -19,7 +6,14 @@ RUN apk add --no-cache tini
 RUN apk add --no-cache lighttpd
 RUN apk add --no-cache coreutils
 RUN apk add --no-cache curl
-COPY --from=builder /root/filebrowser/filebrowser /usr/local/bin/filebrowser
+RUN apk add --no-cache wget
+RUN apk add --no-cache tar
+ARG PLATFORM
+RUN wget -qO /filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/v2.23.0/linux-${PLATFORM}-filebrowser.tar.gz
+RUN mkdir /filebrowser
+RUN tar -zxvf /filebrowser.tar.gz -C /filebrowser
+RUN mv /filebrowser/filebrowser /usr/local/bin/filebrowser
+RUN rm -rf /filebrowser.tar.gz /filebrowser
 RUN mkdir /root/data
 WORKDIR /root
 

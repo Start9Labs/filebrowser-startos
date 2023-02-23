@@ -1,5 +1,4 @@
 #!/bin/sh
-
 _term() { 
   echo "Caught SIGTERM signal!" 
   kill -TERM "$filebrowser_process" 2>/dev/null
@@ -64,12 +63,14 @@ if [ "$1" = "reset-root-user" ]; then
 fi
 
 health-check.sh &
+pkill -9 lighttpd || true
+tini -s -p SIGTERM -- lighttpd -f /etc/lighttpd/httpd.conf
+lighttpd_process=$1
 
-lighttpd -f /etc/lighttpd/httpd.conf
-
-tini -p SIGTERM -- filebrowser --disable-exec=true &
+tini -s -p SIGTERM -- filebrowser --disable-exec=true &
 filebrowser_process=$1
 
 trap _term SIGTERM
 
 wait -n $filebrowser_process
+wait -n $lighttpd_process

@@ -1,7 +1,7 @@
 id: filebrowser
 title: "File Browser"
 
-version: 2.22.4.4
+version: 2.23.0.0
 release-notes: Use new eOS APIs for backups
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"

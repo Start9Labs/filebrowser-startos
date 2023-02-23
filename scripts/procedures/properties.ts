@@ -1,3 +1,3 @@
-import { compat } from "../deps.ts";
+import { compat, types, util, YAML } from "../deps.ts";
 
-export const properties = compat.properties
+export const properties: types.ExpectedExports.properties = compat.propertiesv2;
