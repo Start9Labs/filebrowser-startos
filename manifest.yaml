@@ -1,6 +1,7 @@
 id: filebrowser
 title: "File Browser"
-version: 2.22.4.3
+
+version: 2.23.0.0
 release-notes: Use new eOS APIs for backups
 license: apache
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
@@ -18,12 +19,12 @@ assets:
   icon: icon.png
   instructions: instructions.md
 main:
-  type: docker
-  image: main
-  entrypoint: docker_entrypoint.sh
-  args: []
-  mounts:
-    main: /root
+  type: script
+containers:
+  main:
+    image: main
+    mounts:
+      main: /root
 health-checks:
   version:
     name: Database

@@ -1,9 +1,6 @@
-import { migrations, types as T } from "../deps.ts";
+import { okOf } from "../../../embassy-sdk-ts/util.ts";
+import { types as T } from "../deps.ts";
 import { manifest } from "../generated/manifest.ts";
 
-export const migration: T.ExpectedExports.migration = migrations.fromMapping(
-  {
-    /// No migrations for 2.22.4.2
-  },
-  manifest.version,
-);
+export const migration: T.ExpectedExports.migration = async ({ effects }) =>
+  okOf({ configured: false });
