@@ -1,7 +1,7 @@
-import { Config, Value } from 'start-sdk/lib/config/builder'
 import { WrapperData } from '../../wrapperData'
-import { createAction } from 'start-sdk/lib/actions/createAction'
+import { createAction } from '@start9labs/start-sdk/lib/actions/createAction'
 import { getRandomPassword } from '../utils/getRandomPassword'
+import { Config } from '@start9labs/start-sdk/lib/config/builder/config'
 
 /**
  * This is an example Action

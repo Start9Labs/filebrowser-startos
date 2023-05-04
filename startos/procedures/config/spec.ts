@@ -1,5 +1,5 @@
-import { configBuilder } from 'start-sdk/lib'
-const { Config, Value } = configBuilder
+import { Config } from '@start9labs/start-sdk/lib/config/builder/config'
+import { Value } from '@start9labs/start-sdk/lib/config/builder/value'
 
 /**
  * Here you define the config specification that will ultimately present to the user as validated form inputs
@@ -14,6 +14,5 @@ export const configSpec = Config.of({
     required: { default: null },
   }),
 })
-// These two lines are necessary to satisfy Typescript typings. Do not touch them
-export const matchConfigSpec = configSpec.validator()
-export type ConfigSpec = typeof matchConfigSpec._TYPE
+// This line is necessary to satisfy Typescript typings. Do not touch them
+export type ConfigSpec = typeof configSpec.validator._TYPE

@@ -1,13 +1,15 @@
-import { HealthReceipt } from 'start-sdk/lib/health'
-import { CheckResult, checkPortListening } from 'start-sdk/lib/health/checkFns'
+import {} from '@start9labs/start-sdk/lib/health'
 import {
-  Daemons,
-  NetworkInterfaceBuilder,
-  setupMain,
-} from 'start-sdk/lib/mainFn'
-import exportInterfaces from 'start-sdk/lib/mainFn/exportInterfaces'
-import { ExpectedExports } from 'start-sdk/lib/types'
+  CheckResult,
+  checkPortListening,
+} from '@start9labs/start-sdk/lib/health/checkFns'
+import { setupMain } from '@start9labs/start-sdk/lib/mainFn'
+import exportInterfaces from '@start9labs/start-sdk/lib/mainFn/exportInterfaces'
+import { ExpectedExports } from '@start9labs/start-sdk/lib/types'
 import { WrapperData } from '../wrapperData'
+import { HealthReceipt } from '@start9labs/start-sdk/lib/health/HealthReceipt'
+import { Daemons } from '@start9labs/start-sdk/lib/mainFn/Daemons'
+import { NetworkInterfaceBuilder } from '@start9labs/start-sdk/lib/mainFn/NetworkInterfaceBuilder'
 
 export const main: ExpectedExports.main = setupMain<WrapperData>(
   async ({ effects, utils, started }) => {
@@ -60,7 +62,7 @@ export const main: ExpectedExports.main = setupMain<WrapperData>(
     })
 
     // Choose which origins to attach to this interface. The resulting addresses will share the attributes of the interface (name, path, search, etc)
-    const addressReceipt1 = await iFace1.exportAddresses([
+    const addressReceipt1 = await iFace1.export([
       torOrigin1,
       ...lanOrigins1.ip,
       lanOrigins1.local,

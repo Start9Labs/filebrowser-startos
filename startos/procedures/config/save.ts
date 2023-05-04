@@ -1,6 +1,6 @@
 import { ConfigSpec } from './spec'
 import { WrapperData } from '../../wrapperData'
-import { Save } from 'start-sdk/lib/config/setupConfig'
+import { Save } from '@start9labs/start-sdk/lib/config/setupConfig'
 import { Manifest } from '../../manifest'
 
 /**
@@ -15,5 +15,8 @@ export const save: Save<WrapperData, ConfigSpec, Manifest> = async ({
   dependencies,
 }) => {
   await utils.setOwnWrapperData('/config', input)
-  return effects.setDependencies([])
+  return {
+    dependenciesReceipt: await effects.setDependencies([]),
+    restart: true,
+  }
 }

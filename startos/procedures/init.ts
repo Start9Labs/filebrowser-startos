@@ -1,4 +1,6 @@
-import { setupInit, setupInstall, setupUninstall } from 'start-sdk/lib/inits'
+import { setupInit } from '@start9labs/start-sdk/lib/inits/setupInit'
+import { setupInstall } from '@start9labs/start-sdk/lib/inits/setupInstall'
+import { setupUninstall } from '@start9labs/start-sdk/lib/inits/setupUninstall'
 import { WrapperData } from '../wrapperData'
 import { migrations } from './migrations'
 import { getRandomPassword } from './utils/getRandomPassword'
