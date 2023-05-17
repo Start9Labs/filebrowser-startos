@@ -10,10 +10,15 @@ import { configSpec } from './spec'
 export const save = sdk.setupConfigSave(
   configSpec,
   async ({ effects, utils, input, dependencies }) => {
-    await utils.store.setOwn('/config/name', input.name)
+    // save data wherever you want
+    await utils.store.setOwn('/config', input)
+
+    // set current dependencies based on config settings
+    const dependenciesReceipt = await effects.setDependencies([])
+
     return {
       interfacesReceipt: await setInterfaces({ effects, utils, input }), // This is plumbing, don't touch it
-      dependenciesReceipt: await effects.setDependencies([]),
+      dependenciesReceipt,
       restart: true,
     }
   },

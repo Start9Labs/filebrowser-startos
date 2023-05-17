@@ -1,6 +1,5 @@
-import { sdk } from "../../sdk"
-
-const {Config, Value} = sdk
+import { sdk } from '../../sdk'
+const { Config, Value } = sdk
 
 /**
  * Here you define the config specification that will ultimately present to the user as validated form inputs
@@ -15,5 +14,6 @@ export const configSpec = Config.of({
     required: { default: null },
   }),
 })
-// This line is necessary to satisfy Typescript typings. Do not touch them
+
+// This line is necessary to satisfy Typescript typings. Do not touch it
 export type ConfigSpec = typeof configSpec.validator._TYPE

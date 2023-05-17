@@ -1,7 +1,6 @@
-import { WrapperData } from '../../wrapperData'
-import { createAction } from '@start9labs/start-sdk/lib/actions/createAction'
 import { getRandomPassword } from '../utils/getRandomPassword'
 import { Config } from '@start9labs/start-sdk/lib/config/builder/config'
+import { sdk } from '../../sdk'
 
 /**
  * This is an example Action
@@ -19,18 +18,18 @@ const input = Config.of({})
  *
  * If no input is required, FormSpec would be null
  */
-export const nameToLogs = createAction<WrapperData, typeof input>(
+export const resetRootUser = sdk.createAction(
   {
     name: 'Reset Root User',
     description:
       'Resets your root user (the first user) to username "admin" and a random password; restores any lost admin privileges.',
     id: 'resetRootUser',
     input,
-    runningOnly: false,
+    allowedStatuses: 'any',
   },
   async ({ effects, utils, input }) => {
     const password = getRandomPassword()
-    await utils.setOwnWrapperData('/default/password', password)
+    await utils.vault.set('password', password)
     await effects.runCommand(`filebrowser users update 1 -u admin `)
     await effects.runCommand(`filebrowser users update 1 -p "${password}"`)
     await effects.runCommand(`filebrowser users update 1 --perm.admin`)

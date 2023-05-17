@@ -1,12 +1,8 @@
-import {} from '@start9labs/start-sdk/lib/health'
-import {
-  CheckResult,
-  checkPortListening,
-} from '@start9labs/start-sdk/lib/health/checkFns'
+import { sdk } from '../sdk'
 import { ExpectedExports } from '@start9labs/start-sdk/lib/types'
 import { HealthReceipt } from '@start9labs/start-sdk/lib/health/HealthReceipt'
 import { Daemons } from '@start9labs/start-sdk/lib/mainFn/Daemons'
-import { sdk } from '../sdk'
+import { uiPort } from './interfaces'
 
 export const main: ExpectedExports.main = sdk.setupMain(
   async ({ effects, utils, started }) => {
@@ -15,6 +11,7 @@ export const main: ExpectedExports.main = sdk.setupMain(
      *
      * In this section, you will fetch any resources or run any commands necessary to run the service
      */
+    console.info('Starting Hello World!')
 
     /**
      * ======================== Additional Health Checks (optional) ========================
@@ -34,21 +31,17 @@ export const main: ExpectedExports.main = sdk.setupMain(
       effects,
       started,
       healthReceipts, // Provide the healthReceipts or [] to prove they were at least considered
-    }).addDaemon('filebrowser', {
-      command: 'filebrowser --disable-exec=true', // The command to start the daemon
+    }).addDaemon('webui', {
+      command: 'hello-world', // The command to start the daemon
       ready: {
-        display: 'Filebrowser is ready',
+        // If display is null, it will not be displayed to the user in the UI
+        display: 'Web Interface',
         // The function to run to determine the health status of the daemon
-        fn: async () =>
-          Promise.all([
-            effects.runCommand('filebrowser version'),
-            checkPortListening(effects, 8080, {
-              successMessage: 'The web interface is ready',
-              errorMessage: 'The web interface is not ready',
-            }),
-          ])
-            .then(() => ({ status: 'passing' } as CheckResult))
-            .catch(() => ({ status: 'failing' } as CheckResult)),
+        fn: () =>
+          sdk.healthCheck.checkPortListening(effects, uiPort, {
+            successMessage: 'The web interface is ready',
+            errorMessage: 'The web interface is not ready',
+          }),
       },
       requires: [],
     })

@@ -4,11 +4,13 @@ import { setupUninstall } from '@start9labs/start-sdk/lib/inits/setupUninstall'
 import { WrapperData } from '../wrapperData'
 import { migrations } from './migrations'
 import { getRandomPassword } from './utils/getRandomPassword'
+import { sdk } from '../sdk'
+import { setInterfaces } from './interfaces'
 
 /**
  * Here you define arbitrary code that runs once, on fresh install only
  */
-const install = setupInstall<WrapperData>(async ({ effects, utils }) => {
+const install = sdk.setupInstall(async ({ effects, utils }) => {
   const password = getRandomPassword()
   const username = 'admin'
   await effects.runCommand('mkdir -p /root/start9')
@@ -21,15 +23,21 @@ const install = setupInstall<WrapperData>(async ({ effects, utils }) => {
   await effects.runCommand(
     `filebrowser users add ${username} "${password}" --perm.admin=true`,
   )
-  await utils.setOwnWrapperData('/default', { password, username })
+  await utils.store.setOwn('/config/name', username)
+  await utils.vault.set('password', password)
 })
 
 /**
  * Here you define arbitrary code that runs once, on uninstall only
  */
-const uninstall = setupUninstall<WrapperData>(async ({ effects, utils }) => {})
+const uninstall = sdk.setupUninstall(async ({ effects, utils }) => {})
 
 /**
  * This is a static function. There is no need to make changes here
  */
-export const { init, uninit } = setupInit(migrations, install, uninstall)
+export const { init, uninit } = sdk.setupInit(
+  migrations,
+  install,
+  uninstall,
+  setInterfaces,
+)
