@@ -23,7 +23,7 @@ const install = sdk.setupInstall(async ({ effects, utils }) => {
   await effects.runCommand(
     `filebrowser users add ${username} "${password}" --perm.admin=true`,
   )
-  await utils.store.setOwn('/config/name', username)
+  await utils.store.setOwn('/config/username', username)
   await utils.vault.set('password', password)
 })
 

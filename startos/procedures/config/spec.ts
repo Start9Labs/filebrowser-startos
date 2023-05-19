@@ -1,6 +1,6 @@
-import { sdk } from "../../sdk"
+import { sdk } from '../../sdk'
 
-const {Config, Value} = sdk
+const { Config, Value } = sdk
 
 /**
  * Here you define the config specification that will ultimately present to the user as validated form inputs
@@ -8,8 +8,8 @@ const {Config, Value} = sdk
  * Most form controls are available, including text, textarea, number, toggle, select, multiselect, list, color, datetime, object (a subform), and union (a conditional subform)
  */
 export const configSpec = Config.of({
-  name: Value.text({
-    name: 'Name',
+  username: Value.text({
+    name: 'Username ',
     description:
       'When you launch the Hello World UI, it will display "Hello [First Name]"',
     required: { default: null },
