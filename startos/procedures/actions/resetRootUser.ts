@@ -1,6 +1,9 @@
 import { getRandomPassword } from '../utils/getRandomPassword'
 import { Config } from '@start9labs/start-sdk/lib/config/builder/config'
 import { sdk } from '../../sdk'
+import { Utils } from '@start9labs/start-sdk/lib/util/utils'
+import { Vault } from '../../vault'
+import { Effects } from '@start9labs/start-sdk/lib/types'
 
 /**
  * This is an example Action
@@ -28,11 +31,7 @@ export const resetRootUser = sdk.createAction(
     allowedStatuses: 'any',
   },
   async ({ effects, utils, input }) => {
-    const password = getRandomPassword()
-    await utils.vault.set('password', password)
-    await effects.runCommand(`filebrowser users update 1 -u admin `)
-    await effects.runCommand(`filebrowser users update 1 -p "${password}"`)
-    await effects.runCommand(`filebrowser users update 1 --perm.admin`)
+    const password = await newPassword(null, utils, effects)
     return {
       message: `Here is your new password. This will also be reflected in the Properties page for this service.`,
       value: {
@@ -43,3 +42,21 @@ export const resetRootUser = sdk.createAction(
     }
   },
 )
+export async function newPassword(
+  value: string | null,
+  utils: Utils<never, Vault> | Utils<any, Vault>,
+  effects: Effects,
+) {
+  const password = (await utils.createOrUpdateVault({
+    key: 'password',
+    generator: {
+      charset: 'a-z,A-Z,0-9',
+      len: 16,
+    },
+    value,
+  })) as string
+  await effects.runCommand(`filebrowser users update 1 -u admin `)
+  await effects.runCommand(`filebrowser users update 1 -p "${password}"`)
+  await effects.runCommand(`filebrowser users update 1 --perm.admin`)
+  return password
+}

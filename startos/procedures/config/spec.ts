@@ -7,13 +7,6 @@ const { Config, Value } = sdk
  *
  * Most form controls are available, including text, textarea, number, toggle, select, multiselect, list, color, datetime, object (a subform), and union (a conditional subform)
  */
-export const configSpec = Config.of({
-  username: Value.text({
-    name: 'Username ',
-    description:
-      'When you launch the Hello World UI, it will display "Hello [First Name]"',
-    required: { default: null },
-  }),
-})
+export const configSpec = Config.of({})
 // This line is necessary to satisfy Typescript typings. Do not touch them
 export type ConfigSpec = typeof configSpec.validator._TYPE

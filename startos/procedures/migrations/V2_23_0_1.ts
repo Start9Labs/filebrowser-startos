@@ -1,4 +1,5 @@
 import { sdk } from '../../sdk'
+import { newPassword } from '../actions/resetRootUser'
 
 /**
  * This is an example migration file
@@ -9,6 +10,8 @@ import { sdk } from '../../sdk'
  */
 export const V2_23_0_1 = sdk.Migration.of({
   version: '2.23.0.1',
-  up: async ({ effects }) => await effects.setConfigured(false),
+  up: async ({ effects, utils }) => {
+    await newPassword(null, utils, effects)
+  },
   down: async ({ effects }) => {},
 })
