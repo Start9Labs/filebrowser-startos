@@ -7,19 +7,18 @@ import { ExpectedExports } from '@start9labs/start-sdk/lib/types'
 import { HealthReceipt } from '@start9labs/start-sdk/lib/health/HealthReceipt'
 import { Daemons } from '@start9labs/start-sdk/lib/mainFn/Daemons'
 import { sdk } from '../sdk'
+import { uiPort } from './interfaces'
 
 export const main: ExpectedExports.main = sdk.setupMain(
   async ({ effects, utils, started }) => {
     /**
      * ======================== Setup ========================
-     *
-     * In this section, you will fetch any resources or run any commands necessary to run the service
      */
+
+    console.info('Starting Filebrowser...')
 
     /**
      * ======================== Additional Health Checks (optional) ========================
-     *
-     * In this section, you will define additional health checks beyond those associated with daemons
      */
     const healthReceipts: HealthReceipt[] = []
 
@@ -27,8 +26,6 @@ export const main: ExpectedExports.main = sdk.setupMain(
      * ======================== Daemons ========================
      *
      * In this section, you will create one or more daemons that define the service runtime
-     *
-     * Each daemon defines its own health check, which can optionally be exposed to the user
      */
     return Daemons.of({
       effects,
@@ -42,7 +39,7 @@ export const main: ExpectedExports.main = sdk.setupMain(
         fn: async () =>
           Promise.all([
             effects.runCommand('filebrowser version'),
-            checkPortListening(effects, 8080, {
+            checkPortListening(effects, uiPort, {
               successMessage: 'The web interface is ready',
               errorMessage: 'The web interface is not ready',
             }),

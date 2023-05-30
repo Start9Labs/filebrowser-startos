@@ -4,13 +4,6 @@ import { configSpec } from './config/spec'
 export const uiPort = 8080
 export const webUiInterfaceId = 'webui'
 
-/**
- * ======================== Interfaces ========================
- *
- * In this section, you will decide how the service will be exposed to the outside world
- *
- * This function runs on service install/update AND on config save
- */
 export const setInterfaces = sdk.setupInterfaces(
   configSpec,
   async ({ effects, utils, input }) => {
@@ -20,6 +13,8 @@ export const setInterfaces = sdk.setupInterfaces(
       name: 'Web UI',
       id: webUiInterfaceId,
       description: 'This is the ui for the filebrowser',
+      hasPrimary: false,
+      disabled: false,
       ui: true,
       username: null,
       path: '',
