@@ -1,8 +1,5 @@
 import { setupManifest } from '@start9labs/start-sdk/lib/manifest/setupManifest'
 
-/**
- * In this function you define static properties of the service
- */
 export const manifest = setupManifest({
   id: 'filebrowser',
   title: 'File Browser',
@@ -26,7 +23,7 @@ export const manifest = setupManifest({
     main: {
       image: 'main',
       mounts: {
-        main: '/root',
+        main: '/data',
       },
     },
   },
