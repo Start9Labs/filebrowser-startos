@@ -41,7 +41,7 @@ export const main: ExpectedExports.main = sdk.setupMain(
         // The function to run to determine the health status of the daemon
         fn: async () =>
           Promise.all([
-            effects.runCommand('filebrowser version'),
+            utils.childProcess.exec('filebrowser version'),
             checkPortListening(effects, 8080, {
               successMessage: 'The web interface is ready',
               errorMessage: 'The web interface is not ready',

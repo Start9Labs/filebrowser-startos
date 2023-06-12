@@ -15,6 +15,13 @@ const install = sdk.setupInstall(async ({ effects, utils }) => {
   await newPassword(null, utils, effects)
 })
 
+const setupExports = sdk.setupExports(({ effects, utils }) => {
+  return {
+    ui: [],
+    services: [],
+  }
+})
+
 /**
  * Here you define arbitrary code that runs once, on uninstall only
  */
@@ -28,4 +35,5 @@ export const { init, uninit } = sdk.setupInit(
   install,
   uninstall,
   setInterfaces,
+  setupExports,
 )
