@@ -26,11 +26,11 @@ $(PKG_ID).s9pk: manifest.yaml instructions.md LICENSE icon.png scripts/embassy.j
 
 docker-images/aarch64.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
 	mkdir -p docker-images
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/$(PKG_ID)/main:${PKG_VERSION} --platform=linux/arm64/v8 -o type=docker,dest=docker-images/aarch64.tar .
+	DOCKER_BUILDKIT=1 docker buildx build --tag start9/$(PKG_ID)/main:${PKG_VERSION} --platform=linux/arm64/v8 -o type=docker,dest=docker-images/aarch64.tar .
 
 docker-images/x86_64.tar: Dockerfile docker_entrypoint.sh httpd.conf $(FILEBROWSER_SRC) filebrowser/frontend/dist
 	mkdir -p docker-images
-	DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --tag start9/$(PKG_ID)/main:${PKG_VERSION} --platform=linux/amd64 -o type=docker,dest=docker-images/x86_64.tar .
+	DOCKER_BUILDKIT=1 docker buildx build --tag start9/$(PKG_ID)/main:${PKG_VERSION} --platform=linux/amd64 -o type=docker,dest=docker-images/x86_64.tar .
 
 httpd.conf: manifest.yaml httpd.conf.template
 	tiny-tmpl manifest.yaml < httpd.conf.template > httpd.conf
