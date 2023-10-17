@@ -10,7 +10,7 @@ if [ ! -f /root/filebrowser.db ]; then
     mkdir /root/www
     mkdir /root/data
     filebrowser config init
-    filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data
+    filebrowser config set --address=0.0.0.0 --port=80 --root=/root/data
     password=$(cat /dev/urandom | base64 | head -c 16)
     echo 'version: 2' > /root/start9/stats.yaml
     echo 'data:' >> /root/start9/stats.yaml
@@ -65,9 +65,7 @@ fi
 
 health-check.sh &
 
-lighttpd -f /etc/lighttpd/httpd.conf
-
-tini -p SIGTERM -- filebrowser --disable-exec=true &
+filebrowser &
 filebrowser_process=$1
 
 trap _term SIGTERM
