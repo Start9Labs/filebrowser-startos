@@ -62,7 +62,7 @@ start-cli auth login
 make install
 ```
 
-**Tip:** You can also install the filebrowser.s9pk using **Sideload Service** under the **StartOS > SETTINGS** section.
+**Tip:** You can also install the filebrowser.s9pk by sideloading it under the **StartOS > System > Sideload a Service** section.
 
 ## Verify Install
 
