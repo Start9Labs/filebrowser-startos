@@ -11,7 +11,6 @@ if [ ! -f /root/filebrowser.db ]; then
     mkdir -p /root/start9
     mkdir /root/data
     filebrowser config init
-    filebrowser config set --address=0.0.0.0 --port=80 --root=/root/data
     password=$(cat /dev/urandom | base64 | head -c 16)
     echo 'version: 2' >/root/start9/stats.yaml
     echo 'data:' >>/root/start9/stats.yaml
@@ -64,6 +63,7 @@ if [ "$1" = "reset-root-user" ]; then
     exit 0
 fi
 
+filebrowser config set --address=0.0.0.0 --port=80 --root=/root/data
 filebrowser &
 filebrowser_process=$1
 
