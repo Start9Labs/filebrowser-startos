@@ -5,7 +5,7 @@ release-notes: |
   * Upstream code update
   * Removed unnecessary database health check
   * Standardized and optimized icon
-  * Over 36% smaller package size
+  * Reduced package size by over 36%
   * Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.22.4...v2.25.0)
 license: Apache-2.0 
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
