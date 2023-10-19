@@ -1,78 +1,71 @@
+<p align="center">
+  <img src="icon.png" alt="Project Logo" width="21%">
+</p>
+
 # Wrapper for filebrowser
 
 [File Browser](https://github.com/filebrowser/filebrowser) provides a simple
 file managing interface which can be used to upload, download, organize, edit,
 and share your files. It allows the creation of multiple users and each user can
 have their own directory. This repository creates the `s9pk` package that is
-installed to run `filebrowser` on
-[embassyOS](https://github.com/Start9Labs/embassy-os/).
+installed to run `filebrowser` on [StartOS](https://github.com/Start9Labs/start-os/).
 
 ## Dependencies
 
-Install the following system dependencies to build this project by following the
-instructions in the provided links. You can also find detailed steps to setup
-your environment in the service packaging
-[documentation](https://github.com/Start9Labs/service-pipeline#development-environment).
+Prior to building the `filebrowser` package, it's essential to configure your build environment for StartOS services. You can find instructions on how to set up the appropriate build environment in the [Developer Docs](https://docs.start9.com/latest/developer-docs/packaging).
 
 - [docker](https://docs.docker.com/get-docker)
 - [docker-buildx](https://docs.docker.com/buildx/working-with-buildx/)
-- [yq](https://mikefarah.gitbook.io/yq)
-- [tiny-tmpl](https://github.com/Start9Labs/templating-engine-rs.git)
-- [npm](https://www.npmjs.com/get-npm)
-- [make](https://www.gnu.org/software/make/)
-- [embassy-sdk](https://github.com/Start9Labs/embassy-os/tree/master/backend)
 - [deno](https://deno.land/#installation)
+- [make](https://www.gnu.org/software/make/)
+- [start-sdk](https://github.com/Start9Labs/start-os/tree/sdk/backend)
+- [yq](https://mikefarah.gitbook.io/yq)
 
 ## Cloning
 
-Clone the File Browser Wrapper locally. Note the submodule link to the original
-project.
+Clone the File Browser Wrapper locally.
 
 ```
 git clone git@github.com:Start9Labs/filebrowser-wrapper.git
 cd filebrowser-wrapper
-git submodule update --init
 ```
 
 ## Building
 
-To build the `filebrowser` package, run the following command:
+To build the **File Browser** service as a universal package, run the following command:
 
 ```
 make
 ```
 
-Note: Depending on your setup, you may need to run:
+Alternatively the package can be built for individual architectures by specifying the architecture as follows:
 
 ```
-NODE_OPTIONS='--openssl-legacy-provider' make
+make x86
 ```
 
-## Installing (on embassyOS)
-
-Run the following commands to install:
-
-> :information_source: Change embassy-server-name.local to your Embassy address
+or
 
 ```
-embassy-cli auth login
-# Enter your embassy password
-embassy-cli --host https://embassy-server-name.local package install filebrowser.s9pk
+make arm
 ```
 
-If you already have your `embassy-cli` config file setup with a default `host`,
-you can install simply by running:
+## Installing (on StartOS)
+
+Before installation, define `host: https://server-name.local` in your `~/.embassy/config.yaml` config file then run the following commands to determine successful install:
+
+> :information_source: Change server-name.local to your Start9 server address
 
 ```
+start-cli auth login
+#Enter your StartOS password
 make install
 ```
 
-> **Tip:** You can also install the filebrowser.s9pk using **Sideload Service**
-> under the **Embassy > Settings** section.
+**Tip:** You can also install the filebrowser.s9pk by sideloading it under the **StartOS > System > Sideload a Service** section.
 
-### Verify Install
+## Verify Install
 
-Go to your Embassy Services page, select **File Browser**, configure and start
-the service. Then, verify its interfaces are accessible.
+Go to your StartOS Services page, select **File Browser**, configure and start the service.
 
 **Done!**
