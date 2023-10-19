@@ -27,7 +27,7 @@ endif
 
 clean:
 	rm -rf docker-images
-	rm -f  $(PKG_ID).s9pk
+	rm -f $(PKG_ID).s9pk
 	rm -f scripts/generated/manifest.ts
 	rm -f scripts/*.js
 

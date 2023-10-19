@@ -7,7 +7,7 @@ release-notes: |
   * Standardized and optimized icon
   * Reduced package size by over 36%
   * Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.22.4...v2.25.0)
-license: Apache-2.0 
+license: Apache-2.0
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
 support-site: "https://github.com/filebrowser/filebrowser/issues"
