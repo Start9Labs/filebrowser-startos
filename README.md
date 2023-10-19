@@ -52,14 +52,14 @@ make arm
 
 ## Installing (on StartOS)
 
-Run the following commands to determine successful install:
+Before installation, define `host: https://server-name.local` in your `~/.embassy/config.yaml` config file then run the following commands to determine successful install:
 
 > :information_source: Change server-name.local to your Start9 server address
 
 ```
 start-cli auth login
 #Enter your StartOS password
-start-cli --host https://server-name.local package install filebrowser.s9pk
+make install
 ```
 
 **Tip:** You can also install the filebrowser.s9pk using **Sideload Service** under the **StartOS > SETTINGS** section.
