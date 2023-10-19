@@ -3,10 +3,11 @@ title: "File Browser"
 version: 2.25.0
 release-notes: |
   * Upstream code update
+  * Removed unnecessary database health check
   * Standardized and optimized icon
   * Over 36% smaller package size
   * Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.22.4...v2.25.0)
-license: apache
+license: Apache-2.0 
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-wrapper"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
 support-site: "https://github.com/filebrowser/filebrowser/issues"
@@ -29,14 +30,17 @@ main:
   mounts:
     main: /root
 health-checks:
-  version:
-    name: Database
-    success-message: Backend is reachable and responsive.
-    type: script
   web-ui:
     name: Web Interface
     success-message: Filebrowser is ready to be visited in your browser.
-    type: script
+    type: docker
+    image: main
+    system: false
+    entrypoint: /healthcheck.sh
+    args: []
+    mounts: {}
+    io-format: json
+    inject: true
 config: ~
 properties:
   type: script
