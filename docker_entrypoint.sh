@@ -1,7 +1,5 @@
 #!/bin/sh
 
-printf "\n\n [i] Starting File Browser ...\n\n"
-
 _term() {
     echo "Caught SIGTERM signal!"
     kill -TERM "$filebrowser_process" 2>/dev/null
@@ -66,6 +64,8 @@ fi
 filebrowser config set --address=0.0.0.0 --port=80 --root=/root/data
 filebrowser &
 filebrowser_process=$1
+
+printf "\n\n [i] Starting File Browser ...\n\n"
 
 trap _term SIGTERM
 
