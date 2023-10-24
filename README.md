@@ -2,13 +2,13 @@
   <img src="icon.png" alt="Project Logo" width="21%">
 </p>
 
-# Wrapper for filebrowser
+# File Browser for StartOS
 
 [File Browser](https://github.com/filebrowser/filebrowser) provides a simple
 file managing interface which can be used to upload, download, organize, edit,
 and share your files. It allows the creation of multiple users and each user can
 have their own directory. This repository creates the `s9pk` package that is
-installed to run `filebrowser` on [StartOS](https://github.com/Start9Labs/start-os/).
+installed to run `File Browser` on [StartOS](https://github.com/Start9Labs/start-os/).
 
 ## Dependencies
 
@@ -23,7 +23,7 @@ Prior to building the `filebrowser` package, it's essential to configure your bu
 
 ## Cloning
 
-Clone the File Browser Wrapper locally.
+Clone the File Browser package repository locally.
 
 ```
 git clone git@github.com:Start9Labs/filebrowser-wrapper.git
