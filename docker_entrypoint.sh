@@ -61,7 +61,7 @@ if [ "$1" = "reset-root-user" ]; then
     exit 0
 fi
 
-filebrowser config set --address=0.0.0.0 --port=80 --root=/root/data
+filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data
 filebrowser &
 filebrowser_process=$1
 
