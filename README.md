@@ -26,8 +26,8 @@ Prior to building the `filebrowser` package, it's essential to configure your bu
 Clone the File Browser package repository locally.
 
 ```
-git clone git@github.com:Start9Labs/filebrowser-wrapper.git
-cd filebrowser-wrapper
+git clone git@github.com:Start9Labs/filebrowser-startos.git
+cd filebrowser-startos
 ```
 
 ## Building
