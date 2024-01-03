@@ -18,7 +18,7 @@ Prior to building the `filebrowser` package, it's essential to configure your bu
 - [docker-buildx](https://docs.docker.com/buildx/working-with-buildx/)
 - [deno](https://deno.land/#installation)
 - [make](https://www.gnu.org/software/make/)
-- [start-sdk](https://github.com/Start9Labs/start-os/tree/sdk/backend)
+- [start-sdk](https://github.com/Start9Labs/start-os/tree/sdk/core)
 - [yq](https://mikefarah.gitbook.io/yq)
 
 ## Cloning
