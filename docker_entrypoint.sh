@@ -5,61 +5,47 @@ _term() {
     kill -TERM "$filebrowser_process" 2>/dev/null
 }
 
-if [ ! -f /root/filebrowser.db ]; then
-    mkdir -p /root/start9
-    mkdir /root/data
+init_config() {
+    mkdir -p /root/start9 /root/data
     filebrowser config init
     password=$(cat /dev/urandom | base64 | head -c 16)
-    echo 'version: 2' >/root/start9/stats.yaml
-    echo 'data:' >>/root/start9/stats.yaml
-    echo '  Default Username:' >>/root/start9/stats.yaml
-    echo '    type: string' >>/root/start9/stats.yaml
-    echo '    value: admin' >>/root/start9/stats.yaml
-    echo '    description: This is your default username. While it is not necessary, you may change it inside your File Browser web application. That change, however, will not be reflected here. If you change your default username and forget your new username, you can regain access by resetting the root user.' >>/root/start9/stats.yaml
-    echo '    copyable: true' >>/root/start9/stats.yaml
-    echo '    masked: false' >>/root/start9/stats.yaml
-    echo '    qr: false' >>/root/start9/stats.yaml
-    echo '  Default Password:' >>/root/start9/stats.yaml
-    echo '    type: string' >>/root/start9/stats.yaml
-    echo '    value: "'"$password"'"' >>/root/start9/stats.yaml
-    echo '    description: This is your randomly-generated, default password. While it is not necessary, you may change it inside your File Browser web application. That change, however, will not be reflected here.' >>/root/start9/stats.yaml
-    echo '    copyable: true' >>/root/start9/stats.yaml
-    echo '    masked: true' >>/root/start9/stats.yaml
-    echo '    qr: false' >>/root/start9/stats.yaml
+    cat >/root/start9/stats.yaml <<EOF
+version: 2
+data:
+  Default Username:
+    type: string
+    value: admin
+    description: This is your default username. While it is not necessary, you may change it inside your File Browser web application. That change, however, will not be reflected here. If you change your default username and forget your new username, you can regain access by resetting the root user.
+    copyable: true
+    masked: false
+    qr: false
+  Default Password:
+    type: string
+    value: "$password"
+    description: This is your randomly-generated, default password. While it is not necessary, you may change it inside your File Browser web application. That change, however, will not be reflected here.
+    copyable: true
+    masked: true
+    qr: false
+EOF
     filebrowser users add admin "$password" --perm.admin=true
-fi
+}
 
-if [ "$1" = "reset-root-user" ]; then
+reset_root_pass() {
     password=$(cat /dev/urandom | base64 | head -c 16)
-    echo 'version: 2' >/root/start9/stats.yaml
-    echo 'data:' >>/root/start9/stats.yaml
-    echo '  Default Username:' >>/root/start9/stats.yaml
-    echo '    type: string' >>/root/start9/stats.yaml
-    echo '    value: admin' >>/root/start9/stats.yaml
-    echo '    description: This is your default username. While it is not necessary, you may change it inside your File Browser web application. That change, however, will not be reflected here. If you change your default username and forget your new username, you can regain access by resetting the root user.' >>/root/start9/stats.yaml
-    echo '    copyable: true' >>/root/start9/stats.yaml
-    echo '    masked: false' >>/root/start9/stats.yaml
-    echo '    qr: false' >>/root/start9/stats.yaml
-    echo '  Default Password:' >>/root/start9/stats.yaml
-    echo '    type: string' >>/root/start9/stats.yaml
-    echo '    value: "'"$password"'"' >>/root/start9/stats.yaml
-    echo '    description: This is your randomly-generated, default password. While it is not necessary, you may change it inside your File Browser web application. That change, however, will not be reflected here.' >>/root/start9/stats.yaml
-    echo '    copyable: true' >>/root/start9/stats.yaml
-    echo '    masked: true' >>/root/start9/stats.yaml
-    echo '    qr: false' >>/root/start9/stats.yaml
-    filebrowser users update 1 -u admin >/dev/null
-    filebrowser users update 1 -p "$password" >/dev/null
-    filebrowser users update 1 --perm.admin >/dev/null
-    action_result="    {
-        \"version\": \"0\",
-        \"message\": \"Here is your new password. This will also be reflected in the Properties page for this service.\",
-        \"value\": \"$password\",
-        \"copyable\": true,
-        \"qr\": false
-    }"
-    echo $action_result
+    sed -i '/Default Password:/,/qr: false/s/value: .*/value: "'"$password"'"/' /root/start9/stats.yaml
+    filebrowser users update 1 -u admin -p "$password" --perm.admin >/dev/null
+    echo "{
+    \"version\": \"0\",
+    \"message\": \"Here is your new password. This will also be reflected in the Properties page for this service.\",
+    \"value\": \"$password\",
+    \"copyable\": true,
+    \"qr\": false
+  }"
     exit 0
-fi
+}
+
+[ ! -f /root/filebrowser.db ] && init_config
+[ "$1" = "reset-root-user" ] && reset_root_pass
 
 filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data
 filebrowser &
