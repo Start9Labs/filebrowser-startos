@@ -15,7 +15,7 @@ jobs:
         uses: Start9Labs/sdk@v1
 
       - name: Checkout services repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build the service package
         run: |
