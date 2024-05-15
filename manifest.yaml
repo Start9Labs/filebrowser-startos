@@ -1,11 +1,11 @@
 id: filebrowser
 title: "File Browser"
-version: 2.27.0
+version: 2.29.0
 release-notes: |
   - **Language Support**: Updates have been made to support more languages, including Modern Greek, Chinese, and Hebrew.
   - **Frontend Enhancements**: Several dependencies in the frontend have been updated for better performance and security. Also, a feature has been added to display image resolutions in file details.
   - **Bug Fixes**: Various bugs have been fixed, including a docker build issue, a typo in the build error, and an issue with the front-end calling api/renew loop.
-  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.25.0...v2.27.0)
+  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.27.0...v2.29.0)
 license: Apache-2.0
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-startos"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
