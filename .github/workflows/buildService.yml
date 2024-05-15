@@ -32,6 +32,5 @@ jobs:
       - name: Upload .s9pk
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.build.outputs.package_id }}.s9pk
-          path: ./${{ steps.build.outputs.package_id }}.s9pk
-          
+          name: ${{ env.package_id }}.s9pk
+          path: ./${{ env.package_id }}.s9pk
