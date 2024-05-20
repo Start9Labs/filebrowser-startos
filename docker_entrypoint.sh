@@ -47,7 +47,9 @@ reset_root_pass() {
 [ ! -f /root/filebrowser.db ] && init_config
 [ "$1" = "reset-root-user" ] && reset_root_pass
 
-filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data --token-expiration-time=12h
+userTimeout=$(cat /root/start9/config.yaml | grep userTimeout | awk '{print $2}')
+
+filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data --token-expiration-time=${userTimeout}h
 filebrowser &
 filebrowser_process=$1
 
