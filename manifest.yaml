@@ -29,6 +29,10 @@ main:
   args: []
   mounts:
     main: /root
+hardware-requirements:
+  arch:
+    - x86_64
+    - aarch64
 health-checks:
   web-ui:
     name: Web Interface
