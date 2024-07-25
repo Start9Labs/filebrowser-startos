@@ -1,6 +1,6 @@
 id: filebrowser
 title: "File Browser"
-version: 2.29.0
+version: 2.30.0
 release-notes: |
   - **New config feature**: User-defined session timeout from 1 to 24 hours.
   - Added support for displaying upload progress as a percentage and file size out of total file size.

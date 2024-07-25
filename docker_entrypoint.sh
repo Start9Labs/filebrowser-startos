@@ -49,8 +49,8 @@ reset_root_pass() {
 
 userTimeout=$(cat /root/start9/config.yaml | grep userTimeout | awk '{print $2}')
 
-filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data --token-expiration-time=${userTimeout}h
-filebrowser &
+filebrowser config set --address=0.0.0.0 --port=8080 --root=/root/data
+filebrowser --token-expiration-time=${userTimeout}h &
 filebrowser_process=$1
 
 printf "\n\n [i] Starting File Browser ...\n\n"
