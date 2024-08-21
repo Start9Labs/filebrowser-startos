@@ -1,11 +1,12 @@
 id: filebrowser
 title: "File Browser"
-version: 2.27.0
+version: 2.30.0
 release-notes: |
-  - **Language Support**: Updates have been made to support more languages, including Modern Greek, Chinese, and Hebrew.
-  - **Frontend Enhancements**: Several dependencies in the frontend have been updated for better performance and security. Also, a feature has been added to display image resolutions in file details.
-  - **Bug Fixes**: Various bugs have been fixed, including a docker build issue, a typo in the build error, and an issue with the front-end calling api/renew loop.
-  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.25.0...v2.27.0)
+  - **New config feature**: User-defined session timeout from 1 to 24 hours.
+  - Added support for displaying upload progress as a percentage and file size out of total file size.
+  - Fixed an issue where aborted uploads left behind partial files.
+  - Minor instructions update and code cleanup.
+  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.27.0...v2.30.0)
 license: Apache-2.0
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-startos"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
@@ -28,6 +29,10 @@ main:
   args: []
   mounts:
     main: /root
+hardware-requirements:
+  arch:
+    - x86_64
+    - aarch64
 health-checks:
   web-ui:
     name: Web Interface
@@ -40,7 +45,11 @@ health-checks:
     mounts: {}
     io-format: json
     inject: true
-config: ~
+config:
+  get:
+    type: script
+  set:
+    type: script
 properties:
   type: script
 dependencies: {}
