@@ -3,7 +3,7 @@ import { manifest } from "../generated/manifest.ts";
 
 export const migration: T.ExpectedExports.migration = compat.migrations.fromMapping(
   {
-    "2.29.0": {
+    "2.30.0": {
       up: compat.migrations.updateConfig(
         (config: any) => {
           config["userTimeout"] = 2;
@@ -11,7 +11,7 @@ export const migration: T.ExpectedExports.migration = compat.migrations.fromMapp
           return config;
         },
         true,
-        { version: "2.29.0", type: "up" }
+        { version: "2.30.0", type: "up" }
       ),
       down: compat.migrations.updateConfig(
         (config: any) => {
@@ -20,7 +20,7 @@ export const migration: T.ExpectedExports.migration = compat.migrations.fromMapp
           return config;
         },
         true,
-        { version: "2.29.0", type: "down" }
+        { version: "2.30.0", type: "down" }
       ),
     },
   },
