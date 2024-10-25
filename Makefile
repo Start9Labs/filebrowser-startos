@@ -56,7 +56,7 @@ else
 endif
 
 scripts/embassy.js: scripts/generated/manifest.ts
-	deno bundle scripts/embassy.ts scripts/embassy.js
+	deno run --allow-read --allow-write --allow-env --allow-net scripts/bundle.ts
 
 scripts/generated/manifest.ts: manifest.yaml scripts/generateManifest.ts
 	mkdir -p scripts/generated

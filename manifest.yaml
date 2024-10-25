@@ -1,12 +1,12 @@
 id: filebrowser
 title: "File Browser"
-version: 2.30.0
+version: 2.31.2
 release-notes: |
-  - **New config feature**: User-defined session timeout from 1 to 24 hours.
-  - Added support for displaying upload progress as a percentage and file size out of total file size.
-  - Fixed an issue where aborted uploads left behind partial files.
-  - Minor instructions update and code cleanup.
-  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.27.0...v2.30.0)
+  - Added Markdown and epub file preview in Ace editor
+  - Added Czech and Catalan language support
+  - Updated base image to alpine 2.0
+  - Update bundling process to use Deno emit module
+  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.30.0...v2.31.2)
 license: Apache-2.0
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-startos"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
