@@ -17,7 +17,7 @@ const preInstall = sdk.setupPreInstall(async ({ effects }) => {
 
 // **** Post Install ****
 const postInstall = sdk.setupPostInstall(async ({ effects }) => {
-  await sdk.SubContainer.with(
+  await sdk.SubContainer.withTemp(
     effects,
     { imageId: 'filebrowser' },
     sdk.Mounts.of().addVolume('main', null, mnt, false),

@@ -30,29 +30,27 @@ export const resetAdminUser = sdk.Action.withoutInput(
   // the execution function
   async ({ effects }) => {
     const password = utils.getDefaultString(randomPassword)
-
-    await sdk.runCommand(
+    await sdk.SubContainer.withTemp(
       effects,
       { imageId: 'filebrowser' },
-      [
-        '/filebrowser',
-        '-c',
-        `${mnt}/filebrowser.json`,
-        'users',
-        'update',
-        '1',
-        '-u',
-        adminUsername,
-        '-p',
-        password,
-        '--perm.admin',
-      ],
-      {
-        mounts: sdk.Mounts.of().addVolume('main', null, '/root', false),
-      },
+      sdk.Mounts.of().addVolume('main', null, '/root', false),
       'setadmin',
+      async (sub) => {
+        await sub.exec([
+          '/filebrowser',
+          '-c',
+          `${mnt}/filebrowser.json`,
+          'users',
+          'update',
+          '1',
+          '-u',
+          adminUsername,
+          '-p',
+          password,
+          '--perm.admin',
+        ])
+      },
     )
-
     await sdk.store.setOwn(effects, sdk.StorePath.adminPassCreated, true)
 
     return {
