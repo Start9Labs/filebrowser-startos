@@ -6,7 +6,7 @@ import { configDefaults, mnt } from '../utils'
 
 export const v_2_32_0_1 = VersionInfo.of({
   version: '2.32.0:1',
-  releaseNotes: 'Revamped for StartOS 0.3.6',
+  releaseNotes: 'Revamped for StartOS 0.4.0',
   migrations: {
     up: async ({ effects }) => {
       // get old config.yaml
