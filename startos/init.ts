@@ -1,5 +1,4 @@
 import { sdk } from './sdk'
-import { exposedStore, initStore } from './store'
 import { setDependencies } from './dependencies'
 import { setInterfaces } from './interfaces'
 import { versions } from './versions'
@@ -8,6 +7,7 @@ import { jsonFile } from './file-models/filebrowser.json'
 import { configDefaults, mnt } from './utils'
 import { resetAdminUser } from './actions/resetAdminUser'
 import { mkdir } from 'fs/promises'
+import { store } from './file-models/store.json'
 
 // **** Pre Install ****
 const preInstall = sdk.setupPreInstall(async ({ effects }) => {
@@ -20,7 +20,7 @@ const postInstall = sdk.setupPostInstall(async ({ effects }) => {
   await sdk.SubContainer.withTemp(
     effects,
     { imageId: 'filebrowser' },
-    sdk.Mounts.of().addVolume({
+    sdk.Mounts.of().mountVolume({
       volumeId: 'main',
       subpath: null,
       mountpoint: mnt,
@@ -48,7 +48,7 @@ const postInstall = sdk.setupPostInstall(async ({ effects }) => {
     },
   )
 
-  await sdk.store.setOwn(effects, sdk.StorePath.adminPassCreated, false)
+  await store.merge(effects, { adminPassCreated: true })
 
   await sdk.action.requestOwn(effects, resetAdminUser, 'critical', {
     reason: 'Create your admin user password',
@@ -69,6 +69,4 @@ export const { packageInit, packageUninit, containerInit } = sdk.setupInit(
   setInterfaces,
   setDependencies,
   actions,
-  initStore,
-  exposedStore,
 )

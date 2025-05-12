@@ -1,6 +1,7 @@
 import { utils } from '@start9labs/start-sdk'
 import { sdk } from '../sdk'
 import { mnt, randomPassword } from '../utils'
+import { store } from '../file-models/store.json'
 
 export const resetAdminUser = sdk.Action.withoutInput(
   // id
@@ -8,9 +9,9 @@ export const resetAdminUser = sdk.Action.withoutInput(
 
   // metadata
   async ({ effects }) => {
-    const adminExists = await sdk.store
-      .getOwn(effects, sdk.StorePath.adminPassCreated)
-      .const()
+    const adminExists = await store
+      .read((s) => s.adminPassCreated)
+      .const(effects)
 
     const nameStr = 'Admin User'
     const descStr = 'Admin User'
@@ -33,7 +34,7 @@ export const resetAdminUser = sdk.Action.withoutInput(
     await sdk.SubContainer.withTemp(
       effects,
       { imageId: 'filebrowser' },
-      sdk.Mounts.of().addVolume({
+      sdk.Mounts.of().mountVolume({
         volumeId: 'main',
         subpath: null,
         mountpoint: '/root',
@@ -56,7 +57,7 @@ export const resetAdminUser = sdk.Action.withoutInput(
         ])
       },
     )
-    await sdk.store.setOwn(effects, sdk.StorePath.adminPassCreated, true)
+    await store.merge(effects, { adminPassCreated: true })
 
     return {
       version: '1',

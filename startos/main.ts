@@ -28,7 +28,7 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
     subcontainer: await sdk.SubContainer.of(
       effects,
       { imageId: 'filebrowser' },
-      sdk.Mounts.of().addVolume({
+      sdk.Mounts.of().mountVolume({
         volumeId: 'main',
         subpath: null,
         mountpoint: mnt,

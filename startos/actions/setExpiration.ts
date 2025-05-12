@@ -37,8 +37,9 @@ export const setExpiration = sdk.Action.withInput(
 
   // optionally pre-fill the input form
   async ({ effects }) => {
-    const tokenExpirationTime = (await jsonFile.read.const(effects))
-      ?.tokenExpirationTime
+    const tokenExpirationTime = await jsonFile
+      .read((s) => s.tokenExpirationTime)
+      .const(effects)
 
     return {
       timeout: tokenExpirationTime
