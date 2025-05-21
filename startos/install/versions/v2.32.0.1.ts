@@ -1,16 +1,13 @@
 import { VersionInfo, IMPOSSIBLE } from '@start9labs/start-sdk'
 import * as fs from 'fs/promises'
 import { load } from 'js-yaml'
-import { jsonFile } from '../file-models/filebrowser.json'
-import { configDefaults } from '../utils'
+import { jsonFile } from '../../fileModels/filebrowser.json'
+import { configDefaults } from '../../utils'
 
 export const v_2_32_0_1 = VersionInfo.of({
   version: '2.32.0:1',
   releaseNotes: 'Revamped for StartOS 0.4.0',
   migrations: {
-    // TODO: make this handle:
-    // - missing config
-    // - start9 dir already removed
     up: async ({ effects }) => {
       // get old config.yaml
       const configYaml = load(
@@ -18,11 +15,13 @@ export const v_2_32_0_1 = VersionInfo.of({
           '/media/startos/volumes/main/start9/config.yaml',
           'utf-8',
         ),
-      ) as { userTimeout: string }
+      ) as { userTimeout?: string } | undefined
 
       await jsonFile.write(effects, {
         ...configDefaults,
-        tokenExpirationTime: `${configYaml.userTimeout}h`,
+        tokenExpirationTime: configYaml?.userTimeout
+          ? `${configYaml.userTimeout}h`
+          : configDefaults.tokenExpirationTime,
       })
 
       // rename root
@@ -36,7 +35,9 @@ export const v_2_32_0_1 = VersionInfo.of({
         })
 
       // remove old start9 dir
-      await fs.rm('/media/startos/volumes/main/start9', { recursive: true })
+      await fs
+        .rm('/media/startos/volumes/main/start9', { recursive: true })
+        .catch(console.error)
     },
     down: IMPOSSIBLE,
   },

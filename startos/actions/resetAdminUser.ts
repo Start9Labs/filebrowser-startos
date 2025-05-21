@@ -1,32 +1,20 @@
 import { utils } from '@start9labs/start-sdk'
 import { sdk } from '../sdk'
 import { mnt, randomPassword } from '../utils'
-import { store } from '../file-models/store.json'
 
 export const resetAdminUser = sdk.Action.withoutInput(
   // id
   'reset-admin-user',
 
   // metadata
-  async ({ effects }) => {
-    const adminExists = await store
-      .read((s) => s.adminPassCreated)
-      .const(effects)
-
-    const nameStr = 'Admin User'
-    const descStr = 'Admin User'
-
-    return {
-      name: adminExists ? `Reset ${nameStr}` : `Create ${nameStr}`,
-      description: adminExists ? `Reset ${descStr}` : `Create ${descStr}`,
-      warning: adminExists
-        ? 'Are you sure you want to reset your admin user?'
-        : null,
-      allowedStatuses: 'only-stopped',
-      group: null,
-      visibility: 'enabled',
-    }
-  },
+  async ({ effects }) => ({
+    name: 'Set Admin Password',
+    description: 'Create or reset your admin user and password',
+    warning: null,
+    allowedStatuses: 'only-stopped',
+    group: null,
+    visibility: 'enabled',
+  }),
 
   // the execution function
   async ({ effects }) => {
@@ -57,7 +45,6 @@ export const resetAdminUser = sdk.Action.withoutInput(
         ])
       },
     )
-    await store.merge(effects, { adminPassCreated: true })
 
     return {
       version: '1',

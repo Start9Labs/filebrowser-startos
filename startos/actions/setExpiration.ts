@@ -1,4 +1,4 @@
-import { jsonFile } from '../file-models/filebrowser.json'
+import { jsonFile } from '../fileModels/filebrowser.json'
 import { sdk } from '../sdk'
 import { configDefaults, tokenExpirationToNumber } from '../utils'
 
