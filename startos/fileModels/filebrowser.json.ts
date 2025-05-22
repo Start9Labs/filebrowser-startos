@@ -16,6 +16,9 @@ const shape = object({
 })
 
 export const jsonFile = FileHelper.json(
-  '/media/startos/volumes/main/filebrowser.json',
+  {
+    volumeId: 'main',
+    subpath: 'filebrowser.json',
+  },
   shape.onMismatch(configDefaults),
 )
