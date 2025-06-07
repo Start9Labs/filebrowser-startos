@@ -2,7 +2,11 @@ import { resetAdminUser } from '../actions/resetAdminUser'
 import { sdk } from '../sdk'
 import { mnt } from '../utils'
 
-export const setup = sdk.setupOnInstall(async (effects) => {
+export const setup = sdk.setupOnInit(async (effects, kind) => {
+  if (kind !== 'install') {
+    return
+  }
+
   await sdk.SubContainer.withTemp(
     effects,
     { imageId: 'filebrowser' },

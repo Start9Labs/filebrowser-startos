@@ -36,7 +36,7 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
       }),
       'filebrowser-sub',
     ),
-    command: ['/filebrowser', '-c', `${mnt}/filebrowser.json`],
+    exec: { command: ['/filebrowser', '-c', `${mnt}/filebrowser.json`] },
     ready: {
       display: 'Web Interface',
       fn: () =>
