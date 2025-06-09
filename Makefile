@@ -1,7 +1,7 @@
 PACKAGE_ID := $(shell grep -o "id: '[^']*'" startos/manifest.ts | sed "s/id: '\([^']*\)'/\1/")
 INGREDIENTS := $(shell start-cli s9pk list-ingredients 2> /dev/null)
 
-.PHONY: all clean install check-deps check-init ingredients update-deps
+.PHONY: all clean install check-deps check-init ingredients
 
 .DELETE_ON_ERROR:
 
@@ -53,13 +53,3 @@ install: | check-deps check-init
 	@echo "\nInstalling to $$(grep -v '^#' ~/.startos/config.yaml | cut -d'/' -f3) ...\n"
 	@[ -f $(PACKAGE_ID).s9pk ] || ( $(MAKE) && echo "\nInstalling to $$(grep -v '^#' ~/.startos/config.yaml | cut -d'/' -f3) ...\n" )
 	@start-cli package install -s $(PACKAGE_ID).s9pk
-
-update-deps:
-	@if ! command -v npx > /dev/null; then \
-		echo "Error: npx not found. Please install Node.js and npm."; \
-		exit 1; \
-	fi
-	@echo "Updating all dependencies to latest stable versions..."
-	@npx npm-check-updates -u
-	@npm i
-	
