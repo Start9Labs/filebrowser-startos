@@ -1,5 +1,4 @@
 import { sdk } from './sdk'
-import { T } from '@start9labs/start-sdk'
 import { mnt, uiPort } from './utils'
 
 export const main = sdk.setupMain(async ({ effects, started }) => {
@@ -8,14 +7,7 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
    *
    * In this section, we fetch any resources or run any desired preliminary commands.
    */
-  console.info('Starting File Browser')
-
-  /**
-   * ======================== Additional Health Checks (optional) ========================
-   *
-   * In this section, we define *additional* health checks beyond those included with each daemon (below).
-   */
-  const healthReceipts: T.HealthCheck[] = []
+  console.info('[i] Starting File Browser')
 
   /**
    * ======================== Daemons ========================
@@ -24,7 +16,7 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
    *
    * Each daemon defines its own health check, which can optionally be exposed to the user.
    */
-  return sdk.Daemons.of(effects, started, healthReceipts).addDaemon('primary', {
+  return sdk.Daemons.of(effects, started).addDaemon('primary', {
     subcontainer: await sdk.SubContainer.of(
       effects,
       { imageId: 'filebrowser' },
