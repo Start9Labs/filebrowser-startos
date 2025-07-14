@@ -9,6 +9,8 @@ export const manifest = setupManifest({
   supportSite: 'https://github.com/filebrowser/filebrowser/issues',
   marketingSite: 'https://filebrowser.org/',
   donationUrl: null,
+  docsUrl:
+    'https://github.com/Start9Labs/filebrowser-startos/blob/master/instructions.md',
   description: {
     short: 'Simple cloud data storage and sharing',
     long: 'File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files. It allows the creation of multiple users and each user can have their own directory.',
