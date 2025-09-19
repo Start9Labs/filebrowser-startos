@@ -4,3 +4,5 @@ scripts/embassy.js
 scripts/generated/*
 .vscode
 docker-images
+node_modules/
+javascript
