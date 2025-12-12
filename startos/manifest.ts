@@ -25,7 +25,7 @@ export const manifest = setupManifest({
   images: {
     filebrowser: {
       source: {
-        dockerTag: 'filebrowser/filebrowser:v2.32.0',
+        dockerTag: 'filebrowser/filebrowser:v2.51.2',
       },
       arch: architectures,
     } as SDKImageInputSpec,
