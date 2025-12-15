@@ -1,6 +1,6 @@
 import { utils } from '@start9labs/start-sdk'
 import { sdk } from '../sdk'
-import { mnt, randomPassword } from '../utils'
+import { mounts, randomPassword } from '../utils'
 
 export const resetAdminUser = sdk.Action.withoutInput(
   // id
@@ -22,18 +22,11 @@ export const resetAdminUser = sdk.Action.withoutInput(
     await sdk.SubContainer.withTemp(
       effects,
       { imageId: 'filebrowser' },
-      sdk.Mounts.of().mountVolume({
-        volumeId: 'main',
-        subpath: null,
-        mountpoint: '/root',
-        readonly: false,
-      }),
+      mounts,
       'setadmin',
       async (sub) => {
         await sub.exec([
-          '/filebrowser',
-          '-c',
-          `${mnt}/filebrowser.json`,
+          'filebrowser',
           'users',
           'update',
           '1',

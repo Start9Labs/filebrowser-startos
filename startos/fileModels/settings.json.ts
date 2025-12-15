@@ -15,10 +15,10 @@ const shape = object({
   tokenExpirationTime: string.onMismatch(tokenExpirationTime),
 })
 
-export const jsonFile = FileHelper.json(
+export const settingsJson = FileHelper.json(
   {
-    volumeId: 'main',
-    subpath: 'filebrowser.json',
+    volumeId: 'config',
+    subpath: 'settings.json',
   },
   shape.onMismatch(configDefaults),
 )

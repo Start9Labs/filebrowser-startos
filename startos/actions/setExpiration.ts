@@ -1,4 +1,4 @@
-import { jsonFile } from '../fileModels/filebrowser.json'
+import { settingsJson } from '../fileModels/settings.json'
 import { sdk } from '../sdk'
 import { configDefaults, tokenExpirationToNumber } from '../utils'
 
@@ -37,7 +37,7 @@ export const setExpiration = sdk.Action.withInput(
 
   // optionally pre-fill the input form
   async ({ effects }) => {
-    const tokenExpirationTime = await jsonFile
+    const tokenExpirationTime = await settingsJson
       .read((s) => s.tokenExpirationTime)
       .const(effects)
 
@@ -50,5 +50,5 @@ export const setExpiration = sdk.Action.withInput(
 
   // the execution function
   async ({ effects, input }) =>
-    jsonFile.merge(effects, { tokenExpirationTime: `${input.timeout}h` }),
+    settingsJson.merge(effects, { tokenExpirationTime: `${input.timeout}h` }),
 )

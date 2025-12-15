@@ -21,11 +21,11 @@ export const manifest = setupManifest({
     short: 'Simple cloud data storage and sharing',
     long: 'File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files. It allows the creation of multiple users and each user can have their own directory.',
   },
-  volumes: ['main'],
+  volumes: ['data', 'database', 'config'],
   images: {
     filebrowser: {
       source: {
-        dockerTag: 'filebrowser/filebrowser:v2.51.2',
+        dockerTag: 'filebrowser/filebrowser:v2.52.0',
       },
       arch: architectures,
     } as SDKImageInputSpec,

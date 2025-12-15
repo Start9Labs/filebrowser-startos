@@ -1,6 +1,8 @@
-export const uiPort = 8080
+import { sdk } from './sdk'
 
-export const mnt = '/root'
+export const uiPort = 80
+export const dataPath = '/srv'
+export const databasePath = '/database'
 
 export const randomPassword = {
   charset: 'a-z,A-Z,1-9,!,@,$,%,&,*',
@@ -12,11 +14,31 @@ export const configDefaults = {
   baseURL: '',
   address: '0.0.0.0',
   log: 'stdout',
-  database: `${mnt}/filebrowser.db`,
-  root: `${mnt}/files`,
-  tokenExpirationTime: '2h',
+  database: `${databasePath}/filebrowser.db`,
+  root: dataPath,
+  tokenExpirationTime: '12h',
 }
 
 export function tokenExpirationToNumber(val: string): number {
   return Number(val.replace(/\D/g, ''))
 }
+
+export const mounts = sdk.Mounts.of()
+  .mountVolume({
+    volumeId: 'data',
+    subpath: null,
+    mountpoint: dataPath,
+    readonly: false,
+  })
+  .mountVolume({
+    volumeId: 'database',
+    subpath: null,
+    mountpoint: databasePath,
+    readonly: false,
+  })
+  .mountVolume({
+    volumeId: 'config',
+    subpath: null,
+    mountpoint: '/config',
+    readonly: false,
+  })

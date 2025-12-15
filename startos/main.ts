@@ -1,5 +1,5 @@
 import { sdk } from './sdk'
-import { mnt, uiPort } from './utils'
+import { mounts, uiPort } from './utils'
 
 export const main = sdk.setupMain(async ({ effects, started }) => {
   /**
@@ -19,32 +19,36 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
   const subcontainer = await sdk.SubContainer.of(
     effects,
     { imageId: 'filebrowser' },
-    sdk.Mounts.of().mountVolume({
-      volumeId: 'main',
-      subpath: null,
-      mountpoint: mnt,
-      readonly: false,
-    }),
+    mounts,
     'filebrowser-sub',
   )
 
-  return sdk.Daemons.of(effects, started)
-    .addOneshot('chown', {
-      subcontainer,
-      exec: { command: ['chown', '-R', 'user:user', mnt], user: 'root' },
-      requires: [],
-    })
-    .addDaemon('primary', {
-      subcontainer,
-      exec: { command: sdk.useEntrypoint(['-c', `${mnt}/filebrowser.json`]) },
-      ready: {
-        display: 'Web Interface',
-        fn: () =>
-          sdk.healthCheck.checkPortListening(effects, uiPort, {
-            successMessage: 'The web interface is ready',
-            errorMessage: 'The web interface is not ready',
-          }),
-      },
-      requires: ['chown'],
-    })
+  return (
+    sdk.Daemons.of(effects, started)
+      // .addOneshot('chown', {
+      //   subcontainer,
+      //   exec: {
+      //     command: ['chown', '-R', 'user:user', '/database', '/config', '/srv'],
+      //     user: 'root',
+      //   },
+      //   requires: [],
+      // })
+      .addDaemon('primary', {
+        subcontainer,
+        exec: { command: sdk.useEntrypoint(), runAsInit: true },
+        ready: {
+          display: 'Web Interface',
+          fn: () =>
+            sdk.healthCheck.checkWebUrl(
+              effects,
+              `http://localhost:${uiPort}/health`,
+              {
+                successMessage: 'The web interface is ready',
+                errorMessage: 'The web interface is not ready',
+              },
+            ),
+        },
+        requires: [],
+      })
+  )
 })
