@@ -2,6 +2,7 @@ import { VersionInfo, IMPOSSIBLE, YAML } from '@start9labs/start-sdk'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../../fileModels/settings.json'
 import { configDefaults } from '../../utils'
+import { execFile } from 'child_process'
 
 export const v_2_52_0_0 = VersionInfo.of({
   version: '2.52.0:0',
@@ -20,33 +21,38 @@ export const v_2_52_0_0 = VersionInfo.of({
           : configDefaults.tokenExpirationTime,
       })
 
-      await fs.mkdir('/media/startos/volumes/main/database', {
-        recursive: true,
-      })
+      // database
+      await fs
+        .rename(
+          '/media/startos/volumes/main/database.db',
+          '/media/startos/volumes/database/filebrowser.db',
+        )
+        .catch(console.error)
 
-      fs.rename(
-        '/media/startos/volumes/main/database.db',
-        '/media/startos/volumes/main/database/filebrowser.db',
-      )
+      // config
+      await fs
+        .rename(
+          '/media/startos/volumes/main/filebrowser.json',
+          '/media/startos/volumes/config/settings.json',
+        )
+        .catch(console.error)
 
-      if (!configYaml) {
-        await fs.mkdir('/media/startos/volumes/main/files', { recursive: true })
-      } else {
-        // rename files dir
-        await fs
-          .rename(
-            '/media/startos/volumes/main/data',
-            '/media/startos/volumes/main/files',
-          )
-          .catch((e) => {
-            if (e.code !== 'ENOENT') throw new Error(JSON.stringify(e))
-          })
+      // srv
+      await new Promise((res, rej) => {
+        execFile(
+          'sh',
+          [
+            '-c',
+            'mv /media/startos/volumes/main/data/* /media/startos/volumes/data',
+          ],
+          (err) => (err ? rej(err) : res(null)),
+        )
+      }).catch(console.error)
 
-        // remove old start9 dir
-        await fs
-          .rm('/media/startos/volumes/main/start9', { recursive: true })
-          .catch(console.error)
-      }
+      // remove old start9 dir
+      await fs
+        .rm('/media/startos/volumes/main/start9', { recursive: true })
+        .catch(console.error)
     },
     down: IMPOSSIBLE,
   },

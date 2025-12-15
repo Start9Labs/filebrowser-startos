@@ -23,32 +23,30 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
     'filebrowser-sub',
   )
 
-  return (
-    sdk.Daemons.of(effects, started)
-      // .addOneshot('chown', {
-      //   subcontainer,
-      //   exec: {
-      //     command: ['chown', '-R', 'user:user', '/database', '/config', '/srv'],
-      //     user: 'root',
-      //   },
-      //   requires: [],
-      // })
-      .addDaemon('primary', {
-        subcontainer,
-        exec: { command: sdk.useEntrypoint(), runAsInit: true },
-        ready: {
-          display: 'Web Interface',
-          fn: () =>
-            sdk.healthCheck.checkWebUrl(
-              effects,
-              `http://localhost:${uiPort}/health`,
-              {
-                successMessage: 'The web interface is ready',
-                errorMessage: 'The web interface is not ready',
-              },
-            ),
-        },
-        requires: [],
-      })
-  )
+  return sdk.Daemons.of(effects, started)
+    .addOneshot('chown', {
+      subcontainer,
+      exec: {
+        command: ['chown', '-R', 'user:user', '/srv', '/database', '/config'],
+        user: 'root',
+      },
+      requires: [],
+    })
+    .addDaemon('primary', {
+      subcontainer,
+      exec: { command: sdk.useEntrypoint() },
+      ready: {
+        display: 'Web Interface',
+        fn: () =>
+          sdk.healthCheck.checkWebUrl(
+            effects,
+            `http://localhost:${uiPort}/health`,
+            {
+              successMessage: 'The web interface is ready',
+              errorMessage: 'The web interface is not ready',
+            },
+          ),
+      },
+      requires: [],
+    })
 })

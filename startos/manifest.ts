@@ -21,7 +21,7 @@ export const manifest = setupManifest({
     short: 'Simple cloud data storage and sharing',
     long: 'File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files. It allows the creation of multiple users and each user can have their own directory.',
   },
-  volumes: ['data', 'database', 'config'],
+  volumes: ['data', 'database', 'config', 'main'], // @TODO main only needed for 0351 migration
   images: {
     filebrowser: {
       source: {

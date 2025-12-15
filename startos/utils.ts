@@ -1,6 +1,6 @@
 import { sdk } from './sdk'
 
-export const uiPort = 80
+export const uiPort = 8080
 export const dataPath = '/srv'
 export const databasePath = '/database'
 
