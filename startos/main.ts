@@ -1,7 +1,7 @@
 import { sdk } from './sdk'
 import { mounts, uiPort } from './utils'
 
-export const main = sdk.setupMain(async ({ effects, started }) => {
+export const main = sdk.setupMain(async ({ effects }) => {
   /**
    * ======================== Setup (optional) ========================
    *
@@ -23,7 +23,7 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
     'filebrowser-sub',
   )
 
-  return sdk.Daemons.of(effects, started)
+  return sdk.Daemons.of(effects)
     .addOneshot('chown', {
       subcontainer,
       exec: {
