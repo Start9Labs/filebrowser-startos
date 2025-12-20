@@ -1,12 +1,11 @@
 import { VersionInfo, IMPOSSIBLE, YAML } from '@start9labs/start-sdk'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../../fileModels/settings.json'
-import { configDefaults, mounts } from '../../utils'
+import { configDefaults } from '../../utils'
 import { execFile } from 'child_process'
-import { sdk } from '../../sdk'
 
-export const v_2_52_0_1_b1 = VersionInfo.of({
-  version: '2.52.0:1-beta.1',
+export const v_2_52_0_2_b0 = VersionInfo.of({
+  version: '2.52.0:2-beta.0',
   releaseNotes: 'Revamped for StartOS 0.4.0',
   migrations: {
     up: async ({ effects }) => {
@@ -54,28 +53,6 @@ export const v_2_52_0_1_b1 = VersionInfo.of({
       await fs
         .rm('/media/startos/volumes/main/start9', { recursive: true })
         .catch(console.error)
-
-      await sdk.SubContainer.withTemp(
-        effects,
-        { imageId: 'filebrowser' },
-        mounts,
-        'set-admin',
-        async (sub) => {
-          await sub.execFail(
-            ['chown', '-R', 'user:user', '/srv', '/database', '/config'],
-            { user: 'root' },
-          )
-          await sub.execFail([
-            'filebrowser',
-            '-c',
-            '/config/settings.json',
-            'config',
-            'set',
-            '--file-mode=0644',
-            '--dir-mode=0755',
-          ])
-        },
-      )
     },
     down: IMPOSSIBLE,
   },
