@@ -29,6 +29,15 @@ export const setup = sdk.setupOnInit(async (effects, kind) => {
         'filebrowser',
         '-c',
         '/config/settings.json',
+        'config',
+        'set',
+        '--file-mode=0644',
+        '--dir-mode=0755',
+      ])
+      await sub.execFail([
+        'filebrowser',
+        '-c',
+        '/config/settings.json',
         'users',
         'add',
         'admin',
