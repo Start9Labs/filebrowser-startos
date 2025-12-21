@@ -32,22 +32,6 @@ export const main = sdk.setupMain(async ({ effects }) => {
       },
       requires: [],
     })
-    .addOneshot('perm', {
-      subcontainer,
-      exec: {
-        command: [
-          'filebrowser',
-          '-c',
-          '/config/settings.json',
-          'config',
-          'set',
-          '--file-mode=0644',
-          '--dir-mode=0755',
-        ],
-        user: 'root',
-      },
-      requires: ['chown'],
-    })
     .addDaemon('primary', {
       subcontainer,
       exec: { command: sdk.useEntrypoint() },
@@ -63,6 +47,6 @@ export const main = sdk.setupMain(async ({ effects }) => {
             },
           ),
       },
-      requires: ['perm'],
+      requires: [],
     })
 })
