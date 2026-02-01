@@ -1,4 +1,5 @@
 import { matches, FileHelper } from '@start9labs/start-sdk'
+import { sdk } from '../sdk'
 import { configDefaults } from '../utils'
 
 const { port, baseURL, address, log, tokenExpirationTime, database, root } =
@@ -17,7 +18,7 @@ const shape = object({
 
 export const settingsJson = FileHelper.json(
   {
-    volumeId: 'config',
+    base: sdk.volumes.config,
     subpath: 'settings.json',
   },
   shape.onMismatch(configDefaults),

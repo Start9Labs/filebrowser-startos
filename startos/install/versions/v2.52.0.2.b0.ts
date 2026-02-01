@@ -6,7 +6,13 @@ import { execFile } from 'child_process'
 
 export const v_2_52_0_2_b0 = VersionInfo.of({
   version: '2.52.0:2-beta.0',
-  releaseNotes: 'Revamped for StartOS 0.4.0',
+  releaseNotes: {
+    en_US: 'Revamped for StartOS 0.4.0',
+    es_ES: 'Renovado para StartOS 0.4.0',
+    de_DE: 'Überarbeitet für StartOS 0.4.0',
+    pl_PL: 'Przebudowano dla StartOS 0.4.0',
+    fr_FR: 'Remanié pour StartOS 0.4.0',
+  },
   migrations: {
     up: async ({ effects }) => {
       // get old config.yaml

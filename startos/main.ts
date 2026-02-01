@@ -1,5 +1,6 @@
 import { sdk } from './sdk'
 import { mounts, uiPort } from './utils'
+import { i18n } from './i18n'
 
 export const main = sdk.setupMain(async ({ effects }) => {
   /**
@@ -7,7 +8,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
    *
    * In this section, we fetch any resources or run any desired preliminary commands.
    */
-  console.info('[i] Starting File Browser')
+  console.info(i18n('[i] Starting File Browser'))
 
   /**
    * ======================== Daemons ========================
@@ -36,14 +37,14 @@ export const main = sdk.setupMain(async ({ effects }) => {
       subcontainer,
       exec: { command: sdk.useEntrypoint() },
       ready: {
-        display: 'Web Interface',
+        display: i18n('Web Interface'),
         fn: () =>
           sdk.healthCheck.checkWebUrl(
             effects,
             `http://localhost:${uiPort}/health`,
             {
-              successMessage: 'The web interface is ready',
-              errorMessage: 'The web interface is not ready',
+              successMessage: i18n('The web interface is ready'),
+              errorMessage: i18n('The web interface is not ready'),
             },
           ),
       },

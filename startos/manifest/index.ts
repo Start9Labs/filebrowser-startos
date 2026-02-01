@@ -1,4 +1,5 @@
 import { setupManifest } from '@start9labs/start-sdk'
+import { short, long } from './i18n'
 
 export const manifest = setupManifest({
   id: 'filebrowser',
@@ -11,25 +12,14 @@ export const manifest = setupManifest({
   donationUrl: null,
   docsUrl:
     'https://github.com/Start9Labs/filebrowser-startos//blob/update/040/docs/README.md',
-  description: {
-    short: 'Simple cloud data storage and sharing',
-    long: 'File Browser provides a simple file managing interface which can be used to upload, download, organize, edit, and share your files. It allows the creation of multiple users and each user can have their own directory.',
-  },
+  description: { short, long },
   volumes: ['data', 'database', 'config', 'main'], // @TODO main only needed for 0351 migration
   images: {
     filebrowser: {
       source: {
         dockerTag: 'filebrowser/filebrowser:v2.52.0',
       },
+      arch: ['x86_64', 'aarch64'],
 }  },
-  hardwareRequirements: {},
-  alerts: {
-    install: null,
-    update: null,
-    uninstall: null,
-    restore: null,
-    start: null,
-    stop: null,
-  },
   dependencies: {},
 })

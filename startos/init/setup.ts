@@ -1,4 +1,5 @@
 import { resetAdminUser } from '../actions/resetAdminUser'
+import { i18n } from '../i18n'
 import { sdk } from '../sdk'
 import { mounts } from '../utils'
 
@@ -38,6 +39,6 @@ export const setup = sdk.setupOnInit(async (effects, kind) => {
   )
 
   await sdk.action.createOwnTask(effects, resetAdminUser, 'critical', {
-    reason: 'Create your admin user password',
+    reason: i18n('Create your admin user password'),
   })
 })
