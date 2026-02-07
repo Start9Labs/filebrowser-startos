@@ -10,16 +10,16 @@ export const manifest = setupManifest({
   supportSite: 'https://github.com/filebrowser/filebrowser/issues',
   marketingSite: 'https://filebrowser.org/',
   donationUrl: null,
-  docsUrl:
-    'https://github.com/Start9Labs/filebrowser-startos//blob/update/040/docs/README.md',
+  docsUrl: 'https://filebrowser.org/',
   description: { short, long },
-  volumes: ['data', 'database', 'config', 'main'], // @TODO main only needed for 0351 migration
+  volumes: ['data', 'database', 'config', 'main'], // main only needed for 0351 migration
   images: {
     filebrowser: {
       source: {
         dockerTag: 'filebrowser/filebrowser:v2.52.0',
       },
       arch: ['x86_64', 'aarch64'],
-}  },
+    },
+  },
   dependencies: {},
 })

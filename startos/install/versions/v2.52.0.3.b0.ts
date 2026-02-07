@@ -35,14 +35,6 @@ export const v_2_52_0_3_b0 = VersionInfo.of({
         )
         .catch(console.error)
 
-      // config
-      await fs
-        .rename(
-          '/media/startos/volumes/main/filebrowser.json',
-          '/media/startos/volumes/config/settings.json',
-        )
-        .catch(console.error)
-
       // srv
       await new Promise((res, rej) => {
         execFile(

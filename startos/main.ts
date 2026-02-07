@@ -48,6 +48,6 @@ export const main = sdk.setupMain(async ({ effects }) => {
             },
           ),
       },
-      requires: [],
+      requires: ['chown'],
     })
 })
