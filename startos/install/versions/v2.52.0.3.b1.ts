@@ -4,8 +4,8 @@ import { settingsJson } from '../../fileModels/settings.json'
 import { configDefaults } from '../../utils'
 import { execFile } from 'child_process'
 
-export const v_2_52_0_3_b0 = VersionInfo.of({
-  version: '2.52.0:3-beta.0',
+export const v_2_52_0_3_b1 = VersionInfo.of({
+  version: '2.52.0:3-beta.1',
   releaseNotes: {
     en_US: 'Revamped for StartOS 0.4.0',
     es_ES: 'Renovado para StartOS 0.4.0',
