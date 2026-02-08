@@ -20,37 +20,39 @@ export const v_2_52_0_3_b1 = VersionInfo.of({
         .readFile('/media/startos/volumes/main/start9/config.yaml', 'utf-8')
         .then(YAML.parse, () => undefined)
 
-      await settingsJson.write(effects, {
-        ...configDefaults,
-        tokenExpirationTime: configYaml?.userTimeout
-          ? `${configYaml.userTimeout}h`
-          : configDefaults.tokenExpirationTime,
-      })
+      if (configYaml) {
+        await settingsJson.write(effects, {
+          ...configDefaults,
+          tokenExpirationTime: configYaml?.userTimeout
+            ? `${configYaml.userTimeout}h`
+            : configDefaults.tokenExpirationTime,
+        })
 
-      // database
-      await fs
-        .rename(
-          '/media/startos/volumes/main/database.db',
-          '/media/startos/volumes/database/filebrowser.db',
-        )
-        .catch(console.error)
+        // database
+        await fs
+          .rename(
+            '/media/startos/volumes/main/database.db',
+            '/media/startos/volumes/database/filebrowser.db',
+          )
+          .catch(console.error)
 
-      // srv
-      await new Promise((res, rej) => {
-        execFile(
-          'sh',
-          [
-            '-c',
-            'mv /media/startos/volumes/main/data/* /media/startos/volumes/data',
-          ],
-          (err) => (err ? rej(err) : res(null)),
-        )
-      }).catch(console.error)
+        // srv
+        await new Promise((res, rej) => {
+          execFile(
+            'sh',
+            [
+              '-c',
+              'mv /media/startos/volumes/main/data/* /media/startos/volumes/data',
+            ],
+            (err) => (err ? rej(err) : res(null)),
+          )
+        }).catch(console.error)
 
-      // remove old start9 dir
-      await fs
-        .rm('/media/startos/volumes/main/start9', { recursive: true })
-        .catch(console.error)
+        // remove old start9 dir
+        await fs
+          .rm('/media/startos/volumes/main/start9', { recursive: true })
+          .catch(console.error)
+      }
     },
     down: IMPOSSIBLE,
   },
