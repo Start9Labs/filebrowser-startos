@@ -1,10 +1,10 @@
-import { VersionInfo, IMPOSSIBLE, YAML } from '@start9labs/start-sdk'
+import { IMPOSSIBLE, VersionInfo, YAML } from '@start9labs/start-sdk'
+import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../../fileModels/settings.json'
-import { execFile } from 'child_process'
 
-export const v_2_52_0_3_b1 = VersionInfo.of({
-  version: '2.52.0:3-beta.1',
+export const v_2_61_0_0_b0 = VersionInfo.of({
+  version: '2.61.0:0-beta.0',
   releaseNotes: {
     en_US: 'Revamped for StartOS 0.4.0',
     es_ES: 'Renovado para StartOS 0.4.0',
