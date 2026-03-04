@@ -1,7 +1,7 @@
 import { settingsJson } from '../fileModels/settings.json'
 import { i18n } from '../i18n'
 import { sdk } from '../sdk'
-import { configDefaults, tokenExpirationToNumber } from '../utils'
+import { tokenExpirationToNumber } from '../utils'
 
 const { InputSpec, Value } = sdk
 
@@ -12,7 +12,7 @@ export const inputSpec = InputSpec.of({
       'The length of time (in hours) before a browser session will be automatically terminated',
     ),
     required: true,
-    default: tokenExpirationToNumber(configDefaults.tokenExpirationTime),
+    default: 12,
     integer: true,
     units: i18n('hours'),
     min: 1,

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon.png" alt="File Browser Logo" width="21%">
+  <img src="icon.svg" alt="File Browser Logo" width="21%">
 </p>
 
 # File Browser on StartOS
@@ -7,8 +7,8 @@
 > **Upstream docs:** <https://filebrowser.org/>
 >
 > Everything not listed in this document should behave the same as upstream
-> File Browser v2.52.0. If a feature, setting, or behavior is not mentioned
-> here, the upstream documentation is accurate and fully applicable.
+> File Browser. If a feature, setting, or behavior is not mentioned here,
+> the upstream documentation is accurate and fully applicable.
 
 [File Browser](https://github.com/filebrowser/filebrowser) provides a web-based file management interface for uploading, downloading, organizing, editing, and sharing files. It supports multiple users with individual directories.
 
@@ -36,7 +36,7 @@
 
 | Property | Value |
 |----------|-------|
-| Image | `filebrowser/filebrowser:v2.52.0` (upstream unmodified) |
+| Image | `filebrowser/filebrowser` (upstream unmodified) |
 | Architectures | x86_64, aarch64 |
 | Entrypoint | Default upstream entrypoint |
 
@@ -210,8 +210,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for build instructions and development wo
 
 ```yaml
 package_id: filebrowser
-upstream_version: 2.52.0
-image: filebrowser/filebrowser:v2.52.0
+image: filebrowser/filebrowser
 architectures: [x86_64, aarch64]
 volumes:
   data: /srv

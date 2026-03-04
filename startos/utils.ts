@@ -9,16 +9,6 @@ export const randomPassword = {
   len: 22,
 }
 
-export const configDefaults = {
-  port: uiPort,
-  baseURL: '',
-  address: '0.0.0.0',
-  log: 'stdout',
-  database: `${databasePath}/filebrowser.db`,
-  root: dataPath,
-  tokenExpirationTime: '12h',
-}
-
 export function tokenExpirationToNumber(val: string): number {
   return Number(val.replace(/\D/g, ''))
 }

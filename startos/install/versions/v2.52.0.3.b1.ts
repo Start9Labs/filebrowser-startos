@@ -1,7 +1,6 @@
 import { VersionInfo, IMPOSSIBLE, YAML } from '@start9labs/start-sdk'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../../fileModels/settings.json'
-import { configDefaults } from '../../utils'
 import { execFile } from 'child_process'
 
 export const v_2_52_0_3_b1 = VersionInfo.of({
@@ -21,11 +20,10 @@ export const v_2_52_0_3_b1 = VersionInfo.of({
         .then(YAML.parse, () => undefined)
 
       if (configYaml) {
-        await settingsJson.write(effects, {
-          ...configDefaults,
-          tokenExpirationTime: configYaml?.userTimeout
-            ? `${configYaml.userTimeout}h`
-            : configDefaults.tokenExpirationTime,
+        await settingsJson.merge(effects, {
+          ...(configYaml.userTimeout
+            ? { tokenExpirationTime: `${configYaml.userTimeout}h` }
+            : {}),
         })
 
         // database

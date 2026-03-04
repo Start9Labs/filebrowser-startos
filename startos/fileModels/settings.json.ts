@@ -1,25 +1,25 @@
-import { matches, FileHelper } from '@start9labs/start-sdk'
+import { FileHelper, z } from '@start9labs/start-sdk'
 import { sdk } from '../sdk'
-import { configDefaults } from '../utils'
+import { uiPort, dataPath, databasePath } from '../utils'
 
-const { port, baseURL, address, log, tokenExpirationTime, database, root } =
-  configDefaults
-const { object, string, literal } = matches
-
-const shape = object({
-  port: literal(port).onMismatch(port),
-  baseURL: literal(baseURL).onMismatch(baseURL),
-  address: literal(address).onMismatch(address),
-  log: literal(log).onMismatch(log),
-  database: literal(database).onMismatch(database),
-  root: literal(root).onMismatch(root),
-  tokenExpirationTime: string.onMismatch(tokenExpirationTime),
-})
+const shape = z
+  .object({
+    port: z.literal(uiPort).catch(uiPort),
+    baseURL: z.literal('').catch(''),
+    address: z.literal('0.0.0.0').catch('0.0.0.0'),
+    log: z.literal('stdout').catch('stdout'),
+    database: z
+      .literal(`${databasePath}/filebrowser.db`)
+      .catch(`${databasePath}/filebrowser.db`),
+    root: z.literal(dataPath).catch(dataPath),
+    tokenExpirationTime: z.string().catch('12h'),
+  })
+  .strip()
 
 export const settingsJson = FileHelper.json(
   {
     base: sdk.volumes.config,
     subpath: 'settings.json',
   },
-  shape.onMismatch(configDefaults),
+  shape,
 )
