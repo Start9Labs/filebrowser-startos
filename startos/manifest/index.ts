@@ -1,5 +1,5 @@
 import { setupManifest } from '@start9labs/start-sdk'
-import { short, long } from './i18n'
+import { long, short } from './i18n'
 
 export const manifest = setupManifest({
   id: 'filebrowser',
@@ -10,7 +10,7 @@ export const manifest = setupManifest({
   upstreamRepo: 'https://github.com/filebrowser/filebrowser',
   marketingUrl: 'https://filebrowser.org/',
   donationUrl: null,
-  docsUrls: ['https://filebrowser.org/'],
+  docsUrls: ['https://github.com/filebrowser/filebrowser/tree/master/www/docs'],
   description: { short, long },
   volumes: ['data', 'database', 'config', 'main'], // main only needed for 0351 migration
   images: {
