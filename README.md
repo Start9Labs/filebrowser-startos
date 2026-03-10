@@ -4,7 +4,7 @@
 
 # File Browser on StartOS
 
-> **Upstream docs:** <https://filebrowser.org/>
+> **Upstream docs:** <https://github.com/filebrowser/filebrowser/tree/master/www/docs>
 >
 > Everything not listed in this document should behave the same as upstream
 > File Browser. If a feature, setting, or behavior is not mentioned here,
