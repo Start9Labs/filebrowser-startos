@@ -1,4 +1,4 @@
-FROM filebrowser/filebrowser:v2.32.0
+FROM filebrowser/filebrowser:v2.62.1
 
 WORKDIR /root
 

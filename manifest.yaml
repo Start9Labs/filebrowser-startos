@@ -1,12 +1,15 @@
 id: filebrowser
 title: "File Browser"
-version: 2.32.0
+version: 2.62.1
 release-notes: |
-  - Improved reliability of file operations like copy, move, and upload
-  - Fixed disk usage refresh and health checks in container setups
-  - Updated Spanish and Korean translations
-  - Upgraded system components for better performance and compatibility
-  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.31.2...v2.32.0)
+  - Major update spanning 30 minor versions (2.32.0 → 2.62.1)
+  - TUS chunked upload support for reliable large file transfers
+  - CSV viewer and Markdown equation rendering
+  - Multiple security fixes (signup handler, path cleaning, permission checks)
+  - Share permission improvements and conflict resolution for uploads/copies/moves
+  - Frontend modernization, YAML v3 config support, Redis upload cache
+  - Numerous dependency updates and bug fixes
+  - Full list of upstream changes available [here](https://github.com/filebrowser/filebrowser/compare/v2.32.0...v2.62.1)
 license: Apache-2.0
 wrapper-repo: "https://github.com/Start9Labs/filebrowser-startos"
 upstream-repo: "https://github.com/filebrowser/filebrowser"
