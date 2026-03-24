@@ -1,10 +1,10 @@
 import { IMPOSSIBLE, VersionInfo, YAML } from '@start9labs/start-sdk'
 import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
-import { settingsJson } from '../../fileModels/settings.json'
+import { settingsJson } from '../fileModels/settings.json'
 
-export const v_2_62_1_0_b2 = VersionInfo.of({
-  version: '2.62.1:0-beta.2',
+export const v_2_62_1_0_b3 = VersionInfo.of({
+  version: '2.62.1:0-beta.3',
   releaseNotes: {
     en_US: 'Update File Browser to 2.62.1',
   },
