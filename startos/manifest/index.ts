@@ -6,7 +6,7 @@ export const manifest = setupManifest({
   title: 'File Browser',
   license: 'Apache-2.0',
   packageRepo:
-    'https://github.com/Start9Labs/filebrowser-startos/tree/update/040',
+    'https://github.com/Start9Labs/filebrowser-startos',
   upstreamRepo: 'https://github.com/filebrowser/filebrowser',
   marketingUrl: 'https://filebrowser.org/',
   donationUrl: null,
@@ -16,7 +16,7 @@ export const manifest = setupManifest({
   images: {
     filebrowser: {
       source: {
-        dockerTag: 'filebrowser/filebrowser:v2.62.1',
+        dockerTag: 'filebrowser/filebrowser:v2.62.2',
       },
       arch: ['x86_64', 'aarch64'],
     },

@@ -3,10 +3,14 @@ import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
-export const v_2_62_1_0_b3 = VersionInfo.of({
-  version: '2.62.1:0-beta.3',
+export const v_2_62_2_0 = VersionInfo.of({
+  version: '2.62.2:0',
   releaseNotes: {
-    en_US: 'Update File Browser to 2.62.1',
+    en_US: 'Update File Browser to 2.62.2',
+    es_ES: 'Actualización de File Browser a 2.62.2',
+    de_DE: 'Update von File Browser auf 2.62.2',
+    pl_PL: 'Aktualizacja File Browser do 2.62.2',
+    fr_FR: 'Mise à jour de File Browser vers 2.62.2',
   },
   migrations: {
     up: async ({ effects }) => {
