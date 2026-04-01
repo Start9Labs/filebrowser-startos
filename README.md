@@ -219,22 +219,8 @@ volumes:
 ports:
   ui: 8080
 dependencies: none
-fixed_config:
-  port: 8080
-  address: 0.0.0.0
-  baseURL: ""
-  log: stdout
-  database: /database/filebrowser.db
-  root: /srv
-startos_managed_config:
-  - tokenExpirationTime
+startos_managed_env_vars: none
 actions:
-  - reset-admin-user (enabled, only-stopped)
-  - set-expiration (enabled, any)
-health_checks:
-  - http_get: /health
-backup_volumes:
-  - data
-  - database
-  - config
+  - reset-admin-user
+  - set-expiration
 ```
