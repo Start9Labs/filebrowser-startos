@@ -3,8 +3,8 @@ import { uiPort } from './utils'
 import { i18n } from './i18n'
 
 export const setInterfaces = sdk.setupInterfaces(async ({ effects }) => {
-  const uiMulti = sdk.MultiHost.of(effects, 'ui-multi')
-  const uiMultiOrigin = await uiMulti.bindPort(uiPort, {
+  const main = sdk.MultiHost.of(effects, 'main')
+  const mainOrigin = await main.bindPort(uiPort, {
     protocol: 'http',
   })
   const ui = sdk.createInterface(effects, {
@@ -19,7 +19,7 @@ export const setInterfaces = sdk.setupInterfaces(async ({ effects }) => {
     query: {},
   })
 
-  const uiReceipt = await uiMultiOrigin.export([ui])
+  const uiReceipt = await mainOrigin.export([ui])
 
   return [uiReceipt]
 })
