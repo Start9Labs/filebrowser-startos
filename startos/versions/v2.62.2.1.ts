@@ -29,7 +29,7 @@ export const v_2_62_2_1 = VersionInfo.of({
         // database
         await fs
           .rename(
-            '/media/startos/volumes/main/database.db',
+            '/media/startos/volumes/main/filebrowser.db',
             '/media/startos/volumes/database/filebrowser.db',
           )
           .catch(console.error)
