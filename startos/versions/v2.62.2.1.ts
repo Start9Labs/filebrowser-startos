@@ -27,12 +27,15 @@ export const v_2_62_2_1 = VersionInfo.of({
         })
 
         // database
-        await fs
-          .rename(
+        try {
+          await fs.cp(
             '/media/startos/volumes/main/filebrowser.db',
             '/media/startos/volumes/database/filebrowser.db',
           )
-          .catch(console.error)
+          await fs.rm('/media/startos/volumes/main/filebrowser.db')
+        } catch (e) {
+          console.error(e)
+        }
 
         // srv
         await new Promise((res, rej) => {
