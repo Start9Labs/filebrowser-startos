@@ -3,8 +3,8 @@ import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
-export const v_2_62_2_0 = VersionInfo.of({
-  version: '2.62.2:0',
+export const v_2_62_2_1 = VersionInfo.of({
+  version: '2.62.2:1',
   releaseNotes: {
     en_US: 'Update File Browser to 2.62.2',
     es_ES: 'Actualización de File Browser a 2.62.2',
@@ -27,12 +27,15 @@ export const v_2_62_2_0 = VersionInfo.of({
         })
 
         // database
-        await fs
-          .rename(
-            '/media/startos/volumes/main/database.db',
+        try {
+          await fs.cp(
+            '/media/startos/volumes/main/filebrowser.db',
             '/media/startos/volumes/database/filebrowser.db',
           )
-          .catch(console.error)
+          await fs.rm('/media/startos/volumes/main/filebrowser.db')
+        } catch (e) {
+          console.error(e)
+        }
 
         // srv
         await new Promise((res, rej) => {
