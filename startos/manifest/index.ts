@@ -10,7 +10,6 @@ export const manifest = setupManifest({
   upstreamRepo: 'https://github.com/filebrowser/filebrowser',
   marketingUrl: 'https://filebrowser.org/',
   donationUrl: null,
-  docsUrls: ['https://github.com/filebrowser/filebrowser/tree/master/www/docs'],
   description: { short, long },
   volumes: ['data', 'database', 'config', 'main'], // main only needed for 0351 migration
   images: {
