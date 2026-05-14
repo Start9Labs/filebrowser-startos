@@ -10,13 +10,12 @@ export const manifest = setupManifest({
   upstreamRepo: 'https://github.com/filebrowser/filebrowser',
   marketingUrl: 'https://filebrowser.org/',
   donationUrl: null,
-  docsUrls: ['https://github.com/filebrowser/filebrowser/tree/master/www/docs'],
   description: { short, long },
   volumes: ['data', 'database', 'config', 'main'], // main only needed for 0351 migration
   images: {
     filebrowser: {
       source: {
-        dockerTag: 'filebrowser/filebrowser:v2.63.2',
+        dockerTag: 'filebrowser/filebrowser:v2.63.3',
       },
       arch: ['x86_64', 'aarch64'],
     },
