@@ -3,14 +3,29 @@ import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
-export const v_2_63_2_1 = VersionInfo.of({
-  version: '2.63.2:1',
+export const v_2_63_3_0 = VersionInfo.of({
+  version: '2.63.3:0',
   releaseNotes: {
-    en_US: 'Internal updates (start-sdk 1.3.3)',
-    es_ES: 'Actualizaciones internas (start-sdk 1.3.3)',
-    de_DE: 'Interne Aktualisierungen (start-sdk 1.3.3)',
-    pl_PL: 'Aktualizacje wewnętrzne (start-sdk 1.3.3)',
-    fr_FR: 'Mises à jour internes (start-sdk 1.3.3)',
+    en_US: `**Bumps**
+
+- File Browser → 2.63.3
+- start-sdk → 1.5.1`,
+    es_ES: `**Actualizaciones**
+
+- File Browser → 2.63.3
+- start-sdk → 1.5.1`,
+    de_DE: `**Aktualisierungen**
+
+- File Browser → 2.63.3
+- start-sdk → 1.5.1`,
+    pl_PL: `**Aktualizacje**
+
+- File Browser → 2.63.3
+- start-sdk → 1.5.1`,
+    fr_FR: `**Mises à jour**
+
+- File Browser → 2.63.3
+- start-sdk → 1.5.1`,
   },
   migrations: {
     up: async ({ effects }) => {
