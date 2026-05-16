@@ -17,7 +17,7 @@ export const v_2_63_3_0 = VersionInfo.of({
 
 **Internal**
 
-- start-sdk → 1.5.0`,
+- start-sdk → 1.5.2`,
     es_ES: `**Cambios de versión**
 
 - File Browser → 2.63.3
@@ -29,7 +29,7 @@ export const v_2_63_3_0 = VersionInfo.of({
 
 **Interno**
 
-- start-sdk → 1.5.0`,
+- start-sdk → 1.5.2`,
     de_DE: `**Aktualisierungen**
 
 - File Browser → 2.63.3
@@ -41,7 +41,7 @@ export const v_2_63_3_0 = VersionInfo.of({
 
 **Intern**
 
-- start-sdk → 1.5.0`,
+- start-sdk → 1.5.2`,
     pl_PL: `**Aktualizacje**
 
 - File Browser → 2.63.3
@@ -53,7 +53,7 @@ export const v_2_63_3_0 = VersionInfo.of({
 
 **Wewnętrzne**
 
-- start-sdk → 1.5.0`,
+- start-sdk → 1.5.2`,
     fr_FR: `**Mises à niveau**
 
 - File Browser → 2.63.3
@@ -65,7 +65,7 @@ export const v_2_63_3_0 = VersionInfo.of({
 
 **Interne**
 
-- start-sdk → 1.5.0`,
+- start-sdk → 1.5.2`,
   },
   migrations: {
     up: async ({ effects }) => {
