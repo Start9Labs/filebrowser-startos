@@ -24,30 +24,21 @@ export const main = sdk.setupMain(async ({ effects }) => {
     'filebrowser-sub',
   )
 
-  return sdk.Daemons.of(effects)
-    .addOneshot('chown', {
-      subcontainer,
-      exec: {
-        command: ['chown', '-R', 'user:user', '/srv', '/database', '/config'],
-        user: 'root',
-      },
-      requires: [],
-    })
-    .addDaemon('primary', {
-      subcontainer,
-      exec: { command: sdk.useEntrypoint() },
-      ready: {
-        display: i18n('Web Interface'),
-        fn: () =>
-          sdk.healthCheck.checkWebUrl(
-            effects,
-            `http://localhost:${uiPort}/health`,
-            {
-              successMessage: i18n('The web interface is ready'),
-              errorMessage: i18n('The web interface is not ready'),
-            },
-          ),
-      },
-      requires: ['chown'],
-    })
+  return sdk.Daemons.of(effects).addDaemon('primary', {
+    subcontainer,
+    exec: { command: sdk.useEntrypoint(), user: 'root' },
+    ready: {
+      display: i18n('Web Interface'),
+      fn: () =>
+        sdk.healthCheck.checkWebUrl(
+          effects,
+          `http://localhost:${uiPort}/health`,
+          {
+            successMessage: i18n('The web interface is ready'),
+            errorMessage: i18n('The web interface is not ready'),
+          },
+        ),
+    },
+    requires: [],
+  })
 })

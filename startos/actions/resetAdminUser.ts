@@ -26,19 +26,22 @@ export const resetAdminUser = sdk.Action.withoutInput(
       mounts,
       'setadmin',
       async (sub) => {
-        await sub.execFail([
-          'filebrowser',
-          '-c',
-          '/config/settings.json',
-          'users',
-          'update',
-          '1',
-          '-u',
-          adminUsername,
-          '-p',
-          password,
-          '--perm.admin',
-        ])
+        await sub.execFail(
+          [
+            'filebrowser',
+            '-c',
+            '/config/settings.json',
+            'users',
+            'update',
+            '1',
+            '-u',
+            adminUsername,
+            '-p',
+            password,
+            '--perm.admin',
+          ],
+          { user: 'root' },
+        )
       },
     )
 
