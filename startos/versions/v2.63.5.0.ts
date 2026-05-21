@@ -3,14 +3,14 @@ import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
-export const v_2_63_4_0 = VersionInfo.of({
-  version: '2.63.4:0',
+export const v_2_63_5_0 = VersionInfo.of({
+  version: '2.63.5:0',
   releaseNotes: {
-    en_US: 'Bumps File Browser → 2.63.4.',
-    es_ES: 'Actualiza File Browser → 2.63.4.',
-    de_DE: 'Aktualisiert File Browser → 2.63.4.',
-    pl_PL: 'Aktualizuje File Browser → 2.63.4.',
-    fr_FR: 'Met à niveau File Browser → 2.63.4.',
+    en_US: 'Bumps File Browser → 2.63.5.',
+    es_ES: 'Actualiza File Browser → 2.63.5.',
+    de_DE: 'Aktualisiert File Browser → 2.63.5.',
+    pl_PL: 'Aktualizuje File Browser → 2.63.5.',
+    fr_FR: 'Met à niveau File Browser → 2.63.5.',
   },
   migrations: {
     up: async ({ effects }) => {
