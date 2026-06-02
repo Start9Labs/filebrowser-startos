@@ -3,7 +3,7 @@ import { execFile } from 'child_process'
 import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
-export const v_2_63_5_0 = VersionInfo.of({
+export const current = VersionInfo.of({
   version: '2.63.5:0',
   releaseNotes: {
     en_US: 'Bumps File Browser → 2.63.5.',
