@@ -4,13 +4,13 @@ import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
 export const current = VersionInfo.of({
-  version: '2.63.11:0',
+  version: '2.63.12:0',
   releaseNotes: {
-    en_US: 'Bumps File Browser → 2.63.11.',
-    es_ES: 'Actualiza File Browser → 2.63.11.',
-    de_DE: 'Aktualisiert File Browser → 2.63.11.',
-    pl_PL: 'Aktualizuje File Browser → 2.63.11.',
-    fr_FR: 'Met à niveau File Browser → 2.63.11.',
+    en_US: 'Bumps File Browser → 2.63.12.',
+    es_ES: 'Actualiza File Browser → 2.63.12.',
+    de_DE: 'Aktualisiert File Browser → 2.63.12.',
+    pl_PL: 'Aktualizuje File Browser → 2.63.12.',
+    fr_FR: 'Met à niveau File Browser → 2.63.12.',
   },
   migrations: {
     up: async ({ effects }) => {
