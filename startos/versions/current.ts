@@ -4,18 +4,18 @@ import * as fs from 'fs/promises'
 import { settingsJson } from '../fileModels/settings.json'
 
 export const current = VersionInfo.of({
-  version: '2.63.15:0',
+  version: '2.63.16:0',
   releaseNotes: {
     en_US:
-      'Updated File Browser to 2.63.15. Maintenance release: restores ScopedFs RealPath behavior and bumps minor Go dependencies. Full notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.15',
+      'Updated File Browser to 2.63.16. Maintenance release: makes external symlink following opt-in via followExternalSymlinks and fixes dangling-symlink, write, and delete scope bugs. Full notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.16',
     es_ES:
-      'Actualiza File Browser a 2.63.15. Versión de mantenimiento: restaura el comportamiento de RealPath de ScopedFs y actualiza dependencias menores de Go. Notas completas: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.15',
+      'Actualiza File Browser a 2.63.16. Versión de mantenimiento: el seguimiento de enlaces simbólicos externos ahora es opcional mediante followExternalSymlinks y corrige errores de enlaces simbólicos colgantes, de escritura y de alcance de eliminación. Notas completas: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.16',
     de_DE:
-      'Aktualisiert File Browser auf 2.63.15. Wartungsversion: stellt das RealPath-Verhalten von ScopedFs wieder her und aktualisiert kleinere Go-Abhängigkeiten. Vollständige Hinweise: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.15',
+      'Aktualisiert File Browser auf 2.63.16. Wartungsversion: das Folgen externer Symlinks ist nun über followExternalSymlinks optional und behebt Fehler bei verwaisten Symlinks sowie beim Schreib- und Löschbereich. Vollständige Hinweise: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.16',
     pl_PL:
-      'Aktualizuje File Browser do 2.63.15. Wydanie konserwacyjne: przywraca zachowanie RealPath w ScopedFs i aktualizuje pomniejsze zależności Go. Pełne informacje: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.15',
+      'Aktualizuje File Browser do 2.63.16. Wydanie konserwacyjne: podążanie za zewnętrznymi dowiązaniami symbolicznymi jest teraz opcjonalne poprzez followExternalSymlinks oraz naprawia błędy wiszących dowiązań symbolicznych, zapisu i zakresu usuwania. Pełne informacje: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.16',
     fr_FR:
-      'Met à niveau File Browser vers 2.63.15. Version de maintenance : restaure le comportement RealPath de ScopedFs et met à jour des dépendances Go mineures. Notes complètes : https://github.com/filebrowser/filebrowser/releases/tag/v2.63.15',
+      'Met à niveau File Browser vers 2.63.16. Version de maintenance : le suivi des liens symboliques externes devient optionnel via followExternalSymlinks et corrige des bugs de liens symboliques orphelins, d’écriture et de portée de suppression. Notes complètes : https://github.com/filebrowser/filebrowser/releases/tag/v2.63.16',
   },
   migrations: {
     up: async ({ effects }) => {
