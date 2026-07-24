@@ -1,7 +1,7 @@
 import { VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '2.63.18:2',
+  version: '2.63.18:3',
   releaseNotes: {
     en_US:
       'Updated File Browser to 2.63.18. Minor maintenance release: fixes recursive conflict checks when copying and moving files, keeps the EPUB preview table-of-contents button clear of the header, and refreshes translations and dependencies. Full notes: https://github.com/filebrowser/filebrowser/releases/tag/v2.63.18',
