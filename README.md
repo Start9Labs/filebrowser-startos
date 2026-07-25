@@ -34,21 +34,21 @@
 
 ## Image and Container Runtime
 
-| Property | Value |
-|----------|-------|
-| Image | `filebrowser/filebrowser` (upstream unmodified) |
-| Architectures | x86_64, aarch64 |
-| Entrypoint | Default upstream entrypoint |
+| Property      | Value                                           |
+| ------------- | ----------------------------------------------- |
+| Image         | `filebrowser/filebrowser` (upstream unmodified) |
+| Architectures | x86_64, aarch64                                 |
+| Entrypoint    | Default upstream entrypoint                     |
 
 ---
 
 ## Volume and Data Layout
 
-| Volume | Mount Point | Purpose |
-|--------|-------------|---------|
-| `data` | `/srv` | User files (the browsable file storage) |
-| `database` | `/database` | SQLite database (`filebrowser.db`) |
-| `config` | `/config` | Settings file (`settings.json`) |
+| Volume     | Mount Point | Purpose                                 |
+| ---------- | ----------- | --------------------------------------- |
+| `data`     | `/srv`      | User files (the browsable file storage) |
+| `database` | `/database` | SQLite database (`filebrowser.db`)      |
+| `config`   | `/config`   | Settings file (`settings.json`)         |
 
 **StartOS-specific files:**
 
@@ -59,11 +59,11 @@
 
 ## Installation and First-Run Flow
 
-| Step | Upstream | StartOS |
-|------|----------|---------|
-| Initial credentials | Default: admin/admin | Use "Set Admin Password" action to generate secure credentials |
-| Configuration | CLI flags or config file | Settings managed via actions |
-| First access | Login with default creds | Run action first to get credentials |
+| Step                | Upstream                 | StartOS                                                        |
+| ------------------- | ------------------------ | -------------------------------------------------------------- |
+| Initial credentials | Default: admin/admin     | Use "Set Admin Password" action to generate secure credentials |
+| Configuration       | CLI flags or config file | Settings managed via actions                                   |
+| First access        | Login with default creds | Run action first to get credentials                            |
 
 **Key difference:** On StartOS, you should run the "Set Admin Password" action after installation to generate a secure random password. The action will display your credentials.
 
@@ -71,15 +71,15 @@
 
 ## Configuration Management
 
-| Setting | Upstream Method | StartOS Method |
-|---------|-----------------|----------------|
-| `port` | Config/CLI | Fixed: `8080` |
-| `address` | Config/CLI | Fixed: `0.0.0.0` |
-| `baseURL` | Config/CLI | Fixed: empty |
-| `log` | Config/CLI | Fixed: `stdout` |
-| `database` | Config/CLI | Fixed: `/database/filebrowser.db` |
-| `root` | Config/CLI | Fixed: `/srv` |
-| `tokenExpirationTime` | Config/CLI | "Set Session Timeout" action |
+| Setting               | Upstream Method | StartOS Method                    |
+| --------------------- | --------------- | --------------------------------- |
+| `port`                | Config/CLI      | Fixed: `8080`                     |
+| `address`             | Config/CLI      | Fixed: `0.0.0.0`                  |
+| `baseURL`             | Config/CLI      | Fixed: empty                      |
+| `log`                 | Config/CLI      | Fixed: `stdout`                   |
+| `database`            | Config/CLI      | Fixed: `/database/filebrowser.db` |
+| `root`                | Config/CLI      | Fixed: `/srv`                     |
+| `tokenExpirationTime` | Config/CLI      | "Set Session Timeout" action      |
 
 **Configuration NOT exposed on StartOS:**
 
@@ -93,9 +93,9 @@
 
 ## Network Access and Interfaces
 
-| Interface | Port | Protocol | Purpose |
-|-----------|------|----------|---------|
-| Web UI | 8080 | HTTP | File management interface |
+| Interface | Port | Protocol | Purpose                   |
+| --------- | ---- | -------- | ------------------------- |
+| Web UI    | 8080 | HTTP     | File management interface |
 
 **Access methods (StartOS 0.4.0):**
 
@@ -110,36 +110,37 @@
 
 ### Set Admin Password
 
-| Property | Value |
-|----------|-------|
-| ID | `reset-admin-user` |
-| Name | Set Admin Password |
-| Visibility | Enabled |
-| Availability | Only when stopped |
-| Purpose | Create or reset admin credentials |
+| Property     | Value                             |
+| ------------ | --------------------------------- |
+| ID           | `reset-admin-user`                |
+| Name         | Set Admin Password                |
+| Visibility   | Enabled                           |
+| Availability | Only when stopped                 |
+| Purpose      | Create or reset admin credentials |
 
 **Output:** Displays username (`admin`) and a randomly generated 22-character password.
 
 **Use this action:**
+
 - After first installation to get initial credentials
 - If you forget your password
 - To rotate credentials for security
 
 ### Set Session Timeout
 
-| Property | Value |
-|----------|-------|
-| ID | `set-expiration` |
-| Name | Set Session Timeout |
-| Visibility | Enabled |
-| Availability | Any status |
-| Purpose | Configure browser session duration |
+| Property     | Value                              |
+| ------------ | ---------------------------------- |
+| ID           | `set-expiration`                   |
+| Name         | Set Session Timeout                |
+| Visibility   | Enabled                            |
+| Availability | Any status                         |
+| Purpose      | Configure browser session duration |
 
 **Options:**
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Session Timeout | 12 | Hours before automatic logout (minimum: 1) |
+| Setting         | Default | Description                                |
+| --------------- | ------- | ------------------------------------------ |
+| Session Timeout | 12      | Hours before automatic logout (minimum: 1) |
 
 ---
 
@@ -166,9 +167,9 @@ None. File Browser is a standalone application.
 
 ## Health Checks
 
-| Check | Method | Grace Period |
-|-------|--------|--------------|
-| Web Interface | HTTP GET `/health` | Default |
+| Check         | Method             | Grace Period |
+| ------------- | ------------------ | ------------ |
+| Web Interface | HTTP GET `/health` | Default      |
 
 **Messages:**
 
@@ -202,7 +203,7 @@ None. File Browser is a standalone application.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for build instructions and development workflow.
+Build and development workflow follow the StartOS packaging guide: <https://docs.start9.com/packaging>. Keep `README.md`, `instructions.md`, and `AGENTS.md` in sync with any change to user-visible behavior or package structure.
 
 ---
 
