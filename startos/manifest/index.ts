@@ -15,7 +15,7 @@ export const manifest = setupManifest({
   images: {
     filebrowser: {
       source: {
-        dockerTag: 'filebrowser/filebrowser:v2.63.18',
+        dockerTag: 'filebrowser/filebrowser:v2.63.23',
       },
       arch: ['x86_64', 'aarch64'],
     },
