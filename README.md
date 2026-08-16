@@ -9,6 +9,13 @@
 > upstream documentation is accurate and fully applicable — see the
 > Documentation section of `instructions.md` for links.
 
+> [!IMPORTANT]
+> **File Browser is no longer maintained upstream.** 2.63.23 is the final
+> release and the repository is being archived; there will be no further
+> releases and no security fixes. This package blocks startup behind a
+> one-time acknowledgement and reports a standing health-check failure as an
+> ongoing reminder. See [End of Life](#end-of-life).
+
 [File Browser](https://github.com/filebrowser/filebrowser) is a web file manager for a single directory tree. On StartOS its files, its database, and its configuration live on three separate volumes, and the admin account is created during install rather than through a first-run screen.
 
 - **Upstream repo:** <https://github.com/filebrowser/filebrowser>
@@ -18,6 +25,7 @@
 
 ## Table of Contents
 
+- [End of Life](#end-of-life)
 - [Image and Container Runtime](#image-and-container-runtime)
 - [Volume and Data Layout](#volume-and-data-layout)
 - [File Models](#file-models)
@@ -30,6 +38,26 @@
 - [Backups and Restore](#backups-and-restore)
 - [Limitations and Differences](#limitations-and-differences)
 - [Quick Reference for AI Consumers](#quick-reference-for-ai-consumers)
+
+---
+
+## End of Life
+
+Upstream ended the project. The package still works, but it is a dead end, and it says so in four places: the title carries `(unsupported)`, the marketplace description leads with the wind-down, a `critical` task blocks startup until the user acknowledges, and a health check reports failure permanently.
+
+The title and description are the only two a _prospective_ user sees. Neither reaches a dependent's Dependencies card while File Browser is uninstalled — that card falls back to the title and icon frozen into the _dependent's_ own s9pk at pack time, and all eight hard-code `File Browser`.
+
+The `end-of-life` health check never succeeds and is not meant to. It polls once a day rather than at the default one-second failure cadence, because every poll writes a health result and logs a line. It cannot affect the packages that depend on this one: all eight declare `kind: 'exists'`, which carries no `healthChecks` field at all.
+
+Three replacements are in the marketplace:
+
+| Package             | Relationship                                                                                                                                       |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| FileBrowser Quantum | A maintained fork of this project, published under this same package id as the `#quantum` flavor. Switching preserves files, users, and passwords. |
+| copyparty           | A file server built for large and interrupted transfers, also mountable as a network drive.                                                        |
+| NextExplorer        | A file manager with previews, per-user home folders, and link sharing.                                                                             |
+
+Switching to FileBrowser Quantum is **one-way** — Quantum publishes no migration edge back to this line, so StartOS refuses the return install. It also does not carry over per-user folder restrictions or existing sharing links: an account confined to a subfolder will see the whole volume afterwards, so restricted accounts must be re-checked.
 
 ---
 
@@ -118,25 +146,37 @@ Sets how long a browser session lasts before it is terminated.
 - **Cost:** seconds, then a restart.
 - **Repeat safety:** idempotent; the form is pre-filled with the current value.
 
+### End of Life Notice
+
+Records that the user has read the end-of-life notice. Hidden — reachable only from the task it raises, not from the Actions list.
+
+- **What it changes:** `eolAcknowledged` in `startos.json` on the `config` volume.
+- **Availability:** any status.
+- **Repeat safety:** runs once per install; the task retracts once the flag is set. The handler throws unless the acknowledgement toggle is on.
+
 ## Tasks
 
-One task, raised at install, and it blocks the service until you clear it.
+Two tasks, both raised at install, and either blocks the service until you clear it.
 
-| Task               | Severity   | Raised when | Cleared when    |
-| ------------------ | ---------- | ----------- | --------------- |
-| Set Admin Password | `critical` | At install  | The action runs |
+| Task               | Severity   | Raised when                  | Cleared when    |
+| ------------------ | ---------- | ---------------------------- | --------------- |
+| Set Admin Password | `critical` | At install                   | The action runs |
+| End of Life Notice | `critical` | The notice is unacknowledged | The action runs |
 
-`critical` here is protecting a real gap rather than being cautious: the account install creates has a placeholder password, so the service should not serve until it has been replaced.
+`critical` on Set Admin Password is protecting a real gap rather than being cautious: the account install creates has a placeholder password, so the service should not serve until it has been replaced. `critical` on End of Life Notice is deliberate too — the point is that the user cannot start the service without having seen that it is unmaintained.
 
 ## Health Checks
 
-One check, on the primary daemon.
+Two checks. One reports whether the service is working; the other never passes by design.
 
-| Check                     | Method             | Grace Period |
-| ------------------------- | ------------------ | ------------ |
-| `primary` "Web Interface" | HTTP `GET /health` | SDK default  |
+| Check                              | Method                   | Grace Period |
+| ---------------------------------- | ------------------------ | ------------ |
+| `primary` "Web Interface"          | HTTP `GET /health`       | SDK default  |
+| `end-of-life` "Maintenance Status" | Always reports `failure` | None         |
 
-It probes the application's own health endpoint rather than only the port, so a pass means the application is serving. A failure means the process is down or crash-looping — the most likely cause on a first start is a permissions problem on one of the three volumes, which the `chown` oneshot exists to prevent.
+`Maintenance Status` is the standing end-of-life reminder described in [End of Life](#end-of-life). It is expected to be red, and says nothing about whether the service is working — that is what `Web Interface` reports.
+
+`Web Interface` probes the application's own health endpoint rather than only the port, so a pass means the application is serving. A failure means the process is down or crash-looping — the most likely cause on a first start is a permissions problem on one of the three volumes, which the `chown` oneshot exists to prevent.
 
 ## Backups and Restore
 
@@ -154,6 +194,7 @@ Note the size implication: `data` is the whole file tree, so the backup is as la
 3. **`settings.json` accepts nothing beyond the keys the package models** — undeclared keys are stripped on the next write.
 4. **One served directory.** File Browser is pointed at a single volume; there is no way to add a second root here.
 5. **No riscv64 build.** x86_64 and aarch64 only.
+6. **Switching to FileBrowser Quantum cannot be undone.** Quantum publishes no migration edge back to this line, so StartOS refuses an install of this package over it. StartOS still renders a Switch button in that direction; the refusal surfaces at install time, before any data is touched.
 
 ---
 
@@ -176,6 +217,7 @@ volumes:
   main: unused (retained for the 0.3.5.1 migration)
 file_models:
   - /config/settings.json
+  - /config/startos.json
 startos_managed_env_vars: []
 dependencies: []
 interfaces:
@@ -183,8 +225,11 @@ interfaces:
 actions:
   - reset-admin-user # only-stopped
   - set-expiration
+  - acknowledge-eol # hidden; reachable only from its task
 tasks:
   - { action: reset-admin-user, severity: critical }
+  - { action: acknowledge-eol, severity: critical }
 health_checks:
   - primary # the daemon's ready check, displayed "Web Interface"
+  - end-of-life # always fails by design, displayed "Maintenance Status"
 ```

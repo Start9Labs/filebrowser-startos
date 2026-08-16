@@ -6,6 +6,7 @@ import { actions } from '../actions'
 import { restoreInit } from '../backups'
 import { seedFiles } from './seedFiles'
 import { setup } from './setup'
+import { eolNotice } from './eolNotice'
 
 export const init = sdk.setupInit(
   restoreInit,
@@ -15,6 +16,7 @@ export const init = sdk.setupInit(
   setDependencies,
   actions,
   setup,
+  eolNotice,
 )
 
 export const uninit = sdk.setupUninit(versionGraph)

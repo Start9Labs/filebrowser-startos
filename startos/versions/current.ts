@@ -1,48 +1,43 @@
 import { VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '2.63.23:0',
+  version: '2.63.23:1',
   releaseNotes: {
-    en_US: `Updated File Browser to 2.63.23.
+    en_US: `File Browser is no longer maintained. This release asks you to acknowledge that, and points you at replacements.
 
-- Tightens access control: permission rules are now enforced on recursive operations, expired proxy tokens, and file checksum requests, and paths are canonicalized before rules are checked.
-- Confines auto-provisioned proxy and hook users to their own home directory.
-- Fixes stalled and frozen uploads, and makes the sidebar scrollable when its content overflows.
-- Upstream has announced that File Browser is winding down: 2.63.23 is the last planned release, and the project repository will be archived on 2026-09-01. Existing releases and images remain available.
+File Browser will not start until you complete the **End of Life Notice** task. Your files are untouched and you may keep using the service afterwards, but it will receive no further releases and no security fixes.
 
-Full notes: https://github.com/filebrowser/filebrowser/compare/v2.63.18...v2.63.23`,
-    es_ES: `Actualiza File Browser a 2.63.23.
+Three replacements are in the marketplace. **FileBrowser Quantum** is a maintained fork of this same project, offered under this listing as a separate flavor — switching to it keeps your files, your users, and your passwords. **copyparty** is a file server built for large and interrupted transfers. **NextExplorer** is a file manager with previews and per-user home folders.
 
-- Refuerza el control de acceso: ahora las reglas de permisos se aplican en las operaciones recursivas, los tokens de proxy caducados y las solicitudes de suma de verificación, y las rutas se canonizan antes de comprobar las reglas.
-- Limita los usuarios de proxy y de hooks aprovisionados automáticamente a su propio directorio personal.
-- Corrige las cargas detenidas y bloqueadas, y permite desplazar la barra lateral cuando su contenido se desborda.
-- El proyecto original ha anunciado que File Browser se está retirando: 2.63.23 es la última versión prevista y el repositorio se archivará el 2026-09-01. Las versiones e imágenes existentes seguirán disponibles.
+If you switch to FileBrowser Quantum, note that per-user folder restrictions and existing sharing links do not carry over: any account you had confined to a subfolder will be able to see everything, so re-check restricted accounts afterwards. Back up this service before switching.`,
+    es_ES: `File Browser ya no recibe mantenimiento. Esta versión te pide que lo confirmes y te indica los reemplazos disponibles.
 
-Notas completas: https://github.com/filebrowser/filebrowser/compare/v2.63.18...v2.63.23`,
-    de_DE: `Aktualisiert File Browser auf 2.63.23.
+File Browser no se iniciará hasta que completes la tarea **Aviso de fin de vida útil**. Tus archivos no se tocan y podrás seguir usando el servicio después, pero no habrá más versiones ni correcciones de seguridad.
 
-- Verschärft die Zugriffskontrolle: Berechtigungsregeln gelten nun auch für rekursive Vorgänge, abgelaufene Proxy-Token und Prüfsummenanfragen, und Pfade werden vor der Regelprüfung kanonisiert.
-- Beschränkt automatisch bereitgestellte Proxy- und Hook-Benutzer auf ihr eigenes Home-Verzeichnis.
-- Behebt hängende und eingefrorene Uploads und macht die Seitenleiste scrollbar, wenn ihr Inhalt überläuft.
-- Das Upstream-Projekt hat angekündigt, dass File Browser eingestellt wird: 2.63.23 ist die letzte geplante Version und das Repository wird am 2026-09-01 archiviert. Bestehende Versionen und Images bleiben verfügbar.
+Hay tres reemplazos en el mercado. **FileBrowser Quantum** es una bifurcación mantenida de este mismo proyecto, ofrecida en esta misma ficha como una variante distinta: cambiar a ella conserva tus archivos, tus usuarios y tus contraseñas. **copyparty** es un servidor de archivos pensado para transferencias grandes e interrumpidas. **NextExplorer** es un gestor de archivos con vistas previas y carpetas personales por usuario.
 
-Vollständige Hinweise: https://github.com/filebrowser/filebrowser/compare/v2.63.18...v2.63.23`,
-    pl_PL: `Aktualizuje File Browser do 2.63.23.
+Si cambias a FileBrowser Quantum, ten en cuenta que las restricciones de carpeta por usuario y los enlaces de compartición existentes no se trasladan: cualquier cuenta que estuviera limitada a una subcarpeta podrá verlo todo, así que revisa después las cuentas restringidas. Haz una copia de seguridad de este servicio antes de cambiar.`,
+    de_DE: `File Browser wird nicht mehr gepflegt. Diese Version bittet Sie, das zu bestätigen, und nennt Ihnen Alternativen.
 
-- Wzmacnia kontrolę dostępu: reguły uprawnień są teraz egzekwowane przy operacjach rekurencyjnych, wygasłych tokenach proxy i żądaniach sumy kontrolnej, a ścieżki są kanonizowane przed sprawdzeniem reguł.
-- Ogranicza automatycznie tworzonych użytkowników proxy i hooków do ich własnego katalogu domowego.
-- Naprawia zatrzymane i zamrożone przesyłanie plików oraz umożliwia przewijanie paska bocznego, gdy jego zawartość się nie mieści.
-- Twórcy ogłosili wygaszanie projektu File Browser: 2.63.23 to ostatnie planowane wydanie, a repozytorium zostanie zarchiwizowane 2026-09-01. Dotychczasowe wydania i obrazy pozostaną dostępne.
+File Browser startet erst, wenn Sie die Aufgabe **Hinweis zum Supportende** abgeschlossen haben. Ihre Dateien bleiben unberührt und Sie können den Dienst danach weiter nutzen, er erhält jedoch keine weiteren Versionen und keine Sicherheitsupdates.
 
-Pełne informacje: https://github.com/filebrowser/filebrowser/compare/v2.63.18...v2.63.23`,
-    fr_FR: `Met à niveau File Browser vers 2.63.23.
+Im Marktplatz stehen drei Alternativen bereit. **FileBrowser Quantum** ist eine gepflegte Abspaltung genau dieses Projekts und wird unter diesem Eintrag als eigene Variante angeboten — beim Wechsel bleiben Ihre Dateien, Ihre Benutzer und Ihre Passwörter erhalten. **copyparty** ist ein Dateiserver für große und unterbrochene Übertragungen. **NextExplorer** ist ein Dateimanager mit Vorschauen und persönlichen Ordnern je Benutzer.
 
-- Renforce le contrôle d'accès : les règles de permissions s'appliquent désormais aux opérations récursives, aux jetons de proxy expirés et aux demandes de somme de contrôle, et les chemins sont canonisés avant la vérification des règles.
-- Limite les utilisateurs de proxy et de hooks provisionnés automatiquement à leur propre répertoire personnel.
-- Corrige les téléversements bloqués et figés, et rend la barre latérale défilante lorsque son contenu déborde.
-- Le projet amont a annoncé l'arrêt progressif de File Browser : 2.63.23 est la dernière version prévue et le dépôt sera archivé le 2026-09-01. Les versions et images existantes restent disponibles.
+Beim Wechsel zu FileBrowser Quantum werden benutzerbezogene Ordnerbeschränkungen und bestehende Freigabelinks nicht übernommen: ein auf einen Unterordner beschränktes Konto kann anschließend alles sehen — prüfen Sie eingeschränkte Konten danach erneut. Sichern Sie diesen Dienst vor dem Wechsel.`,
+    pl_PL: `File Browser nie jest już rozwijany. To wydanie prosi o potwierdzenie tego faktu i wskazuje zamienniki.
 
-Notes complètes : https://github.com/filebrowser/filebrowser/compare/v2.63.18...v2.63.23`,
+File Browser nie uruchomi się, dopóki nie wykonasz zadania **Informacja o zakończeniu wsparcia**. Twoje pliki pozostają nienaruszone i możesz nadal korzystać z usługi, ale nie otrzyma ona kolejnych wydań ani poprawek bezpieczeństwa.
+
+W sklepie są trzy zamienniki. **FileBrowser Quantum** to utrzymywana odnoga tego samego projektu, oferowana w tej samej pozycji jako osobny wariant — przejście na nią zachowuje Twoje pliki, użytkowników i hasła. **copyparty** to serwer plików stworzony z myślą o dużych i przerywanych transferach. **NextExplorer** to menedżer plików z podglądami i prywatnymi folderami użytkowników.
+
+Przy przejściu na FileBrowser Quantum ograniczenia folderów przypisane do użytkowników oraz istniejące linki udostępniania nie zostaną przeniesione: konto ograniczone do podfolderu zobaczy wszystko, więc sprawdź potem konta z ograniczeniami. Przed przesiadką wykonaj kopię zapasową tej usługi.`,
+    fr_FR: `File Browser n'est plus maintenu. Cette version vous demande d'en prendre acte et vous indique les remplaçants.
+
+File Browser ne démarrera pas tant que vous n'aurez pas terminé la tâche **Avis de fin de vie**. Vos fichiers ne sont pas touchés et vous pourrez continuer à utiliser le service ensuite, mais il ne recevra plus de versions ni de correctifs de sécurité.
+
+Trois remplaçants sont disponibles sur la place de marché. **FileBrowser Quantum** est une bifurcation maintenue de ce même projet, proposée sous cette même fiche comme une variante distincte — y basculer conserve vos fichiers, vos utilisateurs et vos mots de passe. **copyparty** est un serveur de fichiers conçu pour les transferts volumineux et interrompus. **NextExplorer** est un gestionnaire de fichiers avec prévisualisations et dossiers personnels par utilisateur.
+
+Si vous basculez vers FileBrowser Quantum, notez que les restrictions de dossier par utilisateur et les liens de partage existants ne sont pas repris : un compte confiné à un sous-dossier pourra tout voir, revérifiez donc les comptes restreints ensuite. Sauvegardez ce service avant de basculer.`,
   },
   migrations: {},
 })

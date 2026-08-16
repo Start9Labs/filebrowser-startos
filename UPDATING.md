@@ -19,3 +19,13 @@ The current version is pinned as the `v<version>` tag of `dockerTag` in `startos
 ## Applying the bump
 
 Edit `startos/manifest/index.ts` and set `images.filebrowser.source.dockerTag` to `filebrowser/filebrowser:v<new version>`.
+
+## Retiring this package
+
+File Browser is end-of-life and this package now raises a `critical`
+`acknowledge-eol` task on install. **Do not delete the `acknowledge-eol` action
+while any user could still have that task outstanding.** A task whose action no
+longer exists freezes: the package stays stopped and nothing the user can do
+will clear it. If this package is ever withdrawn, clear the task first —
+`sdk.action.clearTask(effects, 'filebrowser:acknowledge-eol')` — in a release
+that ships *before* the action is removed.
