@@ -43,7 +43,7 @@ Three replacements are available in the marketplace. All of them keep your files
 
 **FileBrowser Quantum** is the closest match — it is the same project, picked up and maintained by a different developer. You will find it on this same marketplace listing: open File Browser in the marketplace and switch the flavor. Switching keeps your files, your user accounts, and everyone's existing passwords.
 
-Two things do **not** survive the switch, so read this before you do it:
+**The switch is permanent.** File Browser will not take your data back afterwards, so restoring a backup taken beforehand is the only way to return. Two other things do **not** survive the switch, so read this before you do it:
 
 - **Per-user folder restrictions are lost.** If you gave someone an account limited to one folder, after switching they will be able to see everything. Re-check every account that isn't yours and set its folder again.
 - **Existing share links stop working.** Any link you handed out will need to be re-created.
