@@ -50,4 +50,22 @@ export const main = sdk.setupMain(async ({ effects }) => {
       },
       requires: ['chown'],
     })
+    .addHealthCheck('end-of-life', {
+      ready: {
+        display: i18n('Maintenance Status'),
+        // Nothing initializes here, so the default grace period would only show
+        // this as "starting" for its first 10 seconds. The verdict never
+        // changes, so poll daily rather than at the 1s failure rate — every
+        // poll writes a health result and logs.
+        gracePeriod: 0,
+        trigger: sdk.trigger.cooldownTrigger(86_400_000),
+        fn: () => ({
+          result: 'failure' as const,
+          message: i18n(
+            'File Browser is no longer maintained and will not receive further releases or security fixes. FileBrowser Quantum, copyparty, and NextExplorer are available in the marketplace as replacements.',
+          ),
+        }),
+      },
+      requires: [],
+    })
 })

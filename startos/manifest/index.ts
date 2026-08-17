@@ -3,7 +3,7 @@ import { long, short } from './i18n'
 
 export const manifest = setupManifest({
   id: 'filebrowser',
-  title: 'File Browser',
+  title: 'File Browser (unsupported)',
   license: 'Apache-2.0',
   packageRepo: 'https://github.com/Start9Labs/filebrowser-startos',
   upstreamRepo: 'https://github.com/filebrowser/filebrowser',
