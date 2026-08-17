@@ -6,13 +6,12 @@ Develop it inside a StartOS packaging workspace created by `start-cli s9pk init-
 which provides the packaging guide and agent context one level up. If you're reading this in a
 bare clone with no workspace, the full guide is at <https://docs.start9.com/packaging>.
 
-Work this package's `TODO.md` from top to bottom. Keep `README.md` (architecture, for developers and LLMs) and `instructions.md` (end-user docs) in sync with your changes.
+Work this package's `TODO.md` from top to bottom. Keep `README.md` (technical reference for an AI support or administering agent) and `instructions.md` (end-user docs) in sync with your changes.
 
 ## This repo
 
-- **Package id is `filebrowser`.** Exposes a single `ui` interface on the `main` host (port 8080).
-- **Sibling packages depend on this package's manifest and `data` volume.** audiobookshelf, immich, jellyfin, qbittorrent, start9-pages, metube, and nextcloud import `manifest` from `filebrowser-startos/startos/manifest` and mount its `data` volume. Do NOT rename exports, change volume ids (`data`, `database`, `config`, `main`), or alter the manifest export shape — you will break those dependents.
-
-## Inspecting a running install
-
-To run a command inside the service's container (read its generated config, grep app logs), use `start-cli package attach filebrowser -n filebrowser-sub -- <cmd>`. Select the subcontainer by **name** with `-n` (the name passed to `SubContainer.of` in `main.ts` — here `filebrowser-sub`) or by image with `-i`. Note: `-s/--subcontainer` matches the internal **Guid**, not the name, so passing a name to `-s` fails with "no matching subcontainers".
+- **Keep the served files on the `data` volume alone.** Sibling packages mount it read-only as an external library, so anything else that lands there becomes visible to them. The database and `settings.json` are on separate volumes for that reason.
+- **The install-time admin password is a placeholder, and the `critical` task is what covers it.** Don't downgrade that task or move account creation to a first-run screen without closing that window some other way.
+- **`reset-admin-user` must stay `only-stopped`.** It drives the application's own CLI against the database, which the running daemon holds open.
+- **The `chown` oneshot runs on every start, not just install.** A volume can arrive from a restore owned by the wrong uid, and the application does not repair that itself.
+- **The `main` volume is retained solely for the 0.3.5.1 migration path.** Don't reuse it for new data, and don't drop it from the manifest.
