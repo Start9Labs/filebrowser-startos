@@ -82,24 +82,29 @@ Four volumes are declared, three of which are in use.
 | ---------- | ----------- | ------------------------------------------------------ |
 | `data`     | `/srv`      | The files File Browser serves — this is the whole tree |
 | `database` | `/database` | The application's own database of users and settings   |
-| `config`   | `/config`   | `settings.json`                                        |
+| `config`   | `/config`   | `settings.json` and `startos.json`                     |
 | `main`     | — (unused)  | Retained only for the 0.3.5.1 migration path           |
 
 Keeping the served files on their own volume is what makes File Browser mountable as another service's read-only library: a dependent mounts `data` and sees the files without the database or the configuration.
 
 ## File Models
 
-One model, and almost all of it is enforced — the application's own settings live in its database, not here.
+Two models, both on the `config` volume. The application's own settings live in its database, not here.
 
-| File            | Format | Modelled                | Written by                                 |
-| --------------- | ------ | ----------------------- | ------------------------------------------ |
-| `settings.json` | JSON   | Yes — `FileHelper.json` | Every init, and the Session Timeout action |
+| File            | Format | Modelled                | Written by                                    |
+| --------------- | ------ | ----------------------- | --------------------------------------------- |
+| `settings.json` | JSON   | Yes — `FileHelper.json` | Every init, and the Session Timeout action    |
+| `startos.json`  | JSON   | Yes — `FileHelper.json` | Every init, and the End of Life Notice action |
+
+`settings.json` is the application's configuration, and almost all of it is enforced.
 
 **Enforced** — rewritten to a fixed value whenever the package writes the file: `port`, `address`, `baseURL`, `log`, `database`, and `root`. These are the wiring between the application and the volumes above; a hand edit is corrected at the next init or action write.
 
 **Yours:** `tokenExpirationTime`, through the Set Session Timeout action.
 
 The model also **strips keys it does not declare**, so anything else added to `settings.json` by hand is dropped on the next write. Everything else about File Browser — users, permissions, branding, commands — is configured inside the application and stored in its database.
+
+`startos.json` is the package's own state rather than the application's, and holds one key: `eolAcknowledged`. It is on the `config` volume so it is backed up and restored with the rest of the package.
 
 ## Dependencies
 
@@ -122,12 +127,15 @@ There is no first-run screen. Install creates the admin account itself, and then
 1. Ownership of the three volumes is handed to the application's user.
 2. The application's config is initialised and an `admin` user is created with a **known placeholder password**.
 3. A `critical` task is raised pointing at Set Admin Password.
+4. A `critical` task is raised pointing at End of Life Notice, unless `startos.json` already records the acknowledgement.
 
-The placeholder is the reason the task is `critical` rather than a suggestion: between install and running that action the account exists with a password that is not secret. Because `critical` blocks the service from starting, the window is one where File Browser is not yet serving — but do not skip past the task.
+The placeholder is the reason the first task is `critical` rather than a suggestion: between install and running that action the account exists with a password that is not secret. Because `critical` blocks the service from starting, the window is one where File Browser is not yet serving — but do not skip past the task.
+
+Step 4 runs on every init, not only install, so an install that predates this release meets the notice on the update that introduces it.
 
 ## Actions
 
-Two actions, both user-facing.
+Three actions. Two are user-facing; the third is hidden and reached only from the task that raises it.
 
 ### Set Admin Password
 
@@ -182,8 +190,8 @@ Two checks. One reports whether the service is working; the other never passes b
 
 Three volumes are copied wholesale — `sdk.Backups.ofVolumes('data', 'database', 'config')`. No dump step and nothing excluded.
 
-- **Included:** every file you have stored, the user database with its passwords and permissions, and `settings.json`.
-- **Restore:** complete. Accounts and passwords come back as they were, so the install task does not reappear and the placeholder password is not reintroduced.
+- **Included:** every file you have stored, the user database with its passwords and permissions, and both `settings.json` and `startos.json`.
+- **Restore:** complete. Accounts and passwords come back as they were, so the install task does not reappear and the placeholder password is not reintroduced. The end-of-life acknowledgement rides along on the `config` volume, so a restored install is not asked again.
 
 Note the size implication: `data` is the whole file tree, so the backup is as large as what you have stored.
 
