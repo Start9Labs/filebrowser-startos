@@ -5,8 +5,7 @@ export const manifest = setupManifest({
   id: 'filebrowser',
   title: 'File Browser',
   license: 'Apache-2.0',
-  packageRepo:
-    'https://github.com/Start9Labs/filebrowser-startos',
+  packageRepo: 'https://github.com/Start9Labs/filebrowser-startos',
   upstreamRepo: 'https://github.com/filebrowser/filebrowser',
   marketingUrl: 'https://filebrowser.org/',
   donationUrl: null,
