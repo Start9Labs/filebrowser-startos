@@ -9,7 +9,7 @@ export const eolNotice = sdk.setupOnInit(async (effects) => {
   if (!store?.eolAcknowledged) {
     await sdk.action.createOwnTask(effects, acknowledgeEol, 'critical', {
       reason: i18n(
-        'Confirm that you understand File Browser is no longer maintained and see the replacements available to you.',
+        'Confirm that you understand File Browser is no longer maintained and see the replacement available to you.',
       ),
     })
   }

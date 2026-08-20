@@ -47,15 +47,9 @@ Upstream ended the project. The package still works, but it is a dead end, and i
 
 The title and description are the only two a _prospective_ user sees. Neither reaches a dependent's Dependencies card while File Browser is uninstalled — that card falls back to the title and icon frozen into the _dependent's_ own s9pk at pack time, and all eight hard-code `File Browser`.
 
-The `end-of-life` health check never succeeds and is not meant to. It polls once a day rather than at the default one-second failure cadence, because every poll writes a health result and logs a line. It cannot affect the packages that depend on this one: all eight declare `kind: 'exists'`, which carries no `healthChecks` field at all.
+The `end-of-life` health check never succeeds and is not meant to. It reports a second after start and daily thereafter, rather than at the default one-second failure cadence, because every poll writes a health result and logs a line. The short first interval is required: a trigger sleeps before its first yield, and StartOS reads a service as `starting` while any of its checks is, so a plain daily cooldown parks the whole service in `Starting` for a day. It cannot affect the packages that depend on this one: all eight declare `kind: 'exists'`, which carries no `healthChecks` field at all.
 
-Three replacements are in the marketplace:
-
-| Package             | Relationship                                                                                                                                       |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| FileBrowser Quantum | A maintained fork of this project, published under this same package id as the `#quantum` flavor. Switching preserves files, users, and passwords. |
-| copyparty           | A file server built for large and interrupted transfers, also mountable as a network drive.                                                        |
-| NextExplorer        | A file manager with previews, per-user home folders, and link sharing.                                                                             |
+**FileBrowser Quantum** is the replacement named everywhere this package mentions one: a maintained fork of this project, published under this same package id as the `#quantum` flavor, so it reaches users as a flavor switch on this listing rather than as a separate package. Switching preserves files, users, and passwords.
 
 Switching to FileBrowser Quantum is **one-way** — Quantum publishes no migration edge back to this line, so StartOS refuses the return install. It also does not carry over per-user folder restrictions or existing sharing links: an account confined to a subfolder will see the whole volume afterwards, so restricted accounts must be re-checked.
 

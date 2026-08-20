@@ -53,16 +53,16 @@ export const main = sdk.setupMain(async ({ effects }) => {
     .addHealthCheck('end-of-life', {
       ready: {
         display: i18n('Maintenance Status'),
-        // Nothing initializes here, so the default grace period would only show
-        // this as "starting" for its first 10 seconds. The verdict never
-        // changes, so poll daily rather than at the 1s failure rate — every
-        // poll writes a health result and logs.
+        // A trigger sleeps before its first yield, and StartOS reads a service
+        // as starting while any of its checks is, so the first interval has to
+        // stay short. Daily after that: the verdict never changes and setHealth
+        // is not deduplicated, so every poll writes a health result and a log.
         gracePeriod: 0,
-        trigger: sdk.trigger.cooldownTrigger(86_400_000),
+        trigger: sdk.trigger.statusTrigger(86_400_000, { starting: 1_000 }),
         fn: () => ({
           result: 'failure' as const,
           message: i18n(
-            'File Browser is no longer maintained and will not receive further releases or security fixes. FileBrowser Quantum, copyparty, and NextExplorer are available in the marketplace as replacements.',
+            'File Browser is no longer maintained and will not receive further releases or security fixes. FileBrowser Quantum, a maintained fork of this project, is available in the marketplace as a replacement.',
           ),
         }),
       },
