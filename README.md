@@ -57,13 +57,13 @@ Switching to FileBrowser Quantum is **one-way** — Quantum publishes no migrati
 
 ## Image and Container Runtime
 
-The upstream image is used unmodified, with its own entrypoint, and one subcontainer runs the service.
+The upstream image is used unmodified, with its own entrypoint, and one subcontainer runs the service. The entrypoint is `tini`, so the daemon runs as PID 1.
 
 | Property      | Value                                                                |
 | ------------- | -------------------------------------------------------------------- |
 | Image         | `filebrowser/filebrowser`                                            |
 | Architectures | x86_64, aarch64                                                      |
-| Entrypoint    | Upstream default                                                     |
+| Entrypoint    | Upstream default (`tini`), as PID 1 via `runAsInit`                  |
 | Subcontainer  | `filebrowser-sub` — the `primary` daemon, and the one to `attach` to |
 
 A `chown` oneshot runs as root before the daemon on every start, handing the three volumes to the unprivileged user the application runs as. Install and the Set Admin Password action each use their own short-lived subcontainer (`set-admin`, `setadmin`) to run the application's CLI against the database while nothing else has it open.

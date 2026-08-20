@@ -35,7 +35,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
     })
     .addDaemon('primary', {
       subcontainer,
-      exec: { command: sdk.useEntrypoint() },
+      exec: { command: sdk.useEntrypoint(), runAsInit: true },
       ready: {
         display: i18n('Web Interface'),
         fn: () =>
