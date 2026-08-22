@@ -7,7 +7,7 @@
 
 ## Documentation
 
-- [File Browser documentation](https://github.com/filebrowser/filebrowser/tree/master/www/docs) — upstream guide covering features, permissions, sharing, and configuration.
+- [File Browser documentation](https://github.com/filebrowser/filebrowser/tree/master/docs) — upstream guide covering installation, configuration, authentication, customization, and the CLI.
 
 ## What you get on StartOS
 
