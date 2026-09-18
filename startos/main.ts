@@ -62,7 +62,7 @@ export const main = sdk.setupMain(async ({ effects }) => {
         fn: () => ({
           result: 'failure' as const,
           message: i18n(
-            'File Browser is no longer maintained and will not receive further releases or security fixes. FileBrowser Quantum, a maintained fork of this project, is available in the marketplace as a replacement.',
+            'File Browser is no longer maintained and will not receive further releases or security fixes. NextExplorer, on the Start9 Registry, is the recommended replacement and can import your files; FileBrowser Quantum, a maintained fork of this project, is the in-place switch that keeps your accounts.',
           ),
         }),
       },

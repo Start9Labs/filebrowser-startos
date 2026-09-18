@@ -39,9 +39,13 @@ You will also see a **Maintenance Status** health check that always shows red. T
 
 ## Moving to something maintained
 
-**FileBrowser Quantum** is the replacement — it is the same project, picked up and maintained by a different developer, so it works the way you are used to and keeps your files on your own server. You will find it on this same marketplace listing: open File Browser in the marketplace and switch the flavor. Switching keeps your files, your user accounts, and everyone's existing passwords.
+There are two ways forward.
 
-**The switch is permanent.** File Browser will not take your data back afterwards, so restoring a backup taken beforehand is the only way to return. Two other things do **not** survive the switch, so read this before you do it:
+**NextExplorer is the recommended one.** It is a different file manager, on the Start9 Registry, with previews, search, sharing and per-person accounts of its own. Install it while File Browser is still installed and it offers an **Import Files from File Browser** action, which copies every file across in seconds without touching this service. Only the files come across: you create accounts, folder permissions and share links again in NextExplorer. Uninstall File Browser once you have checked the result and pointed any other service that read from it at NextExplorer.
+
+**FileBrowser Quantum is the other.** It is the same project, picked up and maintained by a different developer, so it works the way you are used to and keeps your files on your own server. You will find it on this same marketplace listing: open File Browser in the marketplace and switch the flavor. Switching keeps your files, your user accounts, and everyone's existing passwords.
+
+**The switch to Quantum is permanent.** File Browser will not take your data back afterwards, so restoring a backup taken beforehand is the only way to return. Two other things do **not** survive the switch, so read this before you do it:
 
 - **Per-user folder restrictions are lost.** If you gave someone an account limited to one folder, after switching they will be able to see everything. Re-check every account that isn't yours and set its folder again.
 - **Existing share links stop working.** Any link you handed out will need to be re-created.
