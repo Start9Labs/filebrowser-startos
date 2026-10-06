@@ -1,4 +1,5 @@
 import { utils } from '@start9labs/start-sdk'
+import { storeJson } from '../fileModels/store.json'
 import { i18n } from '../i18n'
 import { sdk } from '../sdk'
 import { mounts, randomPassword } from '../utils'
@@ -11,7 +12,12 @@ export const resetAdminUser = sdk.Action.withoutInput(
   async ({ effects }) => ({
     name: i18n('Set Admin Password'),
     description: i18n('Create or reset your admin user and password'),
-    warning: null,
+    warning:
+      (await storeJson.read((s) => s.adminPasswordSet).const(effects)) === false
+        ? null
+        : i18n(
+            'Renames the first account to admin and gives it a new password. Its current password stops working, and the new one is shown only once.',
+          ),
     allowedStatuses: 'only-stopped',
     group: null,
     visibility: 'enabled',
@@ -41,6 +47,7 @@ export const resetAdminUser = sdk.Action.withoutInput(
         ])
       },
     )
+    await storeJson.merge(effects, { adminPasswordSet: true })
 
     return {
       version: '1',

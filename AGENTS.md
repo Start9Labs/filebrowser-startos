@@ -18,19 +18,23 @@ Freshly scaffolded? Work the
 guide page, not a file in this repo — read it, don't copy it in.
 
 Keep `README.md` (technical reference for an AI support or administering agent) and
-`instructions.md` (end-user docs) in sync with your changes.
+`instructions.md` (end-user docs) in sync with your changes. This file restates neither:
+whoever changes the package has both, so it carries only what they don't — repo mechanics,
+a change that looks right and is not, where the next thing gets added, a naming trap, a
+build or test invocation particular to this repo.
 
-**Bugs and feature requests are GitHub issues on this repo** — file them as you find them.
+**Fix a defect you spot rather than reporting it** — you have the package open and the
+context to be sure. File **a GitHub issue on this repo** only when the call isn't yours to
+make: you can't pin the cause down, two defensible fixes exist, or it's too large to ride on
+the work in hand. An open issue is a report, not a queue — implement one when you're asked
+to or when it's labelled `Approved`, then close it with `Closes #<n>`.
+
 Don't record work in the repo instead: no `TODO.md`, no `NOTES.md`, no `PLAN.md`. What you
 verified, tried, and decided belongs in the commit message and the PR body.
 
 ## This repo
 
-- **Keep the served files on the `data` volume alone.** Sibling packages mount it read-only as an external library, so anything else that lands there becomes visible to them. The database and `settings.json` are on separate volumes for that reason.
-- **The install-time admin password is a placeholder, and the `critical` task is what covers it.** Don't downgrade that task or move account creation to a first-run screen without closing that window some other way.
-- **`reset-admin-user` must stay `only-stopped`.** It drives the application's own CLI against the database, which the running daemon holds open.
-- **The `chown` oneshot runs on every start, not just install.** A volume can arrive from a restore owned by the wrong uid, and the application does not repair that itself.
-- **The `main` volume is retained solely for the 0.3.5.1 migration path.** Don't reuse it for new data, and don't drop it from the manifest.
-- **The `end-of-life` health check is meant to fail forever — don't "fix" it.** Upstream ended the project, so the check is a standing reminder rather than a diagnostic. Leave `gracePeriod: 0` and the `statusTrigger(86_400_000, { starting: 1_000 })` alone in both directions: the default trigger polls a failing check every second and `setHealth` is not deduplicated, so the defaults would write a health result and log a line every second for the life of the service — but a trigger sleeps before its first yield, and StartOS renders a service as `Starting` while any of its checks is, so stretching that first interval to the daily one parks the whole service in `Starting` for a day. Keep its `requires` empty — a daemon that required it would sit at `waiting` and never start.
-- **`acknowledge-eol` must outlive any decision to retire this package.** Deleting an action while a user still has its task outstanding freezes that task: the package stays stopped and nothing the user can do clears it. Ship `sdk.action.clearTask` in a release _before_ removing the action.
-- **The maintained fork ships as the `#quantum` flavor of this same id** (`filebrowser-quantum-startos`), so the two are one marketplace listing. Don't rename this package's `id`. The switch is one-way — Quantum publishes no `down` edge back to this line — and StartOS still renders a Switch button in that direction, so the refusal surfaces at install time.
+- **Keep the served files alone on the `data` volume, and keep the `main` volume in the manifest.** Sibling packages mount `data` read-only as a library, so anything else written there shows up in them; `main` exists only for the 0.3.5.1 migration path and must not be reused for new data.
+- **Don't relax the admin-account safeguards.** The install-time password is a placeholder that only the `critical` Set Admin Password task covers; `reset-admin-user` stays `only-stopped` because it drives the CLI against the database the daemon holds open; the `chown` oneshot stays on every start because a restore can hand back volumes owned by the wrong uid.
+- **The `end-of-life` health check is meant to fail forever — don't "fix" it**, and leave `gracePeriod: 0`, `statusTrigger(86_400_000, { starting: 1_000 })` and its empty `requires` as they are: the default trigger logs a failure every second, a daily first interval parks the service in `Starting` for a day, and a daemon requiring it never starts. **`acknowledge-eol` must outlive any retirement of this package** — ship `sdk.action.clearTask` in a release before removing it, or an outstanding task freezes the package stopped.
+- **Don't rename this package's `id`.** The maintained fork ships as its `#quantum` flavor (`filebrowser-quantum-startos`), one marketplace listing; the switch is one-way and StartOS still renders a Switch button back, so the refusal surfaces at install time.

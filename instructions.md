@@ -31,7 +31,7 @@ The Web UI is where all day-to-day file management happens — upload, download,
 
 ### Actions
 
-- **Set Admin Password** — generates a new random password for the `admin` user. Use it to rotate credentials or recover from a lost password. File Browser must be stopped to run this action.
+- **Set Admin Password** — generates a new random password for the `admin` user. Use it to rotate credentials or recover from a lost password. File Browser must be stopped to run this action. Once you have set a password, it asks you to confirm first, because your current admin password stops working.
 - **Set Session Timeout** — sets how many hours a logged-in browser session lasts before it is automatically terminated. Defaults to 12 hours; minimum is 1.
 - **End of Life Notice** — confirms you've read that File Browser is no longer maintained. You only see this once; it does not come back.
 

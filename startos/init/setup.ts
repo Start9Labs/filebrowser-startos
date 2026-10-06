@@ -1,4 +1,5 @@
 import { resetAdminUser } from '../actions/resetAdminUser'
+import { storeJson } from '../fileModels/store.json'
 import { i18n } from '../i18n'
 import { sdk } from '../sdk'
 import { mounts } from '../utils'
@@ -35,6 +36,7 @@ export const setup = sdk.setupOnInit(async (effects, kind) => {
       },
     )
 
+    await storeJson.merge(effects, { adminPasswordSet: false })
     await sdk.action.createOwnTask(effects, resetAdminUser, 'critical', {
       reason: i18n('Create your admin user password'),
     })
