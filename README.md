@@ -96,9 +96,9 @@ Two models, both on the `config` volume. The application's own settings live in 
 
 **Yours:** `tokenExpirationTime`, through the Set Session Timeout action.
 
-The model also **strips keys it does not declare**, so anything else added to `settings.json` by hand is dropped on the next write. Everything else about File Browser — users, permissions, branding, commands — is configured inside the application and stored in its database.
+**Anything else** in `settings.json` — a key File Browser reads that the package does not model — is left as it is: the model parses loosely, so a hand-added key survives the package's writes. Everything else about File Browser — users, permissions, branding, commands — is configured inside the application and stored in its database.
 
-`startos.json` is the package's own state rather than the application's, and holds one key: `eolAcknowledged`. It is on the `config` volume so it is backed up and restored with the rest of the package.
+`startos.json` is the package's own state rather than the application's, and holds two keys: `eolAcknowledged`, and `adminPasswordSet`, which is `false` from install until Set Admin Password first runs. It is on the `config` volume so it is backed up and restored with the rest of the package.
 
 ## Dependencies
 
@@ -137,6 +137,7 @@ Sets the `admin` user's password to a freshly generated one. Run it when the ins
 
 - **What it changes:** user id 1 in the application's database — its username is set to `admin`, its password to the new value, and the admin permission granted.
 - **Availability:** only while the service is stopped, because it runs the application's CLI against the database directly.
+- **Confirmation:** once a password has been set, asks before running, warning that the account is renamed to `admin` and its current password stops working. The first run, from the install task, does not ask.
 - **Repeat safety:** safe to re-run; each run generates a fresh password and invalidates the previous one.
 - **Outputs:** the username and the new password, the password masked and copyable, shown once.
 
@@ -193,7 +194,7 @@ Note the size implication: `data` is the whole file tree, so the backup is as la
 
 1. **The admin account is created at install with a placeholder password**, replaced through a `critical` task rather than through a first-run screen.
 2. **Setting the admin password requires stopping the service.**
-3. **`settings.json` accepts nothing beyond the keys the package models** — undeclared keys are stripped on the next write.
+3. **Six `settings.json` keys are enforced** — `port`, `address`, `baseURL`, `log`, `database` and `root` are reset to the package's values on its next write.
 4. **One served directory.** File Browser is pointed at a single volume; there is no way to add a second root here.
 5. **No riscv64 build.** x86_64 and aarch64 only.
 6. **Switching to FileBrowser Quantum cannot be undone.** Quantum publishes no migration edge back to this line, so StartOS refuses an install of this package over it. StartOS still renders a Switch button in that direction; the refusal surfaces at install time, before any data is touched.
@@ -225,7 +226,7 @@ dependencies: []
 interfaces:
   ui: { type: ui, port: 8080 }
 actions:
-  - reset-admin-user # only-stopped
+  - reset-admin-user # only-stopped; warns once a password is set
   - set-expiration
   - acknowledge-eol # hidden; reachable only from its task
 tasks:

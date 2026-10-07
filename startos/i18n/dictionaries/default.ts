@@ -14,7 +14,7 @@ const dict = {
   Username: 10,
   Password: 11,
   'Session Timeout': 12,
-  'The length of time (in hours) before a browser session will be automatically terminated': 13,
+  'How long someone stays signed in to the web interface before having to log in again. A shorter time is safer where File Browser is opened on shared or public devices; a longer one means logging in less often.': 13,
   hours: 14,
   'Set Session Timeout': 15,
   'Determine how long a browser session lasts before it is automatically terminated': 16,
@@ -32,6 +32,7 @@ const dict = {
   // main.ts
   'Maintenance Status': 23,
   'File Browser is no longer maintained and will not receive further releases or security fixes. NextExplorer, on the Start9 Registry, is the recommended replacement and can import your files; FileBrowser Quantum, a maintained fork of this project, is the in-place switch that keeps your accounts.': 24,
+  'Renames the first account to admin and gives it a new password. Its current password stops working, and the new one is shown only once.': 25,
 } as const
 
 export type I18nKey = keyof typeof dict
