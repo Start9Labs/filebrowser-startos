@@ -53,12 +53,11 @@ export const main = sdk.setupMain(async ({ effects }) => {
     .addHealthCheck('end-of-life', {
       ready: {
         display: i18n('Maintenance Status'),
-        // A trigger sleeps before its first yield, and StartOS reads a service
-        // as starting while any of its checks is, so the first interval has to
-        // stay short. Daily after that: the verdict never changes and setHealth
-        // is not deduplicated, so every poll writes a health result and a log.
+        // The result never changes, so check once.
         gracePeriod: 0,
-        trigger: sdk.trigger.statusTrigger(86_400_000, { starting: 1_000 }),
+        trigger: async function* () {
+          yield
+        },
         fn: () => ({
           result: 'failure' as const,
           message: i18n(
