@@ -1,18 +1,18 @@
 import { VersionInfo } from '@start9labs/start-sdk'
 
 export const current = VersionInfo.of({
-  version: '2.63.23:5',
+  version: '2.63.23:6',
   releaseNotes: {
     en_US:
-      'Requires StartOS 0.4.1 or later. Fixes memory use growing while the service runs.',
+      'The end-of-life notice now explains how to switch to FileBrowser Quantum.',
     es_ES:
-      'Requiere StartOS 0.4.1 o posterior. Corrige el aumento del uso de memoria mientras el servicio está en ejecución.',
+      'El aviso de fin de vida útil ahora explica cómo cambiar a FileBrowser Quantum.',
     de_DE:
-      'Erfordert StartOS 0.4.1 oder neuer. Behebt einen während der Laufzeit des Dienstes ansteigenden Speicherverbrauch.',
+      'Der Hinweis zum Ende der Lebensdauer erklärt jetzt, wie Sie zu FileBrowser Quantum wechseln.',
     pl_PL:
-      'Wymaga StartOS 0.4.1 lub nowszego. Naprawia wzrost zużycia pamięci podczas działania usługi.',
+      'Powiadomienie o końcu wsparcia wyjaśnia teraz, jak przejść na FileBrowser Quantum.',
     fr_FR:
-      "Nécessite StartOS 0.4.1 ou une version ultérieure. Corrige l'augmentation de la consommation de mémoire pendant le fonctionnement du service.",
+      'L’avis de fin de vie explique désormais comment basculer vers FileBrowser Quantum.',
   },
   migrations: {},
 })
